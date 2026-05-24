@@ -8,6 +8,7 @@ use App\Http\Controllers\AmalanController;
 use App\Http\Controllers\TahfidzController;
 use App\Http\Controllers\AkademikController;
 use App\Http\Controllers\PortofolioController;
+use App\Http\Controllers\MasyarakatController;
 
 Route::get('/login', function () {
     return view('login');
@@ -43,3 +44,8 @@ Route::get('/akademik/toefl/status/{id}/{status}', [AkademikController::class, '
 Route::get('/portofolio', [PortofolioController::class, 'index'])->name('portofolio');
 Route::post('/portofolio', [PortofolioController::class, 'store'])->name('portofolio.store');
 Route::get('/portofolio/status/{id}/{status}', [PortofolioController::class, 'updateStatus'])->name('portofolio.status');
+
+
+Route::get('/masyarakat', [MasyarakatController::class, 'index'])->name('masyarakat');
+Route::post('/masyarakat', [MasyarakatController::class, 'store'])->name('masyarakat.store');
+Route::get('/masyarakat/status/{id}/{status}', [MasyarakatController::class, 'updateStatus'])->name('masyarakat.status');
