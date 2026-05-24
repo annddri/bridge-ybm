@@ -7,6 +7,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AmalanController;
 use App\Http\Controllers\TahfidzController;
 use App\Http\Controllers\AkademikController;
+use App\Http\Controllers\PortofolioController;
 
 Route::get('/login', function () {
     return view('login');
@@ -37,3 +38,8 @@ Route::post('/akademik/toefl', [AkademikController::class, 'storeToefl'])->name(
 
 Route::get('/akademik/ip/status/{id}/{status}', [AkademikController::class, 'updateIpStatus'])->name('akademik.ip.status');
 Route::get('/akademik/toefl/status/{id}/{status}', [AkademikController::class, 'updateToeflStatus'])->name('akademik.toefl.status');
+
+
+Route::get('/portofolio', [PortofolioController::class, 'index'])->name('portofolio');
+Route::post('/portofolio', [PortofolioController::class, 'store'])->name('portofolio.store');
+Route::get('/portofolio/status/{id}/{status}', [PortofolioController::class, 'updateStatus'])->name('portofolio.status');

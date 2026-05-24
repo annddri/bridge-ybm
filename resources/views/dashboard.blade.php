@@ -103,7 +103,7 @@
         <a href="/akademik" class="nav-link">
             <i class="fas fa-graduation-cap"></i> Akademik
         </a>
-        <a href="/keaktifan" class="nav-link">
+        <a href="/portofolio" class="nav-link">
             <i class="fas fa-award"></i> Portofolio
         </a>
         <a href="/masyarakat" class="nav-link">
