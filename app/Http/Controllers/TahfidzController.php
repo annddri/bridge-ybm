@@ -28,7 +28,7 @@ class TahfidzController extends Controller
             ->where('users.id', $id_user)
             ->first();
 
-        $foto_path = asset('assets/img/' . ($u->foto_profil ?? 'default.png'));
+        $foto_path = asset('uploads/profile/' . ($u->foto_profil ?? 'default.png'));
 
         $query = DB::table('tahfidz')
             ->join('users', 'tahfidz.id_user', '=', 'users.id')

@@ -1,135 +1,10 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portofolio Keaktifan - BRIGHT</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --sidebar-bg: #063255; 
-            --sidebar-text: rgba(255, 255, 255, 0.85);
-            --sidebar-hover: rgba(255, 255, 255, 0.1);
-            --accent-color: #0d6efd;
-            --bg-light: #f4f7fa; 
-            --navy-theme: #063255;
-        }
-        
-        body { background-color: var(--bg-light); font-family: 'Segoe UI', sans-serif; font-size: 0.85rem; }
-        
-        /* Sidebar Styles */
-        .sidebar { 
-            width: 280px; height: 100vh; position: fixed; top: 0; left: 0; 
-            background: linear-gradient(180deg, #063255 0%, #041f35 100%); 
-            color: var(--sidebar-text); padding-top: 10px; z-index: 1000; overflow-y: auto; 
-            border-right: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        .sidebar-brand { text-align: center; padding: 25px 20px; border-bottom: 1px solid rgba(255,255,255,0.08); }
-        .brand-logo { width: 75px; height: 75px; border-radius: 50%; border: 3px solid rgba(255, 255, 255, 0.2); margin-bottom: 12px; object-fit: cover; }
-        
-        .nav-link { color: var(--sidebar-text); padding: 11px 25px; display: flex; align-items: center; transition: all 0.2s ease; font-size: 0.92rem; text-decoration: none; border-left: 4px solid transparent; }
-        .nav-link i { width: 24px; margin-right: 12px; font-size: 1.05rem; opacity: 0.8; }
-        .nav-link:hover { color: #fff; background-color: var(--sidebar-hover); padding-left: 28px; }
-        .nav-link.active { color: #fff; background-color: rgba(13, 110, 253, 0.15); border-left: 4px solid var(--accent-color); font-weight: 600; }
-        .logout-link { color: #ea4335 !important; font-weight: 600; border-top: 1px solid rgba(255,255,255,0.08); margin-top: 25px; padding-top: 15px !important; }
-        .logout-link:hover { background-color: rgba(234, 67, 53, 0.1) !important; }
+<x-header title="Portofolio - Bridge" css="css/portofolio.css"></x-header>
 
-        .main-content { margin-left: 280px; padding: 0; transition: all 0.3s ease; }
-        .content-body { padding: 30px; } 
-
-        .tracker-header-box { background: #ffffff; border: 1px solid rgba(6, 50, 85, 0.07); box-shadow: 0 10px 25px rgba(6, 50, 85, 0.05); }
-        .header-title { color: #041f35; font-size: 1.5rem; letter-spacing: 0.5px; }
-        .header-subtitle { color: #64748b; font-size: 0.85rem; }
-        
-        .live-card { background: #ffffff; border: 1px solid rgba(6, 50, 85, 0.07); box-shadow: 0 12px 30px rgba(6, 50, 85, 0.08); }
-        .nav-pills .nav-link { color: #6c757d; font-weight: 600; padding: 8px 18px; border-radius: 8px; font-size: 0.82rem; }
-        .nav-pills .nav-link.active { background-color: var(--navy-theme); color: white; }
-        .table > thead { background-color: #f8fafc; color: var(--navy-theme); font-weight: 700; }
-
-        .badge-status { padding: 5px 10px; border-radius: 30px; font-weight: 600; font-size: 0.72rem; display: inline-block; }
-        .status-lulus { background-color: #198754; color: white; }
-        .status-pending { background-color: #ffc107; color: #212529; }
-
-        .btn-kembali { background-color: #212529; color: #ffffff !important; font-weight: 600; font-size: 0.85rem; padding: 7px 24px; border-radius: 30px; border: none; text-decoration: none; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); }
-        .btn-kembali:hover { background-color: #000000; }
-
-        @media (max-width: 991.98px) { .sidebar { width: 100%; height: auto; position: relative; } .main-content { margin-left: 0; } }
-    </style>
-</head>
-<body>
-
-<div class="sidebar shadow">
-    <div class="sidebar-brand">
-        <img src="{{ $foto_path }}?t={{ time() }}" alt="Profile" class="brand-logo shadow">
-        <div>
-            <h5 class="fw-bold m-0 text-white fs-6">{{ $u->name }}</h5>
-            <small class="text-info fw-bold text-uppercase" style="letter-spacing: 0.5px; font-size: 0.75rem; display: block; margin-top: 3px;">
-                {{ $u->role }}
-            </small>
-        </div>
-    </div>
-
-    <div class="mt-3">
-        <a href="/dashboard" class="nav-link">
-            <i class="fas fa-home"></i> Home
-        </a>
-
-        <a href="/profile" class="nav-link">
-            <i class="fas fa-user-circle"></i> Profil Saya
-        </a>
-
-        @if ($role_user !== 'mahasiswa')
-            <a href="/data-awardee" class="nav-link">
-                <i class="fas fa-users"></i> Data Awardee
-            </a>
-        @endif
-
-        <div class="px-4 py-2 small text-uppercase fw-bold text-white-50" style="letter-spacing: 1px; margin-top: 15px; font-size: 0.75rem;">
-            Fitur Monitoring
-        </div>
-
-        <a href="/amalan" class="nav-link">
-            <i class="fas fa-pray"></i> Spiritual Tracker
-        </a>
-
-        <a href="/tahfidz" class="nav-link">
-            <i class="fas fa-book-quran"></i> Tahfidz Tracker
-        </a>
-
-        <a href="/akademik" class="nav-link">
-            <i class="fas fa-graduation-cap"></i> Akademik
-        </a>
-
-        <a href="/portofolio" class="nav-link active">
-            <i class="fas fa-award"></i> Portofolio
-        </a>
-
-        <a href="/masyarakat" class="nav-link">
-            <i class="fas fa-people-group"></i> Sosial Masyarakat
-        </a>
-
-        <div class="px-4 py-2 small text-uppercase fw-bold text-white-50" style="letter-spacing: 1px; margin-top: 15px; font-size: 0.75rem;">
-            Fitur Asrama
-        </div>
-
-        <a href="/inventaris" class="nav-link">
-            <i class="fas fa-boxes-stacked"></i> Inventaris Asrama
-        </a>
-
-        <a href="/keuangan" class="nav-link">
-            <i class="fas fa-wallet"></i> Keuangan Asrama
-        </a>
-
-        <a href="/perizinan" class="nav-link">
-            <i class="fas fa-envelope-open-text"></i> Perizinan Asrama
-        </a>
-
-        <a href="/logout" class="nav-link logout-link" onclick="return confirm('Yakin ingin keluar?')">
-            <i class="fas fa-sign-out-alt"></i> Keluar
-        </a>
-    </div>
-</div>
+<x-sidebar 
+    :u="$u" 
+    :role-user="$role_user" 
+    :foto-path="$foto_path" 
+></x-sidebar>
 
 <div class="main-content">
     <div class="content-body">
@@ -412,7 +287,4 @@
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-</body>
-</html>
+<x-footer></x-footer>

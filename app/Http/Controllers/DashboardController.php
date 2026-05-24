@@ -17,7 +17,7 @@ class DashboardController extends Controller
 
         $u = DB::table('users')->where('id', $id_user)->first();
 
-        $foto_path = asset('assets/img/' . ($u->foto_profil ?? 'default.png'));
+        $foto_path = asset('uploads/profile/' . ($u->foto_profil ?? 'default.png'));
 
         $current_bulan = date('m');
         $nama_bulan_ini = date('F');

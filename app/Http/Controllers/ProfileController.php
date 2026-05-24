@@ -37,7 +37,7 @@ class ProfileController extends Controller
             abort(404, 'User tidak ditemukan di database.');
         }
 
-        $foto_path = asset('img/' . ($u->foto_profil ?? 'default.png'));
+        $foto_path = asset('uploads/profile/' . ($u->foto_profil ?? 'default.png'));
 
         $role_colors = [
             'mahasiswa' => 'primary',

@@ -33,7 +33,7 @@ class AmalanController extends Controller
             ->where('users.id', $id_user)
             ->first();
 
-        $foto_path = asset('assets/img/' . ($u->foto_profil ?? 'default.png'));
+        $foto_path = asset('uploads/profile/' . ($u->foto_profil ?? 'default.png'));
 
         $list_amalan = [
             'shalat_5_waktu'  => ['nama' => 'Shalat Berjamaah 5 Waktu', 'tipe' => 'harian', 'target' => 5, 'unit' => '/hari'],

@@ -27,7 +27,7 @@ class AkademikController extends Controller
             ->where('users.id', $id_user)
             ->first();
 
-        $foto_path = asset('assets/img/' . ($u->foto_profil ?? 'default.png'));
+        $foto_path = asset('uploads/profile/' . ($u->foto_profil ?? 'default.png'));
 
         $akademikQuery = DB::table('akademik')
             ->join('users', 'akademik.id_user', '=', 'users.id')

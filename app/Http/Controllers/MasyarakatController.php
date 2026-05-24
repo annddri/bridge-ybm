@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 
 class MasyarakatController extends Controller
@@ -27,7 +28,7 @@ class MasyarakatController extends Controller
             ->where('users.id', $id_user)
             ->first();
 
-        $foto_path = asset('assets/img/' . ($u->foto_profil ?? 'default.png'));
+        $foto_path = asset('uploads/profile/' . ($u->foto_profil ?? 'default.png'));
 
         $query = DB::table('masyarakat')
             ->join('users', 'masyarakat.id_user', '=', 'users.id')
