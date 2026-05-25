@@ -10,10 +10,13 @@ use App\Http\Controllers\AkademikController;
 use App\Http\Controllers\PortofolioController;
 use App\Http\Controllers\MasyarakatController;
 
-Route::get('/login', function () {
-    return view('login');
-});
+Route::get('/', function () {
+    if (session()->has('id_user')) {
+        return redirect('/dashboard');
+    }
 
+    return redirect('/login');
+});
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.process');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
@@ -21,6 +24,8 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 Route::get('/profile', [ProfileController::class, 'index']);
+Route::post('/profile/update-whatsapp', [ProfileController::class, 'updateWhatsapp'])
+    ->name('profile.updateWhatsapp');
 
 Route::get('/amalan', [AmalanController::class, 'index']);
 Route::post('/amalan/update', [AmalanController::class, 'update'])->name('amalan.update');

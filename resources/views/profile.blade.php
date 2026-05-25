@@ -17,18 +17,11 @@
                         
                         <div class="text-center">
                             <div class="position-relative d-inline-block">
-                                <img src="{{ $foto_path }}?t={{ time() }}" alt="Profile" class="brand-logo shadow">
-                                <span class="badge bg-<?= $theme ?> position-absolute bottom-0 end-0 px-3 py-2 rounded-pill shadow-sm text-uppercase fw-bold" style="transform: translate(-5%, -15%); font-size: 0.72rem;">
-                                    {{ $u->role }}
-                                </span>
+                                <img src="{{ $foto_path }}?t={{ time() }}" alt="Profile" class="profile-img shadow">
                             </div>
 
                             <h3 class="fw-bold mt-2 text-dark">{{ $u->role }}</h3>
                             
-                            <div class="d-flex justify-content-center gap-2 mb-4">
-                                <a href="edit_profile.php" class="btn btn-primary px-4 rounded-pill btn-sm fw-bold shadow-sm">Edit Profil</a>
-                                <a href="index.php" class="btn btn-outline-secondary px-4 rounded-pill btn-sm fw-semibold shadow-sm">Ke Dashboard</a>
-                            </div>
                         </div>
 
                         <hr class="opacity-25 my-4">
@@ -66,10 +59,38 @@
                                     <div class="info-label">Email</div>
                                     <div class="info-value">{{ $u->email}}</div>
                                 </div>
-                                <div class="mb-3">
-                                    <div class="info-label">Nomor Telepon (WhatsApp)</div>
-                                    <div class="info-value">{{ $u->mahasiswaProfile->no_telp ?? 'Belum diisi' }}</div>
-                                </div>
+                                <div class="info-label">NOMOR TELEPON (WHATSAPP)</div>
+
+                                    <div class="d-flex align-items-center gap-2">
+                                        <span id="whatsappText">
+                                            {{ $u->mahasiswaProfile->no_telp ?? 'Belum diisi' }}
+                                        </span>
+
+                                        <button type="button" id="editWhatsappBtn" class="btn btn-sm btn-outline-primary rounded-circle">
+                                            <i class="fas fa-pen"></i>
+                                        </button>
+                                    </div>
+
+                                    <div id="whatsappEditBox" class="mt-2 d-none">
+                                        <small id="whatsappError" class="text-secondary d-block mb-1"></small>
+
+                                        <input 
+                                            type="text" 
+                                            id="whatsappInput" 
+                                            class="form-control form-control-sm"
+                                            value="{{ $u->mahasiswaProfile->no_telp ?? '' }}"
+                                            placeholder="Masukkan nomor WhatsApp"
+                                        >
+                                        <div class="mt-2 d-flex gap-2">
+                                            <button type="button" id="saveWhatsappBtn" class="btn btn-sm btn-primary">
+                                                Simpan
+                                            </button>
+
+                                            <button type="button" id="cancelWhatsappBtn" class="btn btn-sm btn-secondary">
+                                                Batal
+                                            </button>
+                                        </div>
+                                    </div>
                             </div>
                         </div>
 
@@ -79,5 +100,47 @@
         </div>
     </div>
 </div>
+
+<script>
+document.getElementById('editWhatsappBtn').addEventListener('click', function () {
+    document.getElementById('whatsappEditBox').classList.remove('d-none');
+    document.getElementById('whatsappError').innerText = 'Nomor WhatsApp harus 10-13 angka tanpa huruf atau karakter. Awali dengan 08...';
+});
+
+document.getElementById('cancelWhatsappBtn').addEventListener('click', function () {
+    document.getElementById('whatsappEditBox').classList.add('d-none');
+    document.getElementById('whatsappError').innerText = '';
+});
+
+document.getElementById('saveWhatsappBtn').addEventListener('click', function () {
+    let noTelp = document.getElementById('whatsappInput').value.trim();
+    let errorBox = document.getElementById('whatsappError');
+
+    if (!/^08[0-9]{8,11}$/.test(noTelp)) {
+        errorBox.innerText = 'Nomor WhatsApp harus diawali 08 dan berisi 10-13 angka tanpa huruf atau karakter.';
+        return;
+    }
+
+    fetch("{{ route('profile.updateWhatsapp') }}", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content
+        },
+        body: JSON.stringify({
+            no_telp: noTelp
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            document.getElementById('whatsappText').innerText = data.no_telp;
+            document.getElementById('whatsappEditBox').classList.add('d-none');
+            errorBox.innerText = '';
+        }
+    });
+});
+</script>
 
 <x-footer></x-footer>

@@ -40,7 +40,7 @@
 
                         <div class="mt-4">
                             <p class="text-muted small mb-3" style="font-size: 0.76rem; line-height: 1.4;">Akumulasi otomatis rata-rata seluruh amalan yaumiyah kamu.</p>
-                            <a href="amalan.php" class="btn btn-primary btn-sm rounded-pill px-4 fw-semibold w-100" style="font-size: 0.78rem; background-color: var(--navy-theme); border-color: var(--navy-theme);">
+                            <a href="/amalan" class="btn btn-primary btn-sm rounded-pill px-4 fw-semibold w-100" style="font-size: 0.78rem; background-color: var(--navy-theme); border-color: var(--navy-theme);">
                                 <i class="fas fa-pray me-1"></i> Isi Amalan Hari Ini
                             </a>
                         </div>
@@ -61,7 +61,7 @@
                             </div>
                             <p class="text-muted small" style="font-size: 0.78rem;">Sistem perekaman kuantitas setoran hafalan baru (Ziyadah) dan pengulangan (Murojaah).</p>
                         </div>
-                        <a href="tahfidz.php" class="btn btn-outline-success btn-sm rounded-pill px-3 fw-semibold w-100" style="font-size: 0.78rem;">Buka Tahfidz</a>
+                        <a href="/tahfidz" class="btn btn-outline-success btn-sm rounded-pill px-3 fw-semibold w-100" style="font-size: 0.78rem;">Buka Tahfidz</a>
                     </div>
                 </div>
             </div>
@@ -79,7 +79,7 @@
                             </div>
                             <p class="text-muted small" style="font-size: 0.78rem;">Riwayat pengumpulan data Kartu Hasil Studi (KHS) mahasiswa awardee aktif per semester.</p>
                         </div>
-                        <a href="akademik.php" class="btn btn-outline-warning btn-sm rounded-pill px-3 fw-semibold w-100" style="font-size: 0.78rem; color: #d97706; border-color: #f59e0b;">Buka Akademik</a>
+                        <a href="/akademik" class="btn btn-outline-warning btn-sm rounded-pill px-3 fw-semibold w-100" style="font-size: 0.78rem; color: #d97706; border-color: #f59e0b;">Buka Akademik</a>
                     </div>
                 </div>
             </div>

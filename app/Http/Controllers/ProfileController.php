@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+use App\Models\MahasiswaProfile;
 use App\Models\User;
 
 class ProfileController extends Controller
@@ -39,5 +41,32 @@ class ProfileController extends Controller
             'foto_path',
             'theme'
         ));
+    }
+
+    public function updateWhatsapp(Request $request)
+    {
+        if (!session()->has('id_user')) {
+            return response()->json(['status' => 'unauthorized'], 401);
+        }
+
+        $request->validate([
+            'no_telp' => [
+                'required',
+                'regex:/^08[0-9]{8,11}$/'
+            ],
+        ], [
+            'no_telp.required' => 'Nomor WhatsApp wajib diisi.',
+            'no_telp.regex' => 'Nomor WhatsApp harus berupa 10-13 angka tanpa huruf atau karakter.'
+        ]);
+
+        MahasiswaProfile::updateOrCreate(
+            ['user_id' => session('id_user')],
+            ['no_telp' => $request->no_telp]
+        );
+
+        return response()->json([
+            'status' => 'success',
+            'no_telp' => $request->no_telp ?: 'Belum diisi',
+        ]);
     }
 }
