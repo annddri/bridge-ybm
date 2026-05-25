@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\DB;
+use App\Models\User;
 
 class DashboardController extends Controller
 {
@@ -15,9 +15,15 @@ class DashboardController extends Controller
         $id_user = session('id_user');
         $role_user = session('role');
 
-        $u = DB::table('users')->where('id', $id_user)->first();
+        $u = User::with('mahasiswaProfile')
+            ->where('id', $id_user)
+            ->first();
 
-        $foto_path = asset('uploads/profile/' . ($u->foto_profil ?? 'default.png'));
+        if (!$u) {
+            abort(404, 'User tidak ditemukan.');
+        }
+
+        $foto_path = asset('uploads/profile/' . ($u->mahasiswaProfile->foto_profil ?? 'default.png'));
 
         $current_bulan = date('m');
         $nama_bulan_ini = date('F');

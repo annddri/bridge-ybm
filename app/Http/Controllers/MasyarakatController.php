@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Masyarakat;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\DB;
 
 class MasyarakatController extends Controller
 {
@@ -17,29 +18,24 @@ class MasyarakatController extends Controller
         $id_user = session('id_user');
         $role_user = session('role');
 
-        $u = DB::table('users')
-            ->leftJoin('mahasiswa_profiles', 'users.id', '=', 'mahasiswa_profiles.user_id')
-            ->select(
-                'users.id',
-                'users.name',
-                'users.role',
-                'mahasiswa_profiles.foto_profil as foto_profil'
-            )
-            ->where('users.id', $id_user)
+        $u = User::with('mahasiswaProfile')
+            ->where('id', $id_user)
             ->first();
 
-        $foto_path = asset('uploads/profile/' . ($u->foto_profil ?? 'default.png'));
+        if (!$u) {
+            abort(404, 'User tidak ditemukan.');
+        }
 
-        $query = DB::table('masyarakat')
-            ->join('users', 'masyarakat.id_user', '=', 'users.id')
-            ->select('masyarakat.*', 'users.name');
+        $foto_path = asset('uploads/profile/' . ($u->mahasiswaProfile->foto_profil ?? 'default.png'));
+
+        $query = Masyarakat::with('user');
 
         if ($role_user === 'mahasiswa') {
-            $query->where('masyarakat.id_user', $id_user);
+            $query->where('id_user', $id_user);
         }
 
         $data_masyarakat = $query
-            ->orderBy('masyarakat.id', 'desc')
+            ->orderBy('id', 'desc')
             ->get();
 
         return view('masyarakat', compact(
@@ -65,7 +61,7 @@ class MasyarakatController extends Controller
             'link_laporan' => 'nullable|url|max:255',
         ]);
 
-        DB::table('masyarakat')->insert([
+        Masyarakat::create([
             'id_user' => session('id_user'),
             'kategori' => $request->kategori,
             'waktu' => $request->waktu,
@@ -90,11 +86,11 @@ class MasyarakatController extends Controller
             abort(400);
         }
 
-        DB::table('masyarakat')
-            ->where('id', $id)
-            ->update([
-                'status' => $status,
-            ]);
+        $masyarakat = Masyarakat::findOrFail($id);
+
+        $masyarakat->update([
+            'status' => $status,
+        ]);
 
         return redirect('/masyarakat')->with('success', 'Status kegiatan sosial berhasil diperbarui.');
     }

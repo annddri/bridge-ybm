@@ -2,12 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
+    public function showLogin()
+    {
+        if (session()->has('id_user')) {
+            return redirect('/dashboard');
+        }
+
+        return view('login');
+    }
+
     public function login(Request $request)
     {
         $request->validate([
@@ -15,39 +25,19 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
 
-        $user = DB::table('users')
-            ->where('email', $request->email)
-            ->first();
+        $user = User::where('email', $request->email)->first();
 
-        if (!$user) {
-            return back()->with('error', 'Email tidak terdaftar!');
-        }
-
-        if (!Hash::check($request->password, $user->password)) {
-            return back()->with('error', 'Password salah!');
+        if (!$user || !Hash::check($request->password, $user->password)) {
+            return back()->with('error', 'Email atau password salah.');
         }
 
         session([
             'id_user' => $user->id,
-            'nama' => $user->name,
             'role' => $user->role,
-
-            // kalau kolom ini masih ada di tabel users
-            'ro' => $user->ro ?? null,
-            'id_asrama' => $user->id_asrama ?? null,
-            'universitas' => $user->universitas ?? null,
-            'angkatan' => $user->angkatan ?? null,
+            'name' => $user->name,
         ]);
 
-        if ($user->role === 'mahasiswa') {
-            return redirect('/dashboard');
-        }
-
-        if ($user->role === 'pengurus') {
-            return redirect('/dashboard-pengurus');
-        }
-
-        return redirect('/dashboard-admin');
+        return redirect('/dashboard');
     }
 
     public function logout()

@@ -35,9 +35,6 @@
             <button type="submit" name="login" class="btn btn-custom-primary w-100 fw-bold text-white">Masuk</button>
         </form>
         
-        <p class="text-center mt-4 mb-0 text-secondary fs-7">
-            Belum punya akun? <a href="register.php" class="text-decoration-none fw-bold" style="color: #0d6efd;">Daftar</a>
-        </p>
     </div>
 </div>
 

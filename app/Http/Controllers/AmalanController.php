@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Amalan;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class AmalanController extends Controller
 {
@@ -21,19 +22,15 @@ class AmalanController extends Controller
 
         $jumlah_hari = cal_days_in_month(CAL_GREGORIAN, $bulan, $tahun);
 
-        $u = DB::table('users')
-            ->leftJoin('mahasiswa_profiles', 'users.id', '=', 'mahasiswa_profiles.user_id')
-            ->select(
-                'users.id',
-                'users.name',
-                'users.email',
-                'users.role',
-                'mahasiswa_profiles.foto_profil as foto_profil'
-            )
-            ->where('users.id', $id_user)
+        $u = User::with('mahasiswaProfile')
+            ->where('id', $id_user)
             ->first();
 
-        $foto_path = asset('uploads/profile/' . ($u->foto_profil ?? 'default.png'));
+        if (!$u) {
+            abort(404, 'User tidak ditemukan.');
+        }
+
+        $foto_path = asset('uploads/profile/' . ($u->mahasiswaProfile->foto_profil ?? 'default.png'));
 
         $list_amalan = [
             'shalat_5_waktu'  => ['nama' => 'Shalat Berjamaah 5 Waktu', 'tipe' => 'harian', 'target' => 5, 'unit' => '/hari'],
@@ -49,8 +46,7 @@ class AmalanController extends Controller
         $data_db = [];
 
         if ($role_user == 'mahasiswa') {
-            $rows = DB::table('amalan')
-                ->where('id_user', $id_user)
+            $rows = Amalan::where('id_user', $id_user)
                 ->whereMonth('tanggal', $bulan)
                 ->whereYear('tanggal', $tahun)
                 ->get();
@@ -73,19 +69,12 @@ class AmalanController extends Controller
         $theme = $role_colors[$role_user] ?? 'secondary';
         $accent_color = ($role_user == 'mahasiswa') ? '#0d6efd' : '#063255';
 
-        $awardees = [];
+        $awardees = collect();
 
         if ($role_user != 'mahasiswa') {
-            $awardees = DB::table('users')
-                ->leftJoin('mahasiswa_profiles', 'users.id', '=', 'mahasiswa_profiles.user_id')
-                ->select(
-                    'users.id',
-                    'users.name',
-                    'mahasiswa_profiles.universitas',
-                    'mahasiswa_profiles.angkatan'
-                )
-                ->where('users.role', 'mahasiswa')
-                ->orderBy('users.name')
+            $awardees = User::with('mahasiswaProfile')
+                ->where('role', 'mahasiswa')
+                ->orderBy('name')
                 ->get();
         }
 
@@ -110,6 +99,12 @@ class AmalanController extends Controller
             return response()->json(['status' => 'unauthorized'], 401);
         }
 
+        $request->validate([
+            'tanggal' => 'required|date',
+            'kolom' => 'required|string',
+            'nilai' => 'required|integer|min:0|max:5',
+        ]);
+
         $id_user = session('id_user');
 
         $tanggal = $request->tanggal;
@@ -131,15 +126,13 @@ class AmalanController extends Controller
             return response()->json(['status' => 'invalid column'], 422);
         }
 
-        DB::table('amalan')->updateOrInsert(
+        Amalan::updateOrCreate(
             [
                 'id_user' => $id_user,
                 'tanggal' => $tanggal,
             ],
             [
                 $kolom => $nilai,
-                'updated_at' => now(),
-                'created_at' => now(),
             ]
         );
 

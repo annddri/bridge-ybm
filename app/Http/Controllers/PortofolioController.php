@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Portofolio;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class PortofolioController extends Controller
 {
@@ -16,28 +17,25 @@ class PortofolioController extends Controller
         $id_user = session('id_user');
         $role_user = session('role');
 
-        $u = DB::table('users')
-            ->leftJoin('mahasiswa_profiles', 'users.id', '=', 'mahasiswa_profiles.user_id')
-            ->select(
-                'users.id',
-                'users.name',
-                'users.role',
-                'mahasiswa_profiles.foto_profil as foto_profil'
-            )
-            ->where('users.id', $id_user)
+        $u = User::with('mahasiswaProfile')
+            ->where('id', $id_user)
             ->first();
 
-        $foto_path = asset('uploads/profile/' . ($u->foto_profil ?? 'default.png'));
-
-        $query = DB::table('portofolio')
-            ->join('users', 'portofolio.id_user', '=', 'users.id')
-            ->select('portofolio.*', 'users.name');
-
-        if ($role_user === 'mahasiswa') {
-            $query->where('portofolio.id_user', $id_user);
+        if (!$u) {
+            abort(404, 'User tidak ditemukan.');
         }
 
-        $data_portofolio = $query->orderBy('portofolio.id', 'desc')->get();
+        $foto_path = asset('uploads/profile/' . ($u->mahasiswaProfile->foto_profil ?? 'default.png'));
+
+        $query = Portofolio::with('user');
+
+        if ($role_user === 'mahasiswa') {
+            $query->where('id_user', $id_user);
+        }
+
+        $data_portofolio = $query
+            ->orderBy('id', 'desc')
+            ->get();
 
         return view('portofolio', compact(
             'u',
@@ -70,7 +68,7 @@ class PortofolioController extends Controller
             $file->move(public_path('uploads/portofolio'), $fileName);
         }
 
-        DB::table('portofolio')->insert([
+        Portofolio::create([
             'id_user' => session('id_user'),
             'kategori' => $request->kategori,
             'tanggal_tahun' => $request->tanggal_tahun,
@@ -95,9 +93,11 @@ class PortofolioController extends Controller
             abort(400);
         }
 
-        DB::table('portofolio')
-            ->where('id', $id)
-            ->update(['status' => $status]);
+        $portofolio = Portofolio::findOrFail($id);
+
+        $portofolio->update([
+            'status' => $status,
+        ]);
 
         return redirect('/portofolio')->with('success', 'Status portofolio berhasil diperbarui.');
     }

@@ -39,23 +39,23 @@
                                 
                                 <div class="mb-3">
                                     <div class="info-label">NIBS (Nomor Induk Beasiswa)</div>
-                                    <div class="info-value">{{ $u->nibs}}</div>
+                                    <div class="info-value">{{ $u->mahasiswaProfile->nibs}}</div>
                                 </div>
                                 <div class="mb-3">
                                     <div class="info-label">NIM (Nomor Induk Mahasiswa)</div>
-                                    <div class="info-value">{{ $u->nim }}</div>
+                                    <div class="info-value">{{ $u->mahasiswaProfile->nim }}</div>
                                 </div>
                                 <div class="mb-3">
                                     <div class="info-label">Universitas</div>
-                                    <div class="info-value">{{ $u->universitas }}</div>
+                                    <div class="info-value">{{ $u->mahasiswaProfile->universitas }}</div>
                                 </div>
                                 <div class="mb-3">
                                     <div class="info-label">Program Studi</div>
-                                    <div class="info-value">{{ $u->prodi }}</div>
+                                    <div class="info-value">{{ $u->mahasiswaProfile->prodi }}</div>
                                 </div>
                                 <div class="mb-3">
                                     <div class="info-label">Angkatan Beasiswa</div>
-                                    <div class="info-value">{{ $u->angkatan }}</div>
+                                    <div class="info-value">{{ $u->mahasiswaProfile->angkatan }}</div>
                                 </div>
                             </div>
 
@@ -68,7 +68,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <div class="info-label">Nomor Telepon (WhatsApp)</div>
-                                    <div class="info-value">{{ $u->no_telp ?? 'Belum diisi' }}</div>
+                                    <div class="info-value">{{ $u->mahasiswaProfile->no_telp ?? 'Belum diisi' }}</div>
                                 </div>
                             </div>
                         </div>

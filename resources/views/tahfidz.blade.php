@@ -137,7 +137,7 @@
                             <tr>
                                 @if ($role_user === 'kepala_asrama')
                                     <td class="px-3 fw-semibold" style="color: #334155;">
-                                        {{ $row->name }}
+                                        {{ $row->user->name }}
                                     </td>
                                 @endif
 

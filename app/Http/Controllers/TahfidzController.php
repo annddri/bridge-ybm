@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Tahfidz;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\DB;
 
 class TahfidzController extends Controller
 {
@@ -17,28 +18,25 @@ class TahfidzController extends Controller
         $id_user = session('id_user');
         $role_user = session('role');
 
-        $u = DB::table('users')
-            ->leftJoin('mahasiswa_profiles', 'users.id', '=', 'mahasiswa_profiles.user_id')
-            ->select(
-                'users.id',
-                'users.name',
-                'users.role',
-                'mahasiswa_profiles.foto_profil as foto_profil'
-            )
-            ->where('users.id', $id_user)
+        $u = User::with('mahasiswaProfile')
+            ->where('id', $id_user)
             ->first();
 
-        $foto_path = asset('uploads/profile/' . ($u->foto_profil ?? 'default.png'));
-
-        $query = DB::table('tahfidz')
-            ->join('users', 'tahfidz.id_user', '=', 'users.id')
-            ->select('tahfidz.*', 'users.name');
-
-        if ($role_user === 'mahasiswa') {
-            $query->where('tahfidz.id_user', $id_user);
+        if (!$u) {
+            abort(404, 'User tidak ditemukan.');
         }
 
-        $data_tahfidz = $query->orderBy('tahfidz.id', 'desc')->get();
+        $foto_path = asset('uploads/profile/' . ($u->mahasiswaProfile->foto_profil ?? 'default.png'));
+
+        $query = Tahfidz::with('user');
+
+        if ($role_user === 'mahasiswa') {
+            $query->where('id_user', $id_user);
+        }
+
+        $data_tahfidz = $query
+            ->orderBy('id', 'desc')
+            ->get();
 
         return view('tahfidz', compact(
             'u',
@@ -69,14 +67,12 @@ class TahfidzController extends Controller
             $file->move(public_path('uploads/tahfidz'), $fileName);
         }
 
-        DB::table('tahfidz')->insert([
+        Tahfidz::create([
             'id_user' => session('id_user'),
             'nama_surah' => $request->nama_surah,
             'tanggal_tes' => $request->tanggal_tes,
             'file_verifikasi' => $fileName,
             'status' => 'Belum Lulus',
-            'created_at' => now(),
-            'updated_at' => now(),
         ]);
 
         return redirect('/tahfidz')->with('success', 'Setoran berhasil diunggah.');
@@ -92,12 +88,11 @@ class TahfidzController extends Controller
             abort(400);
         }
 
-        DB::table('tahfidz')
-            ->where('id', $id)
-            ->update([
-                'status' => $status,
-                'updated_at' => now(),
-            ]);
+        $tahfidz = Tahfidz::findOrFail($id);
+
+        $tahfidz->update([
+            'status' => $status,
+        ]);
 
         return redirect('/tahfidz');
     }

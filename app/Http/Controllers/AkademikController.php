@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Akademik;
+use App\Models\Toefl;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class AkademikController extends Controller
 {
@@ -16,44 +18,33 @@ class AkademikController extends Controller
         $id_user = session('id_user');
         $role_user = session('role');
 
-        $u = DB::table('users')
-            ->leftJoin('mahasiswa_profiles', 'users.id', '=', 'mahasiswa_profiles.user_id')
-            ->select(
-                'users.id',
-                'users.name',
-                'users.role',
-                'mahasiswa_profiles.foto_profil as foto_profil'
-            )
-            ->where('users.id', $id_user)
+        $u = User::with('mahasiswaProfile')
+            ->where('id', $id_user)
             ->first();
 
-        $foto_path = asset('uploads/profile/' . ($u->foto_profil ?? 'default.png'));
+        if (!$u) {
+            abort(404, 'User tidak ditemukan.');
+        }
 
-        $akademikQuery = DB::table('akademik')
-            ->join('users', 'akademik.id_user', '=', 'users.id')
-            ->select('akademik.*', 'users.name');
+        $foto_path = asset('uploads/profile/' . ($u->mahasiswaProfile->foto_profil ?? 'default.png'));
 
-        $toeflQuery = DB::table('toefl')
-            ->join('users', 'toefl.id_user', '=', 'users.id')
-            ->select('toefl.*', 'users.name');
+        $akademikQuery = Akademik::with('user');
+        $toeflQuery = Toefl::with('user');
 
         if ($role_user === 'mahasiswa') {
-            $akademikQuery->where('akademik.id_user', $id_user);
-            $toeflQuery->where('toefl.id_user', $id_user);
+            $akademikQuery->where('id_user', $id_user);
+            $toeflQuery->where('id_user', $id_user);
         }
 
         $data_akademik = $akademikQuery
-            ->orderBy('akademik.id', 'desc')
+            ->orderBy('id', 'desc')
             ->get();
 
         $data_toefl = $toeflQuery
-            ->orderBy('toefl.id', 'desc')
+            ->orderBy('id', 'desc')
             ->get();
 
-        $ipk_sekarang = DB::table('akademik')
-            ->where('id_user', $id_user)
-            ->avg('ip');
-
+        $ipk_sekarang = Akademik::where('id_user', $id_user)->avg('ip');
         $ipk_sekarang = number_format($ipk_sekarang ?? 0, 2);
 
         return view('akademik', compact(
@@ -87,14 +78,12 @@ class AkademikController extends Controller
             $file->move(public_path('uploads/akademik'), $fileName);
         }
 
-        DB::table('akademik')->insert([
+        Akademik::create([
             'id_user' => session('id_user'),
             'semester' => $request->semester,
             'ip' => $request->ip,
             'file_verifikasi' => $fileName,
             'status' => 'Belum Lulus',
-            'created_at' => now(),
-            'updated_at' => now(),
         ]);
 
         return redirect('/akademik')->with('success', 'Data IP berhasil dikirim.');
@@ -121,7 +110,7 @@ class AkademikController extends Controller
             $file->move(public_path('uploads/toefl'), $fileName);
         }
 
-        DB::table('toefl')->insert([
+        Toefl::create([
             'id_user' => session('id_user'),
             'score' => $request->score,
             'jenis_tes' => $request->jenis_tes,
@@ -143,12 +132,11 @@ class AkademikController extends Controller
             abort(400);
         }
 
-        DB::table('akademik')
-            ->where('id', $id)
-            ->update([
-                'status' => $status,
-                'updated_at' => now(),
-            ]);
+        $akademik = Akademik::findOrFail($id);
+
+        $akademik->update([
+            'status' => $status,
+        ]);
 
         return redirect('/akademik');
     }
@@ -163,11 +151,11 @@ class AkademikController extends Controller
             abort(400);
         }
 
-        DB::table('toefl')
-            ->where('id', $id)
-            ->update([
-                'status' => $status,
-            ]);
+        $toefl = Toefl::findOrFail($id);
+
+        $toefl->update([
+            'status' => $status,
+        ]);
 
         return redirect('/akademik');
     }

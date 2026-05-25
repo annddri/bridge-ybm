@@ -185,7 +185,7 @@
                                         <tr>
                                             @if ($role_user !== 'mahasiswa')
                                                 <td class="px-3 fw-semibold text-secondary">
-                                                    {{ $row->name }}
+                                                    {{ $row->user->name }}
                                                 </td>
                                             @endif
 
