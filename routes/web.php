@@ -9,6 +9,7 @@ use App\Http\Controllers\TahfidzController;
 use App\Http\Controllers\AkademikController;
 use App\Http\Controllers\PortofolioController;
 use App\Http\Controllers\MasyarakatController;
+use App\Http\Controllers\InventarisController;
 
 Route::get('/', function () {
     if (session()->has('id_user')) {
@@ -52,3 +53,9 @@ Route::get('/portofolio/status/{id}/{status}', [PortofolioController::class, 'up
 Route::get('/masyarakat', [MasyarakatController::class, 'index'])->name('masyarakat');
 Route::post('/masyarakat', [MasyarakatController::class, 'store'])->name('masyarakat.store');
 Route::get('/masyarakat/status/{id}/{status}', [MasyarakatController::class, 'updateStatus'])->name('masyarakat.status');
+
+
+Route::get('/inventaris', [InventarisController::class, 'index'])->name('inventaris.index');
+Route::post('/inventaris', [InventarisController::class, 'store'])->name('inventaris.store');
+Route::put('/inventaris/{id_barang}', [InventarisController::class, 'update'])->name('inventaris.update');
+Route::delete('/inventaris/{id_barang}', [InventarisController::class, 'destroy'])->name('inventaris.destroy');

@@ -1,33 +1,3 @@
-:root {
-    --sidebar-bg: #063255; 
-    --sidebar-text: rgba(255, 255, 255, 0.85);
-    --sidebar-hover: rgba(255, 255, 255, 0.1);
-    --accent-color: #0d6efd;
-    --bg-light: #f8fafc;
-}
-
-body { background-color: var(--bg-light); font-family: 'Segoe UI', sans-serif; }
-
-/* Navigasi Sidebar Terintegrasi */
-.sidebar { 
-    width: 280px; height: 100vh; position: fixed; top: 0; left: 0; 
-    background: linear-gradient(180deg, #063255 0%, #041f35 100%); 
-    color: var(--sidebar-text); padding-top: 10px; z-index: 1000; overflow-y: auto; 
-    border-right: 1px solid rgba(255, 255, 255, 0.05);
-}
-.sidebar-brand { text-align: center; padding: 25px 20px; border-bottom: 1px solid rgba(255,255,255,0.08); }
-.brand-logo { width: 75px; height: 75px; border-radius: 50%; border: 3px solid rgba(255, 255, 255, 0.2); margin-bottom: 12px; object-fit: cover; }
-
-.nav-link { color: var(--sidebar-text); padding: 11px 25px; display: flex; align-items: center; transition: all 0.2s ease; font-size: 0.92rem; text-decoration: none; border-left: 4px solid transparent; }
-.nav-link i { width: 24px; margin-right: 12px; font-size: 1.05rem; opacity: 0.8; }
-.nav-link:hover { color: #fff; background-color: var(--sidebar-hover); padding-left: 28px; }
-.nav-link.active { color: #fff; background-color: rgba(13, 110, 253, 0.15); border-left: 4px solid var(--accent-color); font-weight: 600; }
-.logout-link { color: #ea4335 !important; font-weight: 600; border-top: 1px solid rgba(255,255,255,0.08); margin-top: 25px; padding-top: 15px !important; }
-.logout-link:hover { background-color: rgba(234, 67, 53, 0.1) !important; }
-
-/* Pembungkus Konten Utama */
-.main-content { margin-left: 280px; padding: 0 0 35px 0; transition: all 0.3s ease; }
-
 /* Desain Header Profil Melebar */
 .header-gradient {
     background: linear-gradient(135deg, #063255, #0b426e);
@@ -53,13 +23,3 @@ body { background-color: var(--bg-light); font-family: 'Segoe UI', sans-serif; }
 
 .info-label { font-size: 0.72rem; font-weight: 700; color: #8a94a0; text-transform: uppercase; letter-spacing: 0.5px; }
 .info-value { font-size: 0.95rem; font-weight: 600; color: #1e293b; margin-top: 2px; }
-
-/* Penyesuaian Responsif HP */
-@media (max-width: 991.98px) {
-    .sidebar { width: 100%; height: auto; position: relative; }
-    .main-content { margin-left: 0; }
-    .profile-wrapper { padding: 0 15px; }
-    .sidebar-brand { display: flex; align-items: center; text-align: left; padding: 15px; }
-    .brand-logo { width: 45px; height: 45px; margin-bottom: 0; margin-right: 15px; }
-    .logout-link { border-top: none; margin-top: 0; padding-top: 11px !important; }
-}

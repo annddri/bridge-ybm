@@ -48,7 +48,7 @@
             <i class="fas fa-people-group"></i> Sosial Masyarakat
         </a>
 
-        {{-- <div class="px-4 py-2 small text-uppercase fw-bold text-white-50" style="letter-spacing: 1px; margin-top: 15px; margin-bottom: 5px; font-size: 0.75rem;">
+        <div class="px-4 py-2 small text-uppercase fw-bold text-white-50" style="letter-spacing: 1px; margin-top: 15px; margin-bottom: 5px; font-size: 0.75rem;">
             Fitur Asrama
         </div>
 
@@ -59,10 +59,6 @@
         <a href="/keuangan" class="nav-link {{ request()->is('keuangan') ? 'active' : '' }}">
             <i class="fas fa-wallet"></i> Keuangan Asrama
         </a>
-
-        <a href="/perizinan" class="nav-link {{ request()->is('perizinan') ? 'active' : '' }}">
-            <i class="fas fa-envelope-open-text"></i> Perizinan Asrama
-        </a> --}}
 
         <a href="{{ route('logout') }}" class="nav-link logout-link" onclick="return confirm('Yakin ingin keluar?')">
             <i class="fas fa-sign-out-alt"></i> Keluar
