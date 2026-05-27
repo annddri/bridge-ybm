@@ -17,7 +17,6 @@ class Portofolio extends Model
         'nama_kegiatan',
         'penyelenggara_jabatan',
         'level',
-        'status',
         'file_bukti',
         'created_at',
     ];

@@ -24,7 +24,8 @@ return new class extends Migration
             'workshop/seminar'
         ])->nullable();
 
-        $table->string('tanggal_tahun', 50)->nullable();
+        
+        $table->date('tanggal_tahun');
         $table->string('nama_kegiatan', 255)->nullable();
         $table->string('penyelenggara_jabatan', 255)->nullable();
 
@@ -36,7 +37,6 @@ return new class extends Migration
             'Internasional'
         ])->nullable();
 
-        $table->string('status', 20)->default('Belum Lulus');
         $table->string('file_bukti', 255)->nullable();
 
         $table->timestamp('created_at')->useCurrent();

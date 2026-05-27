@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Portofolio;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class PortofolioController extends Controller
 {
@@ -75,7 +76,6 @@ class PortofolioController extends Controller
             'nama_kegiatan' => $request->nama_kegiatan,
             'penyelenggara_jabatan' => $request->penyelenggara_jabatan,
             'level' => $request->level,
-            'status' => 'Belum Lulus',
             'file_bukti' => $fileName,
             'created_at' => now(),
         ]);
@@ -83,22 +83,29 @@ class PortofolioController extends Controller
         return redirect('/portofolio')->with('success', 'Data portofolio berhasil diajukan.');
     }
 
-    public function updateStatus($id, $status)
+    public function destroy($id)
     {
-        if (session('role') === 'mahasiswa') {
-            abort(403);
-        }
-
-        if (!in_array($status, ['Lulus', 'Belum Lulus'])) {
-            abort(400);
+        if (!session()->has('id_user')) {
+            return redirect('/login');
         }
 
         $portofolio = Portofolio::findOrFail($id);
 
-        $portofolio->update([
-            'status' => $status,
-        ]);
+        if (session('role') === 'mahasiswa' && $portofolio->id_user != session('id_user')) {
+            abort(403);
+        }
 
-        return redirect('/portofolio')->with('success', 'Status portofolio berhasil diperbarui.');
+        if ($portofolio->file_bukti) {
+            $filePath = public_path('uploads/portofolio/' . $portofolio->file_bukti);
+
+            if (File::exists($filePath)) {
+                File::delete($filePath);
+            }
+        }
+
+        $portofolio->delete();
+
+        return redirect('/portofolio')->with('success', 'Data portofolio berhasil dihapus.');
     }
+
 }

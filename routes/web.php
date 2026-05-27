@@ -46,8 +46,7 @@ Route::delete('/akademik/toefl/{id}', [AkademikController::class, 'destroyToefl'
 
 Route::get('/portofolio', [PortofolioController::class, 'index'])->name('portofolio');
 Route::post('/portofolio', [PortofolioController::class, 'store'])->name('portofolio.store');
-Route::get('/portofolio/status/{id}/{status}', [PortofolioController::class, 'updateStatus'])->name('portofolio.status');
-
+Route::delete('/portofolio/{id}', [PortofolioController::class, 'destroy'])->name('portofolio.destroy');
 
 Route::get('/masyarakat', [MasyarakatController::class, 'index'])->name('masyarakat');
 Route::post('/masyarakat', [MasyarakatController::class, 'store'])->name('masyarakat.store');
