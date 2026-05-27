@@ -40,9 +40,8 @@ Route::get('/akademik', [AkademikController::class, 'index'])->name('akademik');
 
 Route::post('/akademik/ip', [AkademikController::class, 'storeIp'])->name('akademik.ip.store');
 Route::post('/akademik/toefl', [AkademikController::class, 'storeToefl'])->name('akademik.toefl.store');
-
-Route::get('/akademik/ip/status/{id}/{status}', [AkademikController::class, 'updateIpStatus'])->name('akademik.ip.status');
-Route::get('/akademik/toefl/status/{id}/{status}', [AkademikController::class, 'updateToeflStatus'])->name('akademik.toefl.status');
+Route::delete('/akademik/ip/{id}', [AkademikController::class, 'destroyIp'])->name('akademik.ip.destroy');
+Route::delete('/akademik/toefl/{id}', [AkademikController::class, 'destroyToefl'])->name('akademik.toefl.destroy');
 
 
 Route::get('/portofolio', [PortofolioController::class, 'index'])->name('portofolio');

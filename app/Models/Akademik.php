@@ -13,7 +13,6 @@ class Akademik extends Model
         'semester',
         'ip',
         'file_verifikasi',
-        'status',
     ];
 
     public function user()

@@ -21,7 +21,6 @@ return new class extends Migration
             $table->unsignedTinyInteger('semester')->nullable();
             $table->decimal('ip', 4, 2)->nullable();
             $table->string('file_verifikasi', 255)->nullable();
-            $table->string('status', 20)->default('Belum Lulus');
 
             $table->timestamps();
         });

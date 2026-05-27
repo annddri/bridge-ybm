@@ -13,7 +13,6 @@ class Tahfidz extends Model
         'nama_surah',
         'tanggal_tes',
         'file_verifikasi',
-        'status',
     ];
 
     public function user()

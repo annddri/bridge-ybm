@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Akademik;
 use App\Models\Toefl;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class AkademikController extends Controller
 {
@@ -83,7 +84,6 @@ class AkademikController extends Controller
             'semester' => $request->semester,
             'ip' => $request->ip,
             'file_verifikasi' => $fileName,
-            'status' => 'Belum Lulus',
         ]);
 
         return redirect('/akademik')->with('success', 'Data IP berhasil dikirim.');
@@ -115,48 +115,59 @@ class AkademikController extends Controller
             'score' => $request->score,
             'jenis_tes' => $request->jenis_tes,
             'file_sertifikat' => $fileName,
-            'status' => 'Belum Lulus',
             'tanggal_upload' => now(),
         ]);
 
         return redirect('/akademik')->with('success', 'Riwayat TOEFL berhasil ditambahkan.');
     }
 
-    public function updateIpStatus($id, $status)
-    {
-        if (session('role') === 'mahasiswa') {
-            abort(403);
-        }
-
-        if (!in_array($status, ['Lulus', 'Belum Lulus'])) {
-            abort(400);
-        }
-
-        $akademik = Akademik::findOrFail($id);
-
-        $akademik->update([
-            'status' => $status,
-        ]);
-
-        return redirect('/akademik');
+    public function destroyIp($id)
+{
+    if (!session()->has('id_user')) {
+        return redirect('/login');
     }
 
-    public function updateToeflStatus($id, $status)
-    {
-        if (session('role') === 'mahasiswa') {
-            abort(403);
-        }
+    $ip = Akademik::findOrFail($id);
 
-        if (!in_array($status, ['Lulus', 'Belum Lulus'])) {
-            abort(400);
+    if (session('role') === 'mahasiswa' && $ip->id_user != session('id_user')) {
+        abort(403);
+    }
+
+    if ($ip->file_verifikasi) {
+        $filePath = public_path('uploads/akademik/' . $ip->file_verifikasi);
+
+        if (File::exists($filePath)) {
+            File::delete($filePath);
+        }
+    }
+
+    $ip->delete();
+
+    return redirect('/akademik')->with('success', 'Data IP semester berhasil dihapus.');
+}
+
+    public function destroyToefl($id)
+    {
+        if (!session()->has('id_user')) {
+            return redirect('/login');
         }
 
         $toefl = Toefl::findOrFail($id);
 
-        $toefl->update([
-            'status' => $status,
-        ]);
+        if (session('role') === 'mahasiswa' && $toefl->id_user != session('id_user')) {
+            abort(403);
+        }
 
-        return redirect('/akademik');
+        if ($toefl->file_sertifikat) {
+            $filePath = public_path('uploads/toefl/' . $toefl->file_sertifikat);
+
+            if (File::exists($filePath)) {
+                File::delete($filePath);
+            }
+        }
+
+        $toefl->delete();
+
+        return redirect('/akademik')->with('success', 'Data TOEFL berhasil dihapus.');
     }
 }

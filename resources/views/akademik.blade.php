@@ -20,9 +20,6 @@
                         </p>
                     </div>
                 </div>
-                <div>
-                    <a href="/dashboard" class="btn-kembali shadow-sm">Kembali</a>
-                </div>
             </div>
         </div>
 
@@ -67,7 +64,7 @@
 
                             <div class="mb-3">
                                 <label class="form-label text-muted small mb-1 fw-semibold">Berkas KHS</label>
-                                <input type="file" name="bukti_khs" class="form-control form-control-sm rounded-3" accept=".pdf,.jpg,.jpeg,.png">
+                                <input type="file" name="bukti_khs" class="form-control form-control-sm rounded-3" accept=".pdf,.jpg,.jpeg,.png" required>
                             </div>
 
                             <button type="submit" class="btn btn-primary btn-sm w-100 rounded-pill fw-semibold py-2" style="background-color: var(--navy-theme); border-color: var(--navy-theme);">
@@ -101,7 +98,7 @@
 
                             <div class="mb-3">
                                 <label class="form-label text-muted small mb-1 fw-semibold">Berkas Sertifikat</label>
-                                <input type="file" name="bukti_toefl" class="form-control form-control-sm rounded-3" accept=".pdf,.jpg,.jpeg,.png">
+                                <input type="file" name="bukti_toefl" class="form-control form-control-sm rounded-3" accept=".pdf,.jpg,.jpeg,.png" required>
                             </div>
 
                             <button type="submit" class="btn btn-success btn-sm w-100 rounded-pill fw-semibold py-2">
@@ -130,29 +127,20 @@
                         <table class="table table-hover align-middle m-0">
                             <thead>
                                 <tr>
-                                    @if ($role_user !== 'mahasiswa')
-                                        <th class="border-0 px-3 py-3">Nama Mahasiswa</th>
-                                    @endif
 
                                     <th class="border-0 py-3 {{ $role_user === 'mahasiswa' ? 'px-3' : '' }}">Semester</th>
                                     <th class="border-0 py-3 text-center">IP Semester</th>
                                     <th class="border-0 py-3 text-center">Bukti KHS</th>
-                                    <th class="border-0 py-3 text-center">Status</th>
+                                    <th class="border-0 py-3 text-center">Aksi</th>
 
-                                    @if ($role_user !== 'mahasiswa')
-                                        <th class="border-0 py-3 text-center">Aksi</th>
-                                    @endif
                                 </tr>
                             </thead>
 
                             <tbody>
                                 @forelse ($data_akademik as $r)
                                     <tr>
-                                        @if ($role_user !== 'mahasiswa')
-                                            <td class="px-3 fw-semibold" style="color: #334155;">{{ $r->name }}</td>
-                                        @endif
 
-                                        <td class="{{ $role_user === 'mahasiswa' ? 'px-3' : '' }}">
+                                        <td class="px-3">
                                             <span class="badge bg-light text-dark border px-2 py-1.5 rounded-3 fw-semibold">
                                                 Semester {{ $r->semester }}
                                             </span>
@@ -173,30 +161,23 @@
                                         </td>
 
                                         <td class="text-center">
-                                            @if ($r->status === 'Lulus')
-                                                <span class="badge-status status-lulus"><i class="fas fa-check me-1"></i> Valid</span>
-                                            @else
-                                                <span class="badge-status status-pending"><i class="fas fa-clock me-1"></i> Pending</span>
-                                            @endif
+                                            <form action="{{ route('akademik.ip.destroy', $r->id) }}"
+                                                method="POST"
+                                                class="d-inline"
+                                                onsubmit="return confirm('Yakin ingin menghapus data IP ini?')">
+                                                @csrf
+                                                @method('DELETE')
+
+                                                <button type="submit" class="btn btn-sm btn-outline-danger rounded-pill px-3">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </form>
                                         </td>
 
-                                        @if ($role_user !== 'mahasiswa')
-                                            <td class="text-center">
-                                                @if ($r->status !== 'Lulus')
-                                                    <a href="{{ route('akademik.ip.status', [$r->id, 'Lulus']) }}" class="btn btn-action btn-success shadow-sm">
-                                                        <i class="fas fa-check me-1"></i> Validkan
-                                                    </a>
-                                                @else
-                                                    <a href="{{ route('akademik.ip.status', [$r->id, 'Belum Lulus']) }}" class="btn btn-action btn-danger shadow-sm">
-                                                        <i class="fas fa-undo me-1"></i> Batalkan
-                                                    </a>
-                                                @endif
-                                            </td>
-                                        @endif
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="{{ $role_user !== 'mahasiswa' ? 6 : 4 }}" class="text-center text-muted py-4">
+                                        <td colspan="4" class="text-center text-muted py-4">
                                             Belum ada data IP terdata.
                                         </td>
                                     </tr>
@@ -214,29 +195,20 @@
                         <table class="table table-hover align-middle m-0">
                             <thead>
                                 <tr>
-                                    @if ($role_user !== 'mahasiswa')
-                                        <th class="border-0 px-3 py-3">Nama Mahasiswa</th>
-                                    @endif
 
-                                    <th class="border-0 py-3 {{ $role_user === 'mahasiswa' ? 'px-3' : '' }}">Jenis Tes</th>
+                                    <th class="border-0 py-3 px-3">Jenis Tes</th>
                                     <th class="border-0 py-3 text-center">Skor</th>
                                     <th class="border-0 py-3 text-center">Sertifikat</th>
-                                    <th class="border-0 py-3 text-center">Status</th>
+                                    <th class="border-0 py-3 text-center">Aksi</th>
 
-                                    @if ($role_user !== 'mahasiswa')
-                                        <th class="border-0 py-3 text-center">Aksi</th>
-                                    @endif
                                 </tr>
                             </thead>
 
                             <tbody>
                                 @forelse ($data_toefl as $rt)
                                     <tr>
-                                        @if ($role_user !== 'mahasiswa')
-                                            <td class="px-3 fw-semibold" style="color: #334155;">{{ $rt->name }}</td>
-                                        @endif
 
-                                        <td class="{{ $role_user === 'mahasiswa' ? 'px-3' : '' }}">
+                                        <td class="px-3">
                                             <span class="badge bg-light text-dark border px-2 py-1.5 rounded-3 fw-semibold">
                                                 {{ $rt->jenis_tes }}
                                             </span>
@@ -253,32 +225,24 @@
                                                 -
                                             @endif
                                         </td>
-
                                         <td class="text-center">
-                                            @if ($rt->status === 'Lulus')
-                                                <span class="badge-status status-lulus"><i class="fas fa-check me-1"></i> Valid</span>
-                                            @else
-                                                <span class="badge-status status-pending"><i class="fas fa-clock me-1"></i> Pending</span>
-                                            @endif
+                                            <form action="{{ route('akademik.toefl.destroy', $rt->id) }}"
+                                                method="POST"
+                                                class="d-inline"
+                                                onsubmit="return confirm('Yakin ingin menghapus data TOEFL ini?')">
+                                                @csrf
+                                                @method('DELETE')
+
+                                                <button type="submit" class="btn btn-sm btn-outline-danger rounded-pill px-3">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </form>
                                         </td>
 
-                                        @if ($role_user !== 'mahasiswa')
-                                            <td class="text-center">
-                                                @if ($rt->status !== 'Lulus')
-                                                    <a href="{{ route('akademik.toefl.status', [$rt->id, 'Lulus']) }}" class="btn btn-action btn-success shadow-sm">
-                                                        <i class="fas fa-check me-1"></i> Validkan
-                                                    </a>
-                                                @else
-                                                    <a href="{{ route('akademik.toefl.status', [$rt->id, 'Belum Lulus']) }}" class="btn btn-action btn-danger shadow-sm">
-                                                        <i class="fas fa-undo me-1"></i> Batalkan
-                                                    </a>
-                                                @endif
-                                            </td>
-                                        @endif
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="{{ $role_user !== 'mahasiswa' ? 6 : 4 }}" class="text-center text-muted py-4">
+                                        <td colspan="4" class="text-center text-muted py-4">
                                             Belum ada data skor TOEFL terdata.
                                         </td>
                                     </tr>

@@ -15,7 +15,6 @@ class Toefl extends Model
         'score',
         'jenis_tes',
         'file_sertifikat',
-        'status',
         'tanggal_upload',
     ];
 

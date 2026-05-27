@@ -28,8 +28,6 @@ return new class extends Migration
 
             $table->string('file_sertifikat', 255)->nullable();
 
-            $table->string('status', 20)->default('Belum Lulus');
-
             $table->timestamp('tanggal_upload')->useCurrent();
         });
     }
