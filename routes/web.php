@@ -10,6 +10,7 @@ use App\Http\Controllers\AkademikController;
 use App\Http\Controllers\PortofolioController;
 use App\Http\Controllers\MasyarakatController;
 use App\Http\Controllers\InventarisController;
+use App\Http\Controllers\KeuanganController;
 
 Route::get('/', function () {
     if (session()->has('id_user')) {
@@ -59,3 +60,8 @@ Route::get('/inventaris', [InventarisController::class, 'index'])->name('inventa
 Route::post('/inventaris', [InventarisController::class, 'store'])->name('inventaris.store');
 Route::put('/inventaris/{id_barang}', [InventarisController::class, 'update'])->name('inventaris.update');
 Route::delete('/inventaris/{id_barang}', [InventarisController::class, 'destroy'])->name('inventaris.destroy');
+
+Route::get('/keuangan', [KeuanganController::class, 'index'])->name('keuangan.index');
+Route::post('/keuangan/store', [KeuanganController::class, 'store'])->name('keuangan.store');
+Route::put('/keuangan/update/{id}', [KeuanganController::class, 'update'])->name('keuangan.update');
+Route::delete('/keuangan/delete/{id}', [KeuanganController::class, 'destroy'])->name('keuangan.destroy');

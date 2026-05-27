@@ -1,0 +1,52 @@
+.finance-card {
+    border-radius: 14px;
+    color: white;
+    padding: 18px;
+    box-shadow: 0 8px 18px rgba(6, 50, 85, 0.08);
+}
+
+.finance-card small {
+    opacity: 0.85;
+    font-weight: 600;
+}
+
+.finance-card h4 {
+    margin: 5px 0 0;
+    font-weight: 800;
+}
+
+.form-card,
+.table-card {
+    background: white;
+    border: 1px solid rgba(6, 50, 85, 0.07);
+    border-radius: 14px;
+    padding: 24px;
+    box-shadow: 0 8px 20px rgba(6, 50, 85, 0.05);
+}
+
+.btn-primary-ybm {
+    background-color: #063255;
+    color: white;
+    border: none;
+}
+
+.btn-primary-ybm:hover {
+    background-color: #041f35;
+    color: white;
+}
+
+.small-modal {
+    border-radius: 16px;
+}
+
+.edit-row td {
+    background-color: #f8fafc;
+}
+
+.edit-inline-card {
+    background: #ffffff;
+    border: 1px solid rgba(6, 50, 85, 0.08);
+    border-radius: 14px;
+    padding: 16px;
+    box-shadow: 0 8px 20px rgba(6, 50, 85, 0.06);
+}
