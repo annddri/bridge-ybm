@@ -41,82 +41,80 @@
             </div>
         @endif
 
-        @if ($role_user === 'mahasiswa')
-            <div class="card live-card border-0 p-4 rounded-4 mb-4">
-                <h6 class="fw-bold mb-0 text-primary">
-                    <i class="fas fa-plus-circle me-1"></i> Tambah Data Baru
-                </h6>
+        <div class="card live-card border-0 p-4 rounded-4 mb-4">
+            <h6 class="fw-bold mb-0 text-primary">
+                <i class="fas fa-plus-circle me-1"></i> Tambah Data Baru
+            </h6>
 
-                <hr class="text-muted opacity-25 my-3">
+            <hr class="text-muted opacity-25 my-3">
 
-                <form action="{{ route('portofolio.store') }}" method="POST" enctype="multipart/form-data" class="row g-3">
-                    @csrf
+            <form action="{{ route('portofolio.store') }}" method="POST" enctype="multipart/form-data" class="row g-3">
+                @csrf
 
-                    <div class="col-md-2">
-                        <label class="form-label small fw-bold text-muted">Kategori</label>
-                        <select name="kategori" class="form-select form-select-sm rounded-3" required>
-                            <option value="prestasi">🏆 Prestasi</option>
-                            <option value="organisasi">👥 Organisasi</option>
-                            <option value="workshop/seminar">📚 Workshop/Seminar</option>
-                        </select>
-                    </div>
+                <div class="col-md-2">
+                    <label class="form-label small fw-bold text-muted">Kategori</label>
+                    <select name="kategori" class="form-select form-select-sm rounded-3" required>
+                        <option value="prestasi">🏆 Prestasi</option>
+                        <option value="organisasi">👥 Organisasi</option>
+                        <option value="workshop/seminar">📚 Workshop/Seminar</option>
+                    </select>
+                </div>
 
-                    <div class="col-md-2">
-                        <label class="form-label small fw-bold text-muted">Waktu</label>
-                        <input type="date"
-                               name="tanggal_tahun"
-                               class="form-control form-control-sm rounded-3"
-                               required>
-                    </div>
+                <div class="col-md-2">
+                    <label class="form-label small fw-bold text-muted">Waktu</label>
+                    <input type="date"
+                            name="tanggal_tahun"
+                            class="form-control form-control-sm rounded-3"
+                            required>
+                </div>
 
-                    <div class="col-md-3">
-                        <label class="form-label small fw-bold text-muted">Nama Kegiatan</label>
-                        <input type="text"
-                               name="nama_kegiatan"
-                               class="form-control form-control-sm rounded-3"
-                               placeholder="Nama lomba/organisasi"
-                               required>
-                    </div>
+                <div class="col-md-3">
+                    <label class="form-label small fw-bold text-muted">Nama Kegiatan</label>
+                    <input type="text"
+                            name="nama_kegiatan"
+                            class="form-control form-control-sm rounded-3"
+                            placeholder="Nama lomba/organisasi"
+                            required>
+                </div>
 
-                    <div class="col-md-3">
-                        <label class="form-label small fw-bold text-muted">Penyelenggara / Jabatan</label>
-                        <input type="text"
-                               name="penyelenggara_jabatan"
-                               class="form-control form-control-sm rounded-3"
-                               placeholder="Posisi kamu atau instansi"
-                               required>
-                    </div>
+                <div class="col-md-3">
+                    <label class="form-label small fw-bold text-muted">Penyelenggara / Jabatan</label>
+                    <input type="text"
+                            name="penyelenggara_jabatan"
+                            class="form-control form-control-sm rounded-3"
+                            placeholder="Posisi kamu atau instansi"
+                            required>
+                </div>
 
-                    <div class="col-md-2">
-                        <label class="form-label small fw-bold text-muted">Level</label>
-                        <select name="level" class="form-select form-select-sm rounded-3" required>
-                            <option value="Lokal/Kampus">Lokal/Kampus</option>
-                            <option value="Kota/Kabupaten">Kota/Kabupaten</option>
-                            <option value="Provinsi">Provinsi</option>
-                            <option value="Nasional">Nasional</option>
-                            <option value="Internasional">Internasional</option>
-                        </select>
-                    </div>
+                <div class="col-md-2">
+                    <label class="form-label small fw-bold text-muted">Level</label>
+                    <select name="level" class="form-select form-select-sm rounded-3" required>
+                        <option value="Lokal/Kampus">Lokal/Kampus</option>
+                        <option value="Kota/Kabupaten">Kota/Kabupaten</option>
+                        <option value="Provinsi">Provinsi</option>
+                        <option value="Nasional">Nasional</option>
+                        <option value="Internasional">Internasional</option>
+                    </select>
+                </div>
 
-                    <div class="col-md-4">
-                        <label class="form-label small fw-bold text-muted">File Bukti</label>
-                        <input type="file"
-                               name="file_bukti"
-                               class="form-control form-control-sm rounded-3"
-                               accept=".pdf,.jpg,.jpeg,.png"
-                               required>
-                    </div>
+                <div class="col-md-4">
+                    <label class="form-label small fw-bold text-muted">File Bukti</label>
+                    <input type="file"
+                            name="file_bukti"
+                            class="form-control form-control-sm rounded-3"
+                            accept=".pdf,.jpg,.jpeg,.png"
+                            required>
+                </div>
 
-                    <div class="col-12">
-                        <button type="submit"
-                                class="btn btn-primary btn-sm rounded-pill px-4 fw-bold py-2 shadow-sm"
-                                style="background-color: var(--navy-theme); border-color: var(--navy-theme);">
-                            Simpan Data Portofolio
-                        </button>
-                    </div>
-                </form>
-            </div>
-        @endif
+                <div class="col-12">
+                    <button type="submit"
+                            class="btn btn-primary btn-sm rounded-pill px-4 fw-bold py-2 shadow-sm"
+                            style="background-color: var(--navy-theme); border-color: var(--navy-theme);">
+                        Simpan Data Portofolio
+                    </button>
+                </div>
+            </form>
+        </div>
 
         <div class="card live-card border-0 p-4 rounded-4">
             <ul class="nav nav-pills mb-4" id="pills-tab" role="tablist">
@@ -249,10 +247,8 @@
                         </div>
                     </div>
                 @endforeach
-
             </div>
         </div>
-
     </div>
 </div>
 

@@ -1,19 +1,11 @@
-:root {
-    --navy-theme: #063255;
-    --accent-color: #0284c7;
-    --bg-light: #f4f7fa;
+.tracker-header-box { 
+    background: #ffffff;
+    border: 1px solid rgba(6, 50, 85, 0.07);
+    box-shadow: 0 10px 25px rgba(6, 50, 85, 0.05);
+    margin-top: 2%;
 }
-
-body {
-    background-color: var(--bg-light);
-    font-family: 'Segoe UI', sans-serif;
-    font-size: 0.85rem;
-}
-
-.main-content {
-    margin-left: 280px;
-    padding: 30px;
-}
+.header-title { color: var(--navy-theme); font-size: 1.5rem; letter-spacing: 0.5px; }
+.header-subtitle { color: #64748b; font-size: 0.85rem; }
 
 .table-card {
     background: #fff;

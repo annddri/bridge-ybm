@@ -1,3 +1,11 @@
+.tracker-header-box { 
+    background: #ffffff;
+    border: 1px solid rgba(6, 50, 85, 0.07);
+    box-shadow: 0 10px 25px rgba(6, 50, 85, 0.05);
+    margin-top: 2%;
+}
+.header-title { color: var(--navy-theme); font-size: 1.5rem; letter-spacing: 0.5px; }
+.header-subtitle { color: #64748b; font-size: 0.85rem; }
 .finance-card {
     border-radius: 14px;
     color: white;

@@ -14,11 +14,9 @@ class Masyarakat extends Model
         'id_user',
         'kategori',
         'waktu',
-        'lokasi_sasaran',
-        'nama_kegiatan_materi',
-        'keterangan_tambahan',
+        'lokasi_sasaran_peserta',
+        'kunjungan_sospro_materi',
         'link_laporan',
-        'status',
         'created_at',
     ];
 

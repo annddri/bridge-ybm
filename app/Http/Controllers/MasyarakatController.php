@@ -55,9 +55,8 @@ class MasyarakatController extends Controller
         $request->validate([
             'kategori' => 'required|in:kunjungan,social_project,narasumber',
             'waktu' => 'required|string|max:50',
-            'lokasi_sasaran' => 'nullable|string|max:255',
-            'nama_kegiatan_materi' => 'required|string|max:255',
-            'keterangan_tambahan' => 'nullable|string',
+            'lokasi_sasaran_peserta' => 'nullable|string|max:255',
+            'kunjungan_sospro_materi' => 'required|string|max:255',
             'link_laporan' => 'nullable|url|max:255',
         ]);
 
@@ -65,33 +64,29 @@ class MasyarakatController extends Controller
             'id_user' => session('id_user'),
             'kategori' => $request->kategori,
             'waktu' => $request->waktu,
-            'lokasi_sasaran' => $request->lokasi_sasaran,
-            'nama_kegiatan_materi' => $request->nama_kegiatan_materi,
-            'keterangan_tambahan' => $request->keterangan_tambahan,
+            'lokasi_sasaran_peserta' => $request->lokasi_sasaran_peserta,
+            'kunjungan_sospro_materi' => $request->kunjungan_sospro_materi,
             'link_laporan' => $request->link_laporan,
-            'status' => 'Belum Lulus',
             'created_at' => now(),
         ]);
 
         return redirect('/masyarakat')->with('success', 'Data sosial masyarakat berhasil diajukan.');
     }
-
-    public function updateStatus($id, $status)
+    
+    public function destroy($id)
     {
-        if (session('role') === 'mahasiswa') {
-            abort(403);
-        }
-
-        if (!in_array($status, ['Lulus', 'Belum Lulus'])) {
-            abort(400);
+        if (!session()->has('id_user')) {
+            return redirect('/login');
         }
 
         $masyarakat = Masyarakat::findOrFail($id);
 
-        $masyarakat->update([
-            'status' => $status,
-        ]);
+        if (session('role') === 'mahasiswa' && $masyarakat->id_user != session('id_user')) {
+            abort(403);
+        }
 
-        return redirect('/masyarakat')->with('success', 'Status kegiatan sosial berhasil diperbarui.');
+        $masyarakat->delete();
+
+        return redirect('/masyarakat')->with('success', 'Data sosial masyarakat berhasil dihapus.');
     }
 }

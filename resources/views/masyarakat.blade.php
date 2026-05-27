@@ -20,10 +20,6 @@
                         </p>
                     </div>
                 </div>
-
-                <div>
-                    <a href="/dashboard" class="btn-kembali shadow-sm">Kembali</a>
-                </div>
             </div>
         </div>
 
@@ -45,59 +41,52 @@
             </div>
         @endif
 
-        @if ($role_user === 'mahasiswa')
-            <div class="card live-card border-0 p-4 rounded-4 mb-4">
-                <h6 class="fw-bold mb-0" style="color: var(--accent-color);">
-                    <i class="fas fa-plus-circle me-1"></i> Tambah Kegiatan Baru
-                </h6>
+        <div class="card live-card border-0 p-4 rounded-4 mb-4">
+            <h6 class="fw-bold mb-0" style="color: var(--accent-color);">
+                <i class="fas fa-plus-circle me-1"></i> Tambah Kegiatan Baru
+            </h6>
 
-                <hr class="text-muted opacity-25 my-3">
+            <hr class="text-muted opacity-25 my-3">
 
-                <form action="{{ route('masyarakat.store') }}" method="POST" class="row g-3">
-                    @csrf
+            <form action="{{ route('masyarakat.store') }}" method="POST" class="row g-3">
+                @csrf
 
-                    <div class="col-md-3">
-                        <label class="form-label small fw-bold text-muted">Jenis Kegiatan</label>
-                        <select name="kategori" id="kat_sosial" class="form-select form-select-sm rounded-3" onchange="updateLabel()" required>
-                            <option value="kunjungan">📍 Kunjungan Program</option>
-                            <option value="social_project">🌱 Social Project</option>
-                            <option value="narasumber">🎤 Narasumber Pembinaan</option>
-                        </select>
-                    </div>
+                <div class="col-md-3">
+                    <label class="form-label small fw-bold text-muted">Jenis Kegiatan</label>
+                    <select name="kategori" id="kat_sosial" class="form-select form-select-sm rounded-3" onchange="updateLabel()" required>
+                        <option value="kunjungan">📍 Kunjungan Program</option>
+                        <option value="social_project">🌱 Social Project</option>
+                        <option value="narasumber">🎤 Narasumber Pembinaan</option>
+                    </select>
+                </div>
 
-                    <div class="col-md-2">
-                        <label class="form-label small fw-bold text-muted">Waktu</label>
-                        <input type="text" name="waktu" class="form-control form-control-sm rounded-3" required>
-                    </div>
+                <div class="col-md-2">
+                    <label class="form-label small fw-bold text-muted">Waktu</label>
+                    <input type="date" name="waktu" class="form-control form-control-sm rounded-3" required>
+                </div>
 
-                    <div class="col-md-3">
-                        <label id="label_nama" class="form-label small fw-bold text-muted">Daftar Kunjungan</label>
-                        <input type="text" name="nama_kegiatan_materi" class="form-control form-control-sm rounded-3" required>
-                    </div>
+                <div class="col-md-3">
+                    <label id="label_nama" class="form-label small fw-bold text-muted">Daftar Kunjungan</label>
+                    <input type="text" name="kunjungan_sospro_materi" class="form-control form-control-sm rounded-3" required>
+                </div>
 
-                    <div class="col-md-2">
-                        <label id="label_lokasi" class="form-label small fw-bold text-muted">Lokasi</label>
-                        <input type="text" name="lokasi_sasaran" class="form-control form-control-sm rounded-3">
-                    </div>
+                <div class="col-md-2">
+                    <label id="label_lokasi" class="form-label small fw-bold text-muted">Lokasi</label>
+                    <input type="text" name="lokasi_sasaran_peserta" class="form-control form-control-sm rounded-3">
+                </div>
 
-                    <div class="col-md-2">
-                        <label class="form-label small fw-bold text-muted">Link Laporan</label>
-                        <input type="url" name="link_laporan" class="form-control form-control-sm rounded-3" placeholder="https://...">
-                    </div>
+                <div class="col-md-2">
+                    <label class="form-label small fw-bold text-muted">Laporan/Dokumentasi</label>
+                    <input type="url" name="link_laporan" class="form-control form-control-sm rounded-3" placeholder="https://...">
+                </div>
 
-                    <div class="col-md-12">
-                        <label class="form-label small fw-bold text-muted">Keterangan Tambahan</label>
-                        <textarea name="keterangan_tambahan" class="form-control form-control-sm rounded-3" rows="2"></textarea>
-                    </div>
-
-                    <div class="col-12">
-                        <button type="submit" class="btn btn-custom-ybm btn-sm rounded-pill px-4 fw-bold py-2 shadow-sm">
-                            Simpan Keaktifan Masyarakat
-                        </button>
-                    </div>
-                </form>
-            </div>
-        @endif
+                <div class="col-12">
+                    <button type="submit" class="btn btn-custom-ybm btn-sm rounded-pill px-4 fw-bold py-2 shadow-sm">
+                        Simpan Keaktifan Masyarakat
+                    </button>
+                </div>
+            </form>
+        </div>
 
         <div class="card live-card border-0 p-4 rounded-4">
             <ul class="nav nav-pills mb-4 justify-content-center" role="tablist">
@@ -143,70 +132,51 @@
                             <table class="table table-hover align-middle m-0">
                                 <thead>
                                     <tr class="small text-muted text-uppercase">
-                                        @if ($role_user !== 'mahasiswa')
-                                            <th width="15%" class="px-3">Nama Mahasiswa</th>
-                                        @endif
 
-                                        <th width="12%" class="{{ $role_user === 'mahasiswa' ? 'px-3' : '' }}">
-                                            {{ $kategori === 'social_project' ? 'Tahun' : 'Waktu' }}
+                                        <th width="12%" class="px-3">
+                                            Waktu
                                         </th>
 
                                         <th width="23%">
-                                            @if ($kategori === 'narasumber')
-                                                Judul Materi
+                                            @if ($kategori === 'kunjungan')
+                                                Daftar Kunjungan
                                             @elseif ($kategori === 'social_project')
-                                                Nama Project
+                                                Nama Sosial Proyek
                                             @else
-                                                Lokasi
+                                                Judul Materi
                                             @endif
                                         </th>
 
                                         <th width="25%">
                                             @if ($kategori === 'kunjungan')
-                                                Daftar Kunjungan
-                                            @elseif ($kategori === 'narasumber')
-                                                Peserta/Jumlah
+                                                Lokasi
+                                            @elseif ($kategori === 'social_project')
+                                                Sasaran
                                             @else
-                                                Deskripsi
+                                                Jumlah Peserta
                                             @endif
                                         </th>
 
-                                        <th width="10%" class="text-center">Laporan</th>
-                                        <th width="10%" class="text-center">Status</th>
+                                        <th width="10%" class="text-center">Laporan/Dokumentasi</th>
+                                        <th width="10%" class="text-center">Aksi</th>
 
-                                        @if ($role_user !== 'mahasiswa')
-                                            <th width="10%" class="text-center">Aksi</th>
-                                        @endif
                                     </tr>
                                 </thead>
 
                                 <tbody>
                                     @forelse ($rows as $row)
                                         <tr>
-                                            @if ($role_user !== 'mahasiswa')
-                                                <td class="px-3 fw-semibold text-secondary">
-                                                    {{ $row->user->name }}
-                                                </td>
-                                            @endif
 
-                                            <td class="small text-muted {{ $role_user === 'mahasiswa' ? 'px-3' : '' }}">
+                                            <td class="small text-muted px-3">
                                                 {{ $row->waktu }}
                                             </td>
 
                                             <td class="fw-bold text-dark">
-                                                @if ($kategori === 'kunjungan')
-                                                    {{ $row->lokasi_sasaran }}
-                                                @else
-                                                    {{ $row->nama_kegiatan_materi }}
-                                                @endif
+                                                {{ $row->kunjungan_sospro_materi }}
                                             </td>
 
                                             <td>
-                                                @if ($kategori === 'kunjungan')
-                                                    {{ $row->nama_kegiatan_materi }}
-                                                @else
-                                                    {{ $row->keterangan_tambahan }}
-                                                @endif
+                                                {{ $row->lokasi_sasaran_peserta }}
                                             </td>
 
                                             <td class="text-center">
@@ -220,38 +190,23 @@
                                             </td>
 
                                             <td class="text-center">
-                                                @if ($row->status === 'Lulus')
-                                                    <span class="badge-status status-lulus">
-                                                        <i class="fas fa-check-circle me-1"></i> Valid
-                                                    </span>
-                                                @else
-                                                    <span class="badge-status status-pending">
-                                                        <i class="fas fa-clock me-1"></i> Pending
-                                                    </span>
-                                                @endif
+                                                <form action="{{ route('masyarakat.destroy', $row->id) }}"
+                                                method="POST"
+                                                class="d-inline"
+                                                onsubmit="return confirm('Yakin ingin menghapus data sosial masyarakat ini?')">
+                                                @csrf
+                                                @method('DELETE')
+
+                                                <button type="submit" class="btn btn-sm btn-outline-danger rounded-pill px-3">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </form>
                                             </td>
 
-                                            @if ($role_user !== 'mahasiswa')
-                                                <td class="text-center">
-                                                    @if ($row->status === 'Belum Lulus')
-                                                        <a href="{{ route('masyarakat.status', [$row->id, 'Lulus']) }}"
-                                                           class="btn btn-sm btn-success rounded-pill px-2 py-1 fw-bold text-white"
-                                                           onclick="return confirm('Validkan kegiatan sosial ini?')">
-                                                            <i class="fas fa-check"></i> Validkan
-                                                        </a>
-                                                    @else
-                                                        <a href="{{ route('masyarakat.status', [$row->id, 'Belum Lulus']) }}"
-                                                           class="btn btn-sm btn-danger rounded-pill px-2 py-1 fw-bold text-white"
-                                                           onclick="return confirm('Batalkan verifikasi data ini?')">
-                                                            <i class="fas fa-times"></i> Batalkan
-                                                        </a>
-                                                    @endif
-                                                </td>
-                                            @endif
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="{{ $role_user !== 'mahasiswa' ? 7 : 5 }}" class="text-center text-muted py-4 small">
+                                            <td colspan="5" class="text-center text-muted py-4 small">
                                                 Belum ada data di kategori ini.
                                             </td>
                                         </tr>
@@ -261,10 +216,8 @@
                         </div>
                     </div>
                 @endforeach
-
             </div>
         </div>
-
     </div>
 </div>
 
@@ -282,7 +235,7 @@ function updateLabel() {
         lblLokasi.innerText = "Sasaran";
     } else {
         lblNama.innerText = "Judul Materi";
-        lblLokasi.innerText = "Teknis/Peserta";
+        lblLokasi.innerText = "Jumlah Peserta";
     }
 }
 </script>

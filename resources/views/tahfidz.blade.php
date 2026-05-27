@@ -41,61 +41,59 @@
             </div>
         @endif
 
-        @if ($role_user === 'mahasiswa')
-            <div class="card live-card border-0 p-4 rounded-4 mb-4">
-                <h6 class="fw-bold mb-0" style="color: var(--navy-theme);">
-                    Input Setoran Baru
-                </h6>
+        <div class="card live-card border-0 p-4 rounded-4 mb-4">
+            <h6 class="fw-bold mb-0" style="color: var(--navy-theme);">
+                Input Setoran Baru
+            </h6>
 
-                <hr class="text-muted opacity-25 my-3">
+            <hr class="text-muted opacity-25 my-3">
 
-                <form action="{{ route('tahfidz.store') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
+            <form action="{{ route('tahfidz.store') }}" method="POST" enctype="multipart/form-data">
+                @csrf
 
-                    <div class="row align-items-end g-3">
-                        <div class="col-md-4">
-                            <label class="form-label text-muted fw-semibold small mb-1">
-                                Nama Surah / Materi
-                            </label>
-                            <input type="text"
-                                   name="nama_surah"
-                                   class="form-control form-control-sm rounded-3"
-                                   placeholder="Contoh: Al-Mulk"
-                                   required>
-                        </div>
-
-                        <div class="col-md-3">
-                            <label class="form-label text-muted fw-semibold small mb-1">
-                                Tanggal Tes
-                            </label>
-                            <input type="date"
-                                   name="tanggal_tes"
-                                   class="form-control form-control-sm rounded-3"
-                                   required>
-                        </div>
-
-                        <div class="col-md-3">
-                            <label class="form-label text-muted fw-semibold small mb-1">
-                                Bukti Verifikasi PDF/Gambar
-                            </label>
-                            <input type="file"
-                                   name="file_verifikasi"
-                                   class="form-control form-control-sm rounded-3"
-                                   accept=".pdf,.jpg,.jpeg,.png"
-                                   required>
-                        </div>
-
-                        <div class="col-md-2">
-                            <button type="submit"
-                                    class="btn btn-primary btn-sm w-100 rounded-pill fw-semibold py-2"
-                                    style="background-color: var(--navy-theme); border-color: var(--navy-theme);">
-                                <i class="fas fa-paper-plane me-1"></i> Kirim
-                            </button>
-                        </div>
+                <div class="row align-items-end g-3">
+                    <div class="col-md-4">
+                        <label class="form-label text-muted fw-semibold small mb-1">
+                            Nama Surah / Materi
+                        </label>
+                        <input type="text"
+                                name="nama_surah"
+                                class="form-control form-control-sm rounded-3"
+                                placeholder="Contoh: Al-Mulk"
+                                required>
                     </div>
-                </form>
-            </div>
-        @endif
+
+                    <div class="col-md-3">
+                        <label class="form-label text-muted fw-semibold small mb-1">
+                            Tanggal Tes
+                        </label>
+                        <input type="date"
+                                name="tanggal_tes"
+                                class="form-control form-control-sm rounded-3"
+                                required>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label class="form-label text-muted fw-semibold small mb-1">
+                            Bukti Verifikasi PDF/Gambar
+                        </label>
+                        <input type="file"
+                                name="file_verifikasi"
+                                class="form-control form-control-sm rounded-3"
+                                accept=".pdf,.jpg,.jpeg,.png"
+                                required>
+                    </div>
+
+                    <div class="col-md-2">
+                        <button type="submit"
+                                class="btn btn-primary btn-sm w-100 rounded-pill fw-semibold py-2"
+                                style="background-color: var(--navy-theme); border-color: var(--navy-theme);">
+                            <i class="fas fa-paper-plane me-1"></i> Kirim
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
 
         <div class="card live-card border-0 p-4 rounded-4">
             <h6 class="fw-bold mb-0" style="color: var(--navy-theme);">
@@ -174,7 +172,6 @@
                 </table>
             </div>
         </div>
-
     </div>
 </div>
 

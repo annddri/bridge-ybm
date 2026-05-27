@@ -9,19 +9,17 @@
 <div class="main-content">
     <div class="container-fluid">
 
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <div>
-                <h3 class="fw-bold text-dark m-0">Inventaris Asrama</h3>
-                <p class="text-muted m-0 small">
-                    Kelola data logistik dan fasilitas bersama secara komunal.
-                </p>
-            </div>
-
-            <div class="text-end d-none d-md-block">
-                <div class="fw-bold text-primary-ybm" style="font-size: 0.95rem;">
-                    {{ now()->translatedFormat('d F Y') }}
+        <div class="tracker-header-box p-4 rounded-4 mb-4">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-boxes-stacked fs-3 me-3" style="color: var(--accent-color);"></i>
+                    <div>
+                        <h4 class="fw-bold m-0 header-title">Inventaris Asrama</h4>
+                        <p class="m-0 header-subtitle">
+                            Kelola data logistik dan fasilitas bersama secara komunal.
+                        </p>
+                    </div>
                 </div>
-                <small id="clock" class="text-muted" style="font-size: 0.85rem; font-weight: 500;"></small>
             </div>
         </div>
 
@@ -385,15 +383,6 @@
 </div>
 
 <script>
-    function updateClock() {
-        const clock = document.getElementById('clock');
-
-        if (clock) {
-            const now = new Date();
-            clock.innerText = now.toLocaleTimeString('id-ID');
-        }
-    }
-
     function toggleEdit(id) {
         const editRow = document.getElementById('edit-' + id);
 
@@ -401,9 +390,6 @@
             editRow.classList.toggle('d-none');
         }
     }
-
-    setInterval(updateClock, 1000);
-    updateClock();
 </script>
 
 <x-footer></x-footer>

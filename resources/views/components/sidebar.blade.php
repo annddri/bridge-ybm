@@ -18,12 +18,6 @@
             <i class="fas fa-user-circle"></i> Profil Saya
         </a>
 
-        @if ($roleUser !== 'mahasiswa')
-            <a href="/data-awardee" class="nav-link {{ request()->is('data-awardee') ? 'active' : '' }}">
-                <i class="fas fa-users"></i> Data Awardee
-            </a>
-        @endif
-
         <div class="px-4 py-2 small text-uppercase fw-bold text-white-50" style="letter-spacing: 1px; margin-top: 15px; margin-bottom: 5px; font-size: 0.75rem;">
             Fitur Monitoring
         </div>

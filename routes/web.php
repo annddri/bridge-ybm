@@ -50,8 +50,7 @@ Route::delete('/portofolio/{id}', [PortofolioController::class, 'destroy'])->nam
 
 Route::get('/masyarakat', [MasyarakatController::class, 'index'])->name('masyarakat');
 Route::post('/masyarakat', [MasyarakatController::class, 'store'])->name('masyarakat.store');
-Route::get('/masyarakat/status/{id}/{status}', [MasyarakatController::class, 'updateStatus'])->name('masyarakat.status');
-
+Route::delete('/masyarakat/{id}', [MasyarakatController::class, 'destroy'])->name('masyarakat.destroy');
 
 Route::get('/inventaris', [InventarisController::class, 'index'])->name('inventaris.index');
 Route::post('/inventaris', [InventarisController::class, 'store'])->name('inventaris.store');

@@ -24,13 +24,11 @@ return new class extends Migration
                 'narasumber'
             ])->nullable();
 
-            $table->string('waktu', 50)->nullable();
-            $table->string('lokasi_sasaran', 255)->nullable();
-            $table->string('nama_kegiatan_materi', 255)->nullable();
-            $table->text('keterangan_tambahan')->nullable();
+            $table->date('waktu');
+            $table->string('lokasi_sasaran_peserta', 255)->nullable();
+            $table->string('kunjungan_sospro_materi', 255)->nullable();
             $table->string('link_laporan', 255)->nullable();
 
-            $table->string('status', 20)->default('Belum Lulus');
             $table->timestamp('created_at')->useCurrent();
         });
     }
