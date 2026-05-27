@@ -21,7 +21,6 @@ return new class extends Migration
             $table->string('nama_surah', 100);
             $table->date('tanggal_tes');
             $table->string('file_verifikasi')->nullable();
-            $table->enum('status', ['Lulus', 'Belum Lulus'])->default('Belum Lulus');
 
             $table->timestamps();
         });

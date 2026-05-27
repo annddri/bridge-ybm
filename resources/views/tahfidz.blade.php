@@ -20,12 +20,6 @@
                         </p>
                     </div>
                 </div>
-
-                <div>
-                    <a href="/dashboard" class="btn-kembali shadow-sm">
-                        Kembali
-                    </a>
-                </div>
             </div>
         </div>
 
@@ -114,34 +108,23 @@
                 <table class="table table-hover align-middle m-0">
                     <thead>
                         <tr>
-                            @if ($role_user === 'kepala_asrama')
-                                <th class="border-0 px-3 py-3">Nama Mahasiswa</th>
-                            @endif
 
-                            <th class="border-0 {{ $role_user === 'mahasiswa' ? 'px-3' : '' }} py-3">
+                            <th class="border-0 px-3 py-3">
                                 Surah / Materi
                             </th>
 
                             <th class="border-0 py-3">Tanggal</th>
                             <th class="border-0 py-3 text-center">Bukti</th>
-                            <th class="border-0 py-3 text-center">Status</th>
+                            <th class="border-0 py-3 text-center">Aksi</th>
 
-                            @if ($role_user === 'kepala_asrama')
-                                <th class="border-0 py-3 text-center">Aksi</th>
-                            @endif
                         </tr>
                     </thead>
 
                     <tbody>
                         @forelse ($data_tahfidz as $row)
                             <tr>
-                                @if ($role_user === 'kepala_asrama')
-                                    <td class="px-3 fw-semibold" style="color: #334155;">
-                                        {{ $row->user->name }}
-                                    </td>
-                                @endif
 
-                                <td class="{{ $role_user === 'mahasiswa' ? 'px-3' : '' }}">
+                                <td class="px-3">
                                     <span class="badge bg-light text-dark border px-2 py-1.5 rounded-3 fw-semibold">
                                         {{ $row->nama_surah }}
                                     </span>
@@ -154,9 +137,9 @@
                                 <td class="text-center">
                                     @if ($row->file_verifikasi)
                                         <a href="{{ asset('uploads/tahfidz/' . $row->file_verifikasi) }}"
-                                           target="_blank"
-                                           class="btn btn-sm btn-outline-secondary rounded-pill px-3"
-                                           style="font-size: 0.75rem;">
+                                            target="_blank"
+                                            class="btn btn-sm btn-outline-secondary rounded-pill px-3"
+                                            style="font-size: 0.75rem;">
                                             <i class="fas fa-eye me-1"></i> File
                                         </a>
                                     @else
@@ -165,36 +148,23 @@
                                 </td>
 
                                 <td class="text-center">
-                                    @if ($row->status === 'Lulus')
-                                        <span class="badge-status bg-success text-white">
-                                            <i class="fas fa-check me-1"></i> Lulus
-                                        </span>
-                                    @else
-                                        <span class="badge-status bg-warning text-dark">
-                                            <i class="fas fa-clock me-1"></i> Pending
-                                        </span>
-                                    @endif
+                                    <form action="{{ route('tahfidz.destroy', $row->id) }}"
+                                        method="POST"
+                                        class="d-inline"
+                                        onsubmit="return confirm('Yakin ingin menghapus data tahfidz ini?')">
+                                        @csrf
+                                        @method('DELETE')
+
+                                        <button type="submit" class="btn btn-sm btn-outline-danger rounded-pill px-3">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </form>
                                 </td>
 
-                                @if ($role_user === 'kepala_asrama')
-                                    <td class="text-center">
-                                        @if ($row->status === 'Belum Lulus')
-                                            <a href="{{ route('tahfidz.status', [$row->id, 'Lulus']) }}"
-                                               class="btn btn-action btn-success shadow-sm">
-                                                <i class="fas fa-check-double me-1"></i> Verifikasi
-                                            </a>
-                                        @else
-                                            <a href="{{ route('tahfidz.status', [$row->id, 'Belum Lulus']) }}"
-                                               class="btn btn-action btn-danger shadow-sm">
-                                                <i class="fas fa-undo me-1"></i> Batalkan
-                                            </a>
-                                        @endif
-                                    </td>
-                                @endif
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="{{ $role_user === 'kepala_asrama' ? 6 : 4 }}"
+                                <td colspan="4"
                                     class="text-center text-muted py-4">
                                     Belum ada data setoran hafalan terdata.
                                 </td>

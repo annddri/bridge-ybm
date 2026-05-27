@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Tahfidz;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\File;
 
 class TahfidzController extends Controller
 {
@@ -72,28 +73,34 @@ class TahfidzController extends Controller
             'nama_surah' => $request->nama_surah,
             'tanggal_tes' => $request->tanggal_tes,
             'file_verifikasi' => $fileName,
-            'status' => 'Belum Lulus',
         ]);
 
         return redirect('/tahfidz')->with('success', 'Setoran berhasil diunggah.');
     }
 
-    public function updateStatus($id, $status)
+    public function destroy($id)
     {
-        if (session('role') !== 'kepala_asrama') {
-            abort(403);
-        }
-
-        if (!in_array($status, ['Lulus', 'Belum Lulus'])) {
-            abort(400);
+        if (!session()->has('id_user')) {
+            return redirect('/login');
         }
 
         $tahfidz = Tahfidz::findOrFail($id);
 
-        $tahfidz->update([
-            'status' => $status,
-        ]);
+        if (session('role') === 'mahasiswa' && $tahfidz->id_user != session('id_user')) {
+            abort(403);
+        }
 
-        return redirect('/tahfidz');
+        if ($tahfidz->file_verifikasi) {
+            $filePath = public_path('uploads/tahfidz/' . $tahfidz->file_verifikasi);
+
+            if (File::exists($filePath)) {
+                File::delete($filePath);
+            }
+        }
+
+        $tahfidz->delete();
+
+        return redirect('/tahfidz')->with('success', 'Data tahfidz berhasil dihapus.');
     }
+
 }
