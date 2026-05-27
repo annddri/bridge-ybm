@@ -29,7 +29,7 @@ Route::get('/profile', [ProfileController::class, 'index']);
 Route::post('/profile/update-whatsapp', [ProfileController::class, 'updateWhatsapp'])
     ->name('profile.updateWhatsapp');
 
-Route::get('/amalan', [AmalanController::class, 'index']);
+Route::get('/amalan', [AmalanController::class, 'index'])->name('amalan.index');
 Route::post('/amalan/update', [AmalanController::class, 'update'])->name('amalan.update');
 
 Route::get('/tahfidz', [TahfidzController::class, 'index'])->name('tahfidz');

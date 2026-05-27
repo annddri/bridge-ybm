@@ -43,6 +43,13 @@ class AmalanController extends Controller
             'berinfak'        => ['nama' => 'Berinfak', 'tipe' => 'harian', 'target' => 1, 'unit' => '/hari'],
         ];
 
+        $tahun_mulai = \Carbon\Carbon::parse($u->created_at)->year;
+        $tahun_akhir = $tahun_mulai + 4;
+
+        if ($tahun < $tahun_mulai || $tahun > $tahun_akhir) {
+            $tahun = $tahun_mulai;
+        }
+
         $data_db = [];
 
         if ($role_user == 'mahasiswa') {
@@ -83,13 +90,15 @@ class AmalanController extends Controller
             'role_user',
             'bulan',
             'tahun',
+            'tahun_mulai',
+            'tahun_akhir',
             'jumlah_hari',
             'foto_path',
             'list_amalan',
             'data_db',
             'theme',
             'accent_color',
-            'awardees'
+            'awardees',
         ));
     }
 
