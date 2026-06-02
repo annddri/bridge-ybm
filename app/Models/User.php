@@ -55,4 +55,29 @@ class User extends Authenticatable
     {
         return $this->hasOne(MahasiswaProfile::class, 'user_id', 'id');
     }
+
+    public function kepasProfile()
+{
+    return $this->hasOne(KepasProfile::class, 'user_id', 'id');
+}
+
+    public function amalan()
+    {
+        return $this->hasMany(Amalan::class, 'id_user', 'id');
+    }
+
+    public function tahfidz()
+    {
+        return $this->hasMany(Tahfidz::class, 'id_user', 'id');
+    }
+
+    public function portofolio()
+    {
+        return $this->hasMany(Portofolio::class, 'id_user', 'id');
+    }
+
+    public function masyarakat()
+    {
+        return $this->hasMany(Masyarakat::class, 'id_user', 'id');
+    }
 }

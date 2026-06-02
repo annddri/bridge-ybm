@@ -4,26 +4,22 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class MahasiswaProfile extends Model
+class KepasProfile extends Model
 {
-    protected $table = 'mahasiswa_profiles';
+    protected $table = 'kepas_profiles';
 
     protected $fillable = [
         'user_id',
-        'nibs',
-        'nim',
-        'universitas',
-        'prodi',
-        'angkatan',
+        'asrama_id',
         'no_telp',
-        'bio',
         'foto_profil',
     ];
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id', 'id');
+        return $this->belongsTo(User::class);
     }
+
     public function asrama()
     {
         return $this->belongsTo(Asrama::class);

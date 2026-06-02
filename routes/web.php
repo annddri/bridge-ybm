@@ -11,6 +11,8 @@ use App\Http\Controllers\PortofolioController;
 use App\Http\Controllers\MasyarakatController;
 use App\Http\Controllers\InventarisController;
 use App\Http\Controllers\KeuanganController;
+use App\Http\Controllers\KepasController;
+use App\Http\Controllers\ProfileKepasController;
 
 Route::get('/', function () {
     if (session()->has('id_user')) {
@@ -61,3 +63,11 @@ Route::get('/keuangan', [KeuanganController::class, 'index'])->name('keuangan.in
 Route::post('/keuangan/store', [KeuanganController::class, 'store'])->name('keuangan.store');
 Route::put('/keuangan/update/{id}', [KeuanganController::class, 'update'])->name('keuangan.update');
 Route::delete('/keuangan/delete/{id}', [KeuanganController::class, 'destroy'])->name('keuangan.destroy');
+
+// KEPALA ASRAMA
+Route::get('/kepas', [KepasController::class, 'index'])->name('kepas');
+
+
+Route::get('/profile-kepas', [ProfileKepasController::class, 'index']);
+Route::post('/profile-kepas/update-whatsapp', [ProfileKepasController::class, 'updateWhatsapp'])
+    ->name('profileKepas.updateWhatsapp');

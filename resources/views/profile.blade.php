@@ -59,6 +59,10 @@
                                     <div class="info-label">Email</div>
                                     <div class="info-value">{{ $u->email}}</div>
                                 </div>
+                                {{-- <div class="mb-3">
+                                    <div class="info-label">Asrama</div>
+                                    <div class="info-value">{{ $u->}}</div>
+                                </div> --}}
                                 <div class="info-label">NOMOR TELEPON (WHATSAPP)</div>
 
                                     <div class="d-flex align-items-center gap-2">

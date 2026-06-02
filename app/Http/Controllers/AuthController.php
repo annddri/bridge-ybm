@@ -37,6 +37,10 @@ class AuthController extends Controller
             'name' => $user->name,
         ]);
 
+        if ($user->role === 'kepas') {
+            return redirect('/kepas');
+        }
+
         return redirect('/dashboard');
     }
 
