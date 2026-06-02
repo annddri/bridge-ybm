@@ -82,3 +82,28 @@ Route::get('/data-mahasiswa/{id}', [
     DataMahasiswaController::class,
     'detail'
 ])->name('mahasiswa.detail');   
+
+Route::get(
+    '/data-mahasiswa/{id}/amalan',
+    [DataMahasiswaController::class, 'detailAmalan']
+)->name('mahasiswa.amalan');
+
+Route::get(
+    '/data-mahasiswa/{id}/tahfidz',
+    [DataMahasiswaController::class, 'detailTahfidz']
+)->name('mahasiswa.tahfidz');
+
+Route::get(
+    '/data-mahasiswa/{id}/akademik',
+    [DataMahasiswaController::class, 'detailAkademik']
+)->name('mahasiswa.akademik');
+
+Route::get(
+    '/data-mahasiswa/{id}/portofolio',
+    [DataMahasiswaController::class, 'detailPortofolio']
+)->name('mahasiswa.portofolio');
+
+Route::get(
+    '/data-mahasiswa/{id}/masyarakat',
+    [DataMahasiswaController::class, 'detailMasyarakat']
+)->name('mahasiswa.masyarakat');

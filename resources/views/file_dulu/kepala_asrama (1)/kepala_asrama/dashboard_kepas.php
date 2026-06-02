@@ -515,7 +515,7 @@ padding:20px;
 <!-- SIDEBAR -->
 
 <div class="sidebar shadow">
-
+<<<
 <div class="sidebar-brand">
 
 <img src="<?= $foto_path ?>?t=<?= time() ?>" alt="Profile" class="brand-logo shadow">

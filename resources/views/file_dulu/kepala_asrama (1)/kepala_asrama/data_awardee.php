@@ -39,7 +39,7 @@ $query_awardee=false;
 ?>
 
 <!DOCTYPE html>
-<html lang="id">
+<<<<html lang="id">
 
 <head>
 

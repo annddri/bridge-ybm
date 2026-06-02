@@ -1,0 +1,43 @@
+.main-content{
+    margin-left:280px;
+    padding:35px;
+}
+
+.topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.student-card{
+    background:#fff;
+    border-radius:24px;
+    padding:25px;
+    display:flex;
+    gap:20px;
+    align-items:center;
+    margin-bottom:25px;
+}
+
+.student-photo{
+    width:80px;
+    height:80px;
+    border-radius:18px;
+    object-fit:cover;
+}
+
+.table-card{
+    background:#fff;
+    border-radius:24px;
+    padding:25px;
+}
+
+.badge-surah{
+    background:#eff6ff;
+    color:#2563eb;
+    padding:7px 14px;
+    border-radius:999px;
+    font-size:.8rem;
+    font-weight:700;
+}

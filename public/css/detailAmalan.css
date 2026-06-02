@@ -1,0 +1,324 @@
+:root{
+--sidebar-bg:#063255;
+--sidebar-text:rgba(255,255,255,0.85);
+--sidebar-hover:rgba(255,255,255,0.08);
+--accent-color:#0d6efd;
+--bg-light:#f4f7fb;
+--card-border:#e7edf4;
+--text-dark:#1e293b;
+--success:#22c55e;
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+background:var(--bg-light);
+font-family:'Segoe UI',sans-serif;
+color:var(--text-dark);
+}
+
+/* SIDEBAR */
+
+.sidebar{
+width:280px;
+height:100vh;
+position:fixed;
+top:0;
+left:0;
+background:linear-gradient(180deg,#063255 0%,#041f35 100%);
+color:var(--sidebar-text);
+padding-top:10px;
+z-index:1000;
+overflow-y:auto;
+border-right:1px solid rgba(255,255,255,0.05);
+}
+
+.sidebar-brand{
+text-align:center;
+padding:25px 20px;
+border-bottom:1px solid rgba(255,255,255,0.08);
+}
+
+.brand-logo{
+width:75px;
+height:75px;
+border-radius:50%;
+border:3px solid rgba(255,255,255,0.2);
+margin-bottom:12px;
+object-fit:cover;
+}
+
+.nav-link{
+color:var(--sidebar-text);
+padding:11px 25px;
+display:flex;
+align-items:center;
+transition:all 0.2s ease;
+font-size:0.92rem;
+text-decoration:none;
+border-left:4px solid transparent;
+}
+
+.nav-link i{
+width:24px;
+margin-right:12px;
+font-size:1.05rem;
+opacity:0.8;
+}
+
+.nav-link:hover{
+color:#fff;
+background-color:var(--sidebar-hover);
+padding-left:28px;
+}
+
+.nav-link.active{
+color:#fff;
+background-color:rgba(13,110,253,0.15);
+border-left:4px solid var(--accent-color);
+font-weight:600;
+}
+
+.logout-link{
+color:#ff5d73 !important;
+margin-top:25px;
+}
+
+/* MAIN CONTENT */
+
+.main-content{
+margin-left:280px;
+padding:35px;
+}
+
+/* TOP HEADER */
+
+.top-card{
+background:linear-gradient(135deg,#062b49 0%, #0f4c81 100%);
+border-radius:28px;
+padding:35px;
+color:white;
+position:relative;
+overflow:hidden;
+margin-bottom:30px;
+}
+
+.top-card::before{
+content:'';
+position:absolute;
+width:320px;
+height:320px;
+border-radius:50%;
+background:rgba(255,255,255,0.05);
+right:-100px;
+top:-140px;
+}
+
+.awardee-info{
+display:flex;
+align-items:center;
+gap:20px;
+position:relative;
+z-index:2;
+}
+
+.awardee-photo{
+width:90px;
+height:90px;
+border-radius:22px;
+object-fit:cover;
+border:4px solid rgba(255,255,255,0.15);
+}
+
+.awardee-name{
+font-size:1.8rem;
+font-weight:800;
+margin-bottom:6px;
+}
+
+.awardee-campus{
+opacity:0.85;
+font-size:0.95rem;
+}
+
+.score-badge{
+display:inline-flex;
+align-items:center;
+gap:8px;
+background:rgba(255,255,255,0.1);
+border:1px solid rgba(255,255,255,0.1);
+padding:10px 16px;
+border-radius:999px;
+margin-top:14px;
+font-weight:700;
+backdrop-filter:blur(10px);
+}
+
+/* FILTER */
+
+.filter-card{
+background:white;
+border-radius:22px;
+padding:20px;
+margin-bottom:28px;
+border:1px solid var(--card-border);
+box-shadow:0 6px 18px rgba(15,23,42,0.04);
+}
+
+/* CHART */
+
+.chart-card{
+background:white;
+border-radius:24px;
+padding:28px;
+border:1px solid var(--card-border);
+box-shadow:0 8px 25px rgba(15,23,42,0.04);
+margin-bottom:28px;
+}
+
+.chart-title{
+font-size:1rem;
+font-weight:700;
+margin-bottom:20px;
+}
+
+.chart-wrapper{
+position:relative;
+width:100%;
+max-width:700px;
+height:400px;
+margin:auto;
+}
+
+/* TABLE */
+
+.table-wrapper{
+background:white;
+border-radius:24px;
+overflow:hidden;
+border:1px solid var(--card-border);
+box-shadow:0 8px 25px rgba(15,23,42,0.04);
+}
+
+.table-scroll{
+overflow-x:auto;
+}
+
+.table-amalan{
+width:100%;
+min-width:1300px;
+border-collapse:collapse;
+}
+
+.table-amalan thead th{
+background:#062b49;
+color:white;
+font-size:0.78rem;
+padding:14px 10px;
+text-align:center;
+white-space:nowrap;
+}
+
+.table-amalan tbody td{
+border-bottom:1px solid #f1f5f9;
+padding:12px 8px;
+text-align:center;
+}
+
+.table-amalan tbody tr:hover{
+background:#f8fafc;
+}
+
+.sticky-col-1{
+position:sticky;
+left:0;
+background:white;
+z-index:20;
+min-width:220px;
+text-align:left !important;
+padding-left:18px !important;
+font-weight:700;
+color:#0f172a;
+border-right:1px solid #e2e8f0;
+}
+
+.sticky-col-2{
+position:sticky;
+left:220px;
+background:#f8fafc;
+z-index:19;
+min-width:100px;
+border-right:2px solid #e2e8f0;
+font-weight:700;
+color:#0d6efd;
+}
+
+thead .sticky-col-1{
+z-index:40;
+}
+
+thead .sticky-col-2{
+z-index:39;
+}
+
+/* BADGE SHALAT */
+
+.shalat-group{
+display:flex;
+justify-content:center;
+gap:4px;
+}
+
+.shalat-badge{
+width:17px;
+height:17px;
+border-radius:5px;
+background:#e2e8f0;
+color:#64748b;
+font-size:0.58rem;
+display:flex;
+align-items:center;
+justify-content:center;
+font-weight:700;
+}
+
+.shalat-active{
+background:var(--success);
+color:white;
+}
+
+.form-check-input{
+width:1.1rem;
+height:1.1rem;
+pointer-events:none;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:992px){
+
+.sidebar{
+width:100%;
+height:auto;
+position:relative;
+}
+
+.main-content{
+margin-left:0;
+padding:20px;
+}
+
+.awardee-info{
+flex-direction:column;
+align-items:flex-start;
+}
+
+.awardee-name{
+font-size:1.4rem;
+}
+
+}

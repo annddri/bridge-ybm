@@ -274,7 +274,7 @@ background:#f8fafc;
 }
 
 /* RESPONSIVE */
-
+<<<<
 @media(max-width:992px){
 
 .sidebar{

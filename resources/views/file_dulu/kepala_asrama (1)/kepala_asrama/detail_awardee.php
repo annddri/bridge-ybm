@@ -302,7 +302,7 @@ color:#64748b;
 }
 
 /* BUTTON */
-
+<<<<,
 .btn-back{
 border-radius:10px;
 padding:10px 18px;

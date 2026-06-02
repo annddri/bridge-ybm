@@ -53,7 +53,7 @@
 
             <div class="menu-grid">
 
-                <a href="#"
+                <a href="{{ route('mahasiswa.amalan', $mahasiswa->id) }}"
                    class="menu-item">
 
                     <div class="icon-wrap">
@@ -70,7 +70,7 @@
 
                 </a>
 
-                <a href="#"
+                <a href="{{ route('mahasiswa.tahfidz', $mahasiswa->id) }}"
                    class="menu-item">
 
                     <div class="icon-wrap">
