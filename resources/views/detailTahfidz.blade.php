@@ -25,24 +25,29 @@
         </a>
 
     </div>
-    <div class="student-card">
+    <div class="top-card">
 
-        <img
-            src="{{ asset('uploads/profile/' . ($mahasiswa->mahasiswaProfile->foto_profil ?? 'default.png')) }}"
-            class="student-photo">
+        <div class="awardee-info">
 
-        <div>
+            <img
+                src="{{ asset('uploads/profile/' . ($mahasiswa->mahasiswaProfile->foto_profil ?? 'default.png')) }}"
+                class="awardee-photo"
+            >
 
-            <h4>
-                {{ $mahasiswa->name }}
-            </h4>
+            <div>
 
-            <p>
-                NIBS: {{ $mahasiswa->mahasiswaProfile->nibs ?? '-' }}
-            </p>
-            <p>
-                {{ $mahasiswa->mahasiswaProfile->universitas ?? '-' }}
-            </p>
+                <div class="awardee-name">
+                    {{ $mahasiswa->name }}
+                </div>
+
+                <div class="awardee-campus">
+                    {{ $mahasiswa->mahasiswaProfile->universitas ?? '-' }}
+                </div>
+                <div class="awardee-campus">
+                    NIBS: {{ $mahasiswa->mahasiswaProfile->nibs ?? '-' }}
+                </div>
+
+            </div>
 
         </div>
 

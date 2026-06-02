@@ -40,17 +40,55 @@
     opacity:.85;
 }
 
-.table-card{
-    background:#fff;
-    border-radius:24px;
-    padding:25px;
+.btn-kembali{
+    background:#212529;
+    color:white;
+    padding:10px 24px;
+    border-radius:999px;
+    text-decoration:none;
+    font-weight:600;
 }
 
-.badge-surah{
+.card-custom{
+    background:white;
+    border-radius:24px;
+    padding:28px;
+    margin-bottom:28px;
+    border:1px solid #e7edf4;
+}
+
+.section-title{
+    font-size:1rem;
+    font-weight:800;
+    margin-bottom:18px;
+}
+
+.table-custom{
+    width:100%;
+}
+
+.table-custom th{
+    background:#062b49;
+    color:white;
+    padding:14px;
+}
+
+.table-custom td{
+    padding:14px;
+    border-bottom:1px solid #f1f5f9;
+}
+
+.badge-category{
     background:#eff6ff;
     color:#2563eb;
-    padding:7px 14px;
+    padding:6px 12px;
     border-radius:999px;
-    font-size:.8rem;
+    font-size:.75rem;
     font-weight:700;
+}
+
+.empty-state{
+    text-align:center;
+    padding:40px;
+    color:#94a3b8;
 }

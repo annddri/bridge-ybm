@@ -40,17 +40,46 @@
     opacity:.85;
 }
 
-.table-card{
-    background:#fff;
+.card-custom{
+    background:white;
     border-radius:24px;
-    padding:25px;
+    padding:28px;
+    margin-bottom:25px;
+    border:1px solid #e7edf4;
 }
 
-.badge-surah{
+.section-title{
+    font-size:1rem;
+    font-weight:700;
+    margin-bottom:15px;
+}
+
+.table-custom{
+    width:100%;
+}
+
+.table-custom th{
+    background:#062b49;
+    color:white;
+    padding:12px;
+}
+
+.table-custom td{
+    padding:12px;
+    border-bottom:1px solid #eee;
+}
+
+.badge-level{
     background:#eff6ff;
     color:#2563eb;
-    padding:7px 14px;
+    padding:6px 12px;
     border-radius:999px;
-    font-size:.8rem;
+    font-size:.75rem;
     font-weight:700;
+}
+
+.empty-state{
+    text-align:center;
+    padding:30px;
+    color:#94a3b8;
 }

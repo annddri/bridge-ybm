@@ -8,6 +8,7 @@ use App\Models\Tahfidz;
 use App\Models\Akademik;
 use App\Models\Portofolio;
 use App\Models\Masyarakat;
+use App\Models\Toefl;
 
 class DataMahasiswaController extends Controller
 {
@@ -284,4 +285,202 @@ class DataMahasiswaController extends Controller
             )
         );
     }
+
+    public function detailAkademik($id)
+{
+    if (!session()->has('id_user')) {
+        return redirect('/login');
+    }
+
+    if (session('role') !== 'kepas') {
+        abort(403);
+    }
+
+    $u = User::with('kepasProfile')
+        ->findOrFail(session('id_user'));
+
+    $foto_path = asset(
+        'uploads/profile/' .
+        ($u->kepasProfile->foto_profil ?? 'default.png')
+    );
+
+    $mahasiswa = User::with(
+        'mahasiswaProfile'
+    )->findOrFail($id);
+
+    $riwayatAkademik =
+        Akademik::where(
+            'id_user',
+            $mahasiswa->id
+        )
+        ->orderBy('semester')
+        ->get();
+
+$riwayatToefl =
+    Toefl::where(
+        'id_user',
+        $mahasiswa->id
+    )
+    ->orderBy('id', 'desc')
+    ->get();
+
+    $ipk =
+        Akademik::where(
+            'id_user',
+            $mahasiswa->id
+        )
+        ->avg('ip');
+
+    $toeflTertinggi =
+        Toefl::where(
+            'id_user',
+            $mahasiswa->id
+        )
+        ->max('score');
+
+    $totalSemester =
+        Akademik::where(
+            'id_user',
+            $mahasiswa->id
+        )
+        ->count();
+
+    $statusAkademik = 'Baik';
+
+    if ($ipk >= 3.75) {
+        $statusAkademik = 'Sangat Baik';
+    }
+    elseif ($ipk < 3.00) {
+        $statusAkademik = 'Perlu Perhatian';
+    }
+
+    return view(
+        'detailAkademik',
+        compact(
+            'u',
+            'foto_path',
+            'mahasiswa',
+            'riwayatAkademik',
+            'riwayatToefl',
+            'ipk',
+            'toeflTertinggi',
+            'totalSemester',
+            'statusAkademik'
+        )
+    );
+}
+public function detailPortofolio($id)
+{
+    if (!session()->has('id_user')) {
+        return redirect('/login');
+    }
+
+    if (session('role') !== 'kepas') {
+        abort(403);
+    }
+
+    $u = User::with('kepasProfile')
+        ->findOrFail(session('id_user'));
+
+    $foto_path = asset(
+        'uploads/profile/' .
+        ($u->kepasProfile->foto_profil ?? 'default.png')
+    );
+
+    $mahasiswa = User::with('mahasiswaProfile')
+        ->findOrFail($id);
+
+    $prestasi = Portofolio::where(
+        'id_user',
+        $id
+    )
+    ->where('kategori', 'prestasi')
+    ->orderBy('id', 'desc')
+    ->get();
+
+    $organisasi = Portofolio::where(
+        'id_user',
+        $id
+    )
+    ->where('kategori', 'organisasi')
+    ->orderBy('id', 'desc')
+    ->get();
+
+    $workshop = Portofolio::where(
+        'id_user',
+        $id
+    )
+    ->where('kategori', 'workshop')
+    ->orderBy('id', 'desc')
+    ->get();
+
+    return view(
+        'detailPortofolio',
+        compact(
+            'u',
+            'foto_path',
+            'mahasiswa',
+            'prestasi',
+            'organisasi',
+            'workshop'
+        )
+    );
+}
+public function detailMasyarakat($id)
+{
+    if (!session()->has('id_user')) {
+        return redirect('/login');
+    }
+
+    if (session('role') !== 'kepas') {
+        abort(403);
+    }
+
+    $u = User::with('kepasProfile')
+        ->findOrFail(session('id_user'));
+
+    $foto_path = asset(
+        'uploads/profile/' .
+        ($u->kepasProfile->foto_profil ?? 'default.png')
+    );
+
+    $mahasiswa = User::with('mahasiswaProfile')
+        ->findOrFail($id);
+
+    $kunjungan = Masyarakat::where(
+        'id_user',
+        $id
+    )
+    ->where('kategori', 'kunjungan')
+    ->orderBy('id', 'desc')
+    ->get();
+
+    $socialProject = Masyarakat::where(
+        'id_user',
+        $id
+    )
+    ->where('kategori', 'social_project')
+    ->orderBy('id', 'desc')
+    ->get();
+
+    $narasumber = Masyarakat::where(
+        'id_user',
+        $id
+    )
+    ->where('kategori', 'narasumber')
+    ->orderBy('id', 'desc')
+    ->get();
+
+    return view(
+        'detailMasyarakat',
+        compact(
+            'u',
+            'foto_path',
+            'mahasiswa',
+            'kunjungan',
+            'socialProject',
+            'narasumber'
+        )
+    );
+}
 }       

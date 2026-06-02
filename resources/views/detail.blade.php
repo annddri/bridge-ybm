@@ -87,7 +87,7 @@
 
                 </a>
 
-                <a href="#"
+                <a href="{{ route('mahasiswa.akademik', $mahasiswa->id) }}"
                    class="menu-item">
 
                     <div class="icon-wrap">
@@ -104,7 +104,7 @@
 
                 </a>
 
-                <a href="#"
+                <a href="{{ route('mahasiswa.portofolio', $mahasiswa->id) }}"
                    class="menu-item">
 
                     <div class="icon-wrap">
@@ -121,7 +121,7 @@
 
                 </a>
 
-                <a href="#"
+                <a href="{{ route('mahasiswa.masyarakat', $mahasiswa->id) }}"
                    class="menu-item">
 
                     <div class="icon-wrap">
