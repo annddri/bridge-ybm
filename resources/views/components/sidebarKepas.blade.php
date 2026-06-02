@@ -51,8 +51,8 @@
         Manajemen
     </div>
 
-    <a href="#"
-       class="nav-link">
+    <a href="/data-mahasiswa"
+       class="nav-link {{ request()->is('data-mahasiswa') ? 'active' : '' }}">
         <i class="fas fa-users"></i>
         Data Mahasiswa
     </a>
@@ -69,7 +69,7 @@
         Monitoring
     </div>
 
-    <a href="/amalan"
+    <a href="/mahasiswa.amalan"
        class="nav-link">
         <i class="fas fa-pray"></i>
         Spiritual Tracker

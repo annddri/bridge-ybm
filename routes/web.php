@@ -13,6 +13,7 @@ use App\Http\Controllers\InventarisController;
 use App\Http\Controllers\KeuanganController;
 use App\Http\Controllers\KepasController;
 use App\Http\Controllers\ProfileKepasController;
+use App\Http\Controllers\DataMahasiswaController;
 
 Route::get('/', function () {
     if (session()->has('id_user')) {
@@ -71,3 +72,13 @@ Route::get('/kepas', [KepasController::class, 'index'])->name('kepas');
 Route::get('/profile-kepas', [ProfileKepasController::class, 'index']);
 Route::post('/profile-kepas/update-whatsapp', [ProfileKepasController::class, 'updateWhatsapp'])
     ->name('profileKepas.updateWhatsapp');
+
+Route::get('/data-mahasiswa', [
+    DataMahasiswaController::class,
+    'index'
+])->name('data-mahasiswa');
+
+Route::get('/data-mahasiswa/{id}', [
+    DataMahasiswaController::class,
+    'detail'
+])->name('mahasiswa.detail');   

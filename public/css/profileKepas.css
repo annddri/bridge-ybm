@@ -1,7 +1,6 @@
 /* MAIN */
 
 .main-content{
-margin-left:280px;
 padding:35px;
 }
 
@@ -28,7 +27,7 @@ height:320px;
 background:rgba(255,255,255,0.04);
 border-radius:50%;
 top:-120px;
-right:-120px;
+right:-20px;
 }
 
 .profile-left{
