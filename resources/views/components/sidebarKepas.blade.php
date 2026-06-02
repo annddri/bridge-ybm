@@ -57,47 +57,13 @@
         Data Mahasiswa
     </a>
 
-    {{-- MONITORING --}}
-    <div
-        class="px-4 py-2 small text-uppercase fw-bold text-white-50"
-        style="
-            letter-spacing:1px;
-            margin-top:15px;
-            margin-bottom:5px;
-            font-size:0.75rem;
-        ">
-        Monitoring
-    </div>
 
-    <a href="/mahasiswa.amalan"
-       class="nav-link">
-        <i class="fas fa-pray"></i>
-        Spiritual Tracker
-    </a>
+<a href="{{ route('leaderboard') }}"
+   class="nav-link {{ request()->routeIs('leaderboard') ? 'active' : '' }}">
+    <i class="fas fa-pray"></i>
+    Leaderboard Spiritual
+</a>    
 
-    <a href="/tahfidz"
-       class="nav-link">
-        <i class="fas fa-book-quran"></i>
-        Tahfidz Tracker
-    </a>
-
-    <a href="/akademik"
-       class="nav-link">
-        <i class="fas fa-graduation-cap"></i>
-        Akademik
-    </a>
-
-    <a href="/portofolio"
-       class="nav-link">
-        <i class="fas fa-award"></i>
-        Portofolio
-    </a>
-
-    <a href="/masyarakat"
-       class="nav-link">
-        <i class="fas fa-people-group"></i>
-        Sosial Masyarakat
-    </a>
 
     {{-- FITUR ASRAMA --}}
     <div
@@ -117,13 +83,13 @@
         Inventaris
     </a>
 
-    <a href="/keuangan"
+    {{-- <a href="/keuangan"
        class="nav-link">
         <i class="fas fa-wallet"></i>
         Keuangan
-    </a>
+    </a> --}}
 
-    {{-- LAPORAN --}}
+    {{-- LAPORAN
     <div
         class="px-4 py-2 small text-uppercase fw-bold text-white-50"
         style="
@@ -153,7 +119,7 @@
         <span class="badge bg-secondary ms-auto">
             Soon
         </span>
-    </a>
+    </a> --}}
 
     {{-- LOGOUT --}}
     <a href="/logout"

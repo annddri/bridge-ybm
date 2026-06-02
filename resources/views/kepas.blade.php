@@ -123,7 +123,7 @@
 
     </div>
 
-    {{-- LAPORAN --}}
+    {{-- LAPORAN
     <div class="row g-4 mb-4">
 
         <div class="col-md-6">
@@ -186,9 +186,9 @@
 
         </div>
 
-    </div>
+    </div> --}}
 
-    {{-- LEADERBOARD --}}
+    {{-- LEADERBOARD
     <div class="card border-0 rounded-4 shadow-sm">
 
         <div class="card-header bg-white border-0 pt-4">
@@ -220,7 +220,7 @@
 
     </div>
 
-</div>
+</div> --}}
 
 </div>
 

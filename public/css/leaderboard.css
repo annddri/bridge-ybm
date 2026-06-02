@@ -1,0 +1,31 @@
+.main-content{
+    margin-left:280px;
+    padding:35px;
+}
+
+.page-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+}
+
+.page-title{
+    font-weight:700;
+}
+
+.leaderboard-card{
+    background:white;
+    border-radius:20px;
+    padding:25px;
+    box-shadow:0 8px 20px rgba(0,0,0,.05);
+}
+
+.table th{
+    background:#063255;
+    color:white;
+}
+
+.table td{
+    vertical-align:middle;
+}

@@ -1,10 +1,18 @@
 <x-header title="Inventaris Asrama - Bridge" css="css/inventaris.css"></x-header>
 
+@if ($role_user == "kepas")
+<x-sidebarKepas 
+    :u="$u" 
+    :role-user="$role_user" 
+    :fotoPath="$foto_path" 
+></x-sidebarKepas>
+@else
 <x-sidebar 
     :u="$u" 
     :role-user="$role_user" 
     :foto-path="$foto_path" 
 ></x-sidebar>
+@endif
 
 <div class="main-content">
     <div class="container-fluid">
@@ -198,7 +206,7 @@
                                             <i class="fas fa-edit"></i>
                                         </button>
 
-                                        @if ($role_user === 'kepala_asrama')
+                                        @if ($role_user === 'kepas')
                                             <form
                                                 action="{{ route('inventaris.destroy', $row->id_barang) }}"
                                                 method="POST"

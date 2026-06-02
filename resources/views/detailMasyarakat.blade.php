@@ -123,7 +123,7 @@
                             </td>
 
 
-                        <td class="text-center">
+                        <td>
 
                             @if($row->link_laporan)
 

@@ -14,6 +14,7 @@ use App\Http\Controllers\KeuanganController;
 use App\Http\Controllers\KepasController;
 use App\Http\Controllers\ProfileKepasController;
 use App\Http\Controllers\DataMahasiswaController;
+use App\Http\Controllers\LeaderboardController;
 
 Route::get('/', function () {
     if (session()->has('id_user')) {
@@ -107,3 +108,9 @@ Route::get(
     '/data-mahasiswa/{id}/masyarakat',
     [DataMahasiswaController::class, 'detailMasyarakat']
 )->name('mahasiswa.masyarakat');
+
+
+Route::get(
+    '/leaderboard',
+    [LeaderboardController::class, 'index']
+)->name('leaderboard');

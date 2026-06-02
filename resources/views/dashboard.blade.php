@@ -13,7 +13,7 @@
         <div class="card welcome-box border-0 mb-4 rounded-4">
             <div class="card-body p-4">
                 <h4 class="fw-bold m-0" style="color: var(--navy-theme); letter-spacing: 0.5px;">
-                    Hallo, Selamat Datang di Aplikasi BRIGHT
+                    Hallo, Selamat Datang di Aplikasi BRIDGE
                 </h4>
                 <p class="text-muted small m-0 mt-1">Sistem informasi monitoring perkembangan program beasiswa, aktivitas keasramaan, dan capaian akademik mandiri.</p>
             </div>
@@ -32,7 +32,7 @@
                             <div style="position: relative; height: 170px; width: 170px; margin: 0 auto;">
                                 <canvas id="spiritualChart"></canvas>
                                 <div style="position: absolute; width: 100%; top: 50%; left: 0; transform: translateY(-50%); text-align: center;">
-                                    <h3 class="fw-bold m-0" style="color: var(--navy-theme); font-size: 1.8rem;"><?= $score_spiritual ?>%</h3>
+                                    <h3 class="fw-bold m-0" style="color: var(--navy-theme); font-size: 1.8rem;">{{ $score_spiritual }}%</h3>
                                     <small class="text-muted fw-semibold" style="font-size: 0.65rem;">Target</small>
                                 </div>
                             </div>
@@ -88,43 +88,79 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-    const ctx = document.getElementById('spiritualChart').getContext('2d');
-    
-    const scoreTercapai = {{ $score_spiritual }}
-    const scoreSisa     = {{ $score_sisa }};
+document.addEventListener('DOMContentLoaded', function () {
+
+    const canvas = document.getElementById('spiritualChart');
+
+    if (!canvas) return;
+
+    const scoreTercapai = Number({{ $score_spiritual ?? 0 }});
+
+    const scoreSisa = Math.max(
+        0,
+        100 - scoreTercapai
+    );
+
+    const ctx = canvas.getContext('2d');
 
     new Chart(ctx, {
         type: 'doughnut',
+
         data: {
-            labels: ['Target Tercapai', 'Sisa Target'],
+            labels: [
+                'Target Tercapai',
+                'Sisa Target'
+            ],
+
             datasets: [{
-                data: [scoreTercapai, scoreSisa],
-                backgroundColor: [
-                    '#063255', // KEMBALI KE WARNA AWAL (Navy Eksklusif BRIGHT)
-                    '#f1f5f9'  // Area sisa target kosong
+                data: [
+                    scoreTercapai,
+                    scoreSisa
                 ],
+
+                backgroundColor: [
+                    '#063255',
+                    '#f1f5f9'
+                ],
+
                 borderWidth: 0,
-                hoverOffset: 2
+                hoverOffset: 3
             }]
         },
+
         options: {
             responsive: true,
             maintainAspectRatio: false,
-            cutout: '84%', 
+
+            cutout: '84%',
+
             plugins: {
-                legend: { display: false },
+
+                legend: {
+                    display: false
+                },
+
                 tooltip: {
                     callbacks: {
                         label: function(context) {
-                            return ' ' + context.label + ': ' + context.raw + '%';
+
+                            return (
+                                context.label +
+                                ': ' +
+                                context.raw +
+                                '%'
+                            );
+
                         }
                     }
                 }
+
             }
         }
     });
+
 });
 </script>
 
