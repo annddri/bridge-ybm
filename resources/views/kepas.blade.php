@@ -122,31 +122,35 @@
         </div>
 
     </div>
+    {{-- QUICK ACCESS --}}
+<div class="row g-4 mb-4">
 
-    {{-- LAPORAN
-    <div class="row g-4 mb-4">
+    <div class="col-md-6">
 
-        <div class="col-md-6">
+        <a href="{{ route('inventaris.index') }}"
+           class="text-decoration-none">
 
-            <div class="card border-0 rounded-4 shadow-sm h-100">
+            <div class="card border-0 rounded-4 h-100 quick-card">
 
-                <div class="card-body">
+                <div class="card-body p-4">
 
-                    <h6 class="fw-bold mb-3">
-                        Laporan Harian
-                    </h6>
+                    <div class="d-flex align-items-center">
 
-                    <div class="text-center py-4">
-
-                        <i class="fas fa-calendar-day fs-1 text-muted mb-3"></i>
-
-                        <div class="fw-semibold">
-                            Fitur Belum Tersedia
+                        <div class="quick-icon bg-primary-subtle">
+                            <i class="fas fa-boxes text-primary"></i>
                         </div>
 
-                        <small class="text-muted">
-                            Akan dikembangkan pada tahap berikutnya.
-                        </small>
+                        <div class="ms-3">
+
+                            <h5 class="fw-bold mb-1">
+                                Inventaris Asrama
+                            </h5>
+
+                            <small class="text-muted">
+                                Kelola data inventaris dan aset asrama
+                            </small>
+
+                        </div>
 
                     </div>
 
@@ -154,74 +158,52 @@
 
             </div>
 
-        </div>
-
-        <div class="col-md-6">
-
-            <div class="card border-0 rounded-4 shadow-sm h-100">
-
-                <div class="card-body">
-
-                    <h6 class="fw-bold mb-3">
-                        Laporan Bulanan
-                    </h6>
-
-                    <div class="text-center py-4">
-
-                        <i class="fas fa-file-alt fs-1 text-muted mb-3"></i>
-
-                        <div class="fw-semibold">
-                            Fitur Belum Tersedia
-                        </div>
-
-                        <small class="text-muted">
-                            Akan dikembangkan pada tahap berikutnya.
-                        </small>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div> --}}
-
-    {{-- LEADERBOARD
-    <div class="card border-0 rounded-4 shadow-sm">
-
-        <div class="card-header bg-white border-0 pt-4">
-
-            <h5 class="fw-bold mb-0">
-                Leaderboard Spiritual Tracker
-            </h5>
-
-            <small class="text-muted">
-                Ranking progress amalan mahasiswa.
-            </small>
-
-        </div>
-
-        <div class="card-body">
-
-            <div class="text-center py-5 text-muted">
-
-                <i class="fas fa-trophy fs-1 mb-3"></i>
-
-                <div>
-                    Leaderboard akan ditampilkan setelah
-                    perhitungan amalan selesai diintegrasikan.
-                </div>
-
-            </div>
-
-        </div>
+        </a>
 
     </div>
 
-</div> --}}
+    <div class="col-md-6">
 
+        <a href="{{ route('leaderboard') }}"
+           class="text-decoration-none">
+
+            <div class="card border-0 rounded-4 h-100 quick-card">
+
+                <div class="card-body p-4">
+
+                    <div class="d-flex align-items-center">
+
+                        <div class="quick-icon bg-success-subtle">
+                            <i class="fas fa-trophy text-success"></i>
+                        </div>
+
+                        <div class="ms-3">
+
+                            <h5 class="fw-bold mb-1">
+                                Leaderboard Spiritual
+                            </h5>
+
+                            <small class="text-muted">
+                                Lihat ranking perkembangan spiritual mahasiswa
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </a>
+
+    </div>
+
+</div>
+
+
+
+</div>
 </div>
 
 <x-footer></x-footer>

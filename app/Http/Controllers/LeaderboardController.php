@@ -55,31 +55,51 @@ class LeaderboardController extends Controller
             ->whereYear('tanggal', $tahun)
             ->get();
 
-            $skorTotal = 0;
+            $jumlah_hari = cal_days_in_month(
+    CAL_GREGORIAN,
+    $bulan,
+    $tahun
+);
 
-            foreach ($list_amalan as $field => $target) {
+$skorTotal = 0;
 
-                $jumlah = $records->sum($field);
+foreach ($list_amalan as $field => $target) {
 
-                if ($records->count() > 0) {
+    $jumlah = $records->sum($field);
 
-                    $persen =
-                        ($jumlah / $records->count())
-                        / $target * 100;
+    if (
+        in_array(
+            $field,
+            [
+                'shalat_malam',
+                'shaum_sunnah'
+            ]
+        )
+    ) {
 
-                    $skorTotal += min(
-                        $persen,
-                        100
-                    );
-                }
-            }
+        $persen =
+            ($jumlah / $target)
+            * 100;
 
-            $skorAkhir =
-                round(
-                    $skorTotal /
-                    count($list_amalan),
-                    1
-                );
+    } else {
+
+        $persen =
+            ($jumlah /
+            ($jumlah_hari * $target))
+            * 100;
+    }
+
+    $persen = min($persen, 100);
+
+    $skorTotal += $persen;
+}
+
+$skorAkhir =
+    round(
+        $skorTotal /
+        count($list_amalan),
+        2
+    );
 
             $rankList[] = [
                 'id' => $mhs->id,

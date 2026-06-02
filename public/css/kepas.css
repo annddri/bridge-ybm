@@ -246,3 +246,23 @@ font-size:0.95rem;
 .activity-text small{
 color:#64748b;
 }
+
+.quick-card{
+    transition:0.25s;
+    cursor:pointer;
+}
+
+.quick-card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 12px 24px rgba(0,0,0,.08);
+}
+
+.quick-icon{
+    width:60px;
+    height:60px;
+    border-radius:18px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:1.4rem;
+}

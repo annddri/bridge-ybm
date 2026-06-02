@@ -187,47 +187,61 @@ class DataMahasiswaController extends Controller
 
         
         foreach ($rows as $row) {
-            
             $d = (int) date(
-                'd',
-                strtotime($row->tanggal)
-                );
-                
-                foreach ($list_amalan as $key => $val) {
-                    
-                    $data_db[$key][$d] =
-                    $row->$key ?? '';
-                    }
-                    }
-                    $totalKeseluruhan = 0;
-                    $totalMaksimal = count($list_amalan) * $jumlah_hari;
+        'd',
+        strtotime($row->tanggal)
+    );
+
+    foreach ($list_amalan as $key => $val) {
+
+        $data_db[$key][$d] =
+            $row->$key ?? 0;
+    }
+}
             
-                    $persentasePerAmalan = [];
-            
-                    foreach ($list_amalan as $key => $amalan) {
-            
-                        $jumlahCentang = 0;
-            
-                        for ($d = 1; $d <= $jumlah_hari; $d++) {
-            
-                            if (($data_db[$key][$d] ?? 0) == 1) {
-                                $jumlahCentang++;
-                            }
-                        }
-            
-                        $persentasePerAmalan[$key] =
-                            round(($jumlahCentang / $jumlah_hari) * 100, 2);
-            
-                        $totalKeseluruhan += $jumlahCentang;
-                    }
-            
-                    $persentaseKeseluruhan =
-                        $totalMaksimal > 0
-                            ? round(
-                                ($totalKeseluruhan / $totalMaksimal) * 100,
-                                2
-                            )
-                            : 0;
+            $persentasePerAmalan = [];
+
+$totalPersen = 0;
+
+foreach ($list_amalan as $key => $amalan) {
+
+    $total_input = 0;
+
+    for ($d = 1; $d <= $jumlah_hari; $d++) {
+
+        $total_input +=
+            (int) ($data_db[$key][$d] ?? 0);
+    }
+
+    if ($amalan['tipe'] === 'harian') {
+
+        $persen =
+            ($total_input /
+            ($jumlah_hari * $amalan['target']))
+            * 100;
+
+    } else {
+
+        $persen =
+            ($total_input /
+            $amalan['target'])
+            * 100;
+    }
+
+    $persen = min($persen, 100);
+
+    $persentasePerAmalan[$key] =
+        round($persen, 2);
+
+    $totalPersen += $persen;
+}
+
+$persentaseKeseluruhan =
+    round(
+        $totalPersen /
+        count($list_amalan),
+        2
+    );
 
         return view(
             'detailAmalan',
