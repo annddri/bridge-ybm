@@ -114,3 +114,8 @@ Route::get(
     '/leaderboard',
     [LeaderboardController::class, 'index']
 )->name('leaderboard');
+
+Route::get(
+    '/keuangan-monitoring',
+    [KepasController::class, 'keuangan']
+)->name('keuangan.monitoring');

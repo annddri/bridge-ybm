@@ -77,10 +77,14 @@
         Fitur Asrama
     </div>
 
-    <a href="/inventaris"
-       class="nav-link">
+    <a href="{{ route('inventaris.index') }}"
+        class="nav-link {{ request()->routeIs('inventaris') ? 'active' : '' }}">
         <i class="fas fa-boxes-stacked"></i>
         Inventaris
+    </a>
+
+    <a href="{{ route('keuangan.monitoring') }}" class="nav-link {{ request()->is('keuangan') ? 'active' : '' }}">
+        <i class="fas fa-wallet"></i> Keuangan Asrama
     </a>
 
     {{-- <a href="/keuangan"

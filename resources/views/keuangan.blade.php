@@ -1,7 +1,21 @@
 <x-header title="Keuangan Asrama - Bridge" css="css/keuangan.css"></x-header>
 
-<x-sidebar :u="$u" :role_user="$role_user" :foto_path="$foto_path" />
+@if (($role_user ?? '') == 'kepas')
+<x-sidebarKepas 
+    :u="$u" 
+    :fotoPath="$foto_path" 
+></x-sidebarKepas>
+@else
+<x-sidebar 
+    :u="$u" 
+    :role-user="$role_user" 
+    :foto-path="$foto_path" 
+></x-sidebar>
+@endif
 
+@php
+    $readonly = $readonly ?? false;
+@endphp
 <div class="main-content">
     <div class="container-fluid">
         <div class="tracker-header-box p-4 rounded-4 mb-4">
@@ -65,6 +79,7 @@
             </div>
         </div>
 
+        @if(!$readonly)
         {{-- FORM TAMBAH TRANSAKSI --}}
         <div class="card form-card mb-4">
             <div class="mb-3">
@@ -129,6 +144,7 @@
                 </div>
             </form>
         </div>
+        @endif
 
         {{-- TABEL KAS --}}
         <div class="card table-card">
@@ -155,7 +171,7 @@
                     <tbody>
                         @forelse ($data_kas as $row)
                             @php
-                                $bolehKelola = $row->created_by_id == session('id_user');
+                                $bolehKelola = !$readonly && $row->created_by_id == session('id_user');
                                 $badge = $row->jenis_transaksi == 'Masuk'
                                     ? 'bg-success bg-opacity-10 text-success'
                                     : 'bg-danger bg-opacity-10 text-danger';

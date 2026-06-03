@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use App\Models\DanaKas;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -133,5 +134,38 @@ class KeuanganController extends Controller
         $kas->delete();
 
         return redirect('/keuangan')->with('success', 'Transaksi kas berhasil dihapus.');
+    }
+
+    public function monitoring()
+    {
+        if (!session()->has('id_user')) {
+            return redirect('/login');
+        }
+
+        if (session('role') !== 'kepas') {
+            abort(403);
+        }
+
+        $u = User::with('kepasProfile')
+            ->findOrFail(session('id_user'));
+
+        $foto_path = asset(
+            'uploads/profile/' .
+            ($u->kepasProfile->foto_profil ?? 'default.png')
+        );
+
+        $data_keuangan = DanaKas::with('user')
+            ->latest()
+            ->get();
+
+        return view(
+            'keuangan',
+            [
+                'u' => $u,
+                'foto_path' => $foto_path,
+                'data_keuangan' => $data_keuangan,
+                'readonly' => true
+            ]
+        );
     }
 }
