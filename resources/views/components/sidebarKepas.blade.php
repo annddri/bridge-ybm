@@ -1,4 +1,9 @@
-<div class="sidebar shadow">
+<!-- Tombol Toggle Mobile -->
+<button class="mobile-toggle d-lg-none" onclick="document.getElementById('sidebar-kepas').classList.toggle('show')">
+    <i class="fas fa-bars"></i>
+</button>
+
+<div class="sidebar shadow" id="sidebar-kepas">
 
 
 <div class="sidebar-brand">
@@ -128,7 +133,7 @@
     {{-- LOGOUT --}}
     <a href="/logout"
        class="nav-link logout-link"
-       onclick="return confirm('Yakin ingin keluar?')">
+       onclick="confirmLogout(event, this.href)">
 
         <i class="fas fa-sign-out-alt"></i>
         Keluar

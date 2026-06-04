@@ -193,7 +193,7 @@
                                                 <form action="{{ route('masyarakat.destroy', $row->id) }}"
                                                 method="POST"
                                                 class="d-inline"
-                                                onsubmit="return confirm('Yakin ingin menghapus data sosial masyarakat ini?')">
+                                                onsubmit="confirmDelete(event, this, 'Yakin ingin menghapus data sosial masyarakat ini?')">
                                                 @csrf
                                                 @method('DELETE')
 

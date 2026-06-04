@@ -14,6 +14,10 @@ class AmalanController extends Controller
             return redirect('/login');
         }
 
+        if (session('role') !== 'mahasiswa') {
+            abort(403);
+        }
+
         $id_user = session('id_user');
         $role_user = session('role');
 

@@ -10,6 +10,7 @@ class MahasiswaProfile extends Model
 
     protected $fillable = [
         'user_id',
+        'asrama_id',
         'nibs',
         'nim',
         'universitas',

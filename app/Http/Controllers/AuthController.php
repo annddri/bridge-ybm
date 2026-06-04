@@ -41,6 +41,10 @@ class AuthController extends Controller
             return redirect('/kepas');
         }
 
+        if ($user->role === 'administrator') {
+            return redirect('/admin');
+        }
+
         return redirect('/dashboard');
     }
 

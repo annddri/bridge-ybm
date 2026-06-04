@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Amalan;
+use App\Models\Tahfidz;
+use App\Models\Akademik;
 
 class DashboardController extends Controller
 {
@@ -11,6 +13,10 @@ class DashboardController extends Controller
     {
         if (!session()->has('id_user')) {
             return redirect('/login');
+        }
+
+        if (session('role') !== 'mahasiswa') {
+            abort(403, 'Akses ditolak. Anda bukan mahasiswa.');
         }
 
         $id_user = session('id_user');
@@ -118,7 +124,26 @@ $score_sisa =
 //     : 0;
 
     $nama_bulan_ini =
-    now()->translatedFormat('F Y');
+        now()->translatedFormat('F Y');
+
+        // ---- Data Tahfidz ----
+        $tahfidz_terbaru = Tahfidz::where('id_user', $id_user)
+            ->orderBy('tanggal_tes', 'desc')
+            ->orderBy('id', 'desc')
+            ->first();
+
+        $total_tahfidz = Tahfidz::where('id_user', $id_user)->count();
+
+        // ---- Data Akademik (IPK) ----
+        $ipk = Akademik::where('id_user', $id_user)->avg('ip');
+        $ipk = $ipk ? round($ipk, 2) : null;
+
+        $akademik_terbaru = Akademik::where('id_user', $id_user)
+            ->orderBy('semester', 'desc')
+            ->first();
+
+        $ip_terbaru      = $akademik_terbaru->ip ?? null;
+        $semester_terbaru = $akademik_terbaru->semester ?? null;
 // dd(
 //     $score_spiritual
 // );
@@ -129,6 +154,11 @@ $score_sisa =
             'foto_path',
             'nama_bulan_ini',
             'score_spiritual',
+            'tahfidz_terbaru',
+            'total_tahfidz',
+            'ipk',
+            'ip_terbaru',
+            'semester_terbaru',
         ));
     }
 }

@@ -156,7 +156,7 @@
                                             <form action="{{ route('akademik.ip.destroy', $r->id) }}"
                                                 method="POST"
                                                 class="d-inline"
-                                                onsubmit="return confirm('Yakin ingin menghapus data IP ini?')">
+                                                onsubmit="confirmDelete(event, this, 'Yakin ingin menghapus data IP ini?')">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-sm btn-outline-danger rounded-pill px-3">
@@ -218,7 +218,7 @@
                                             <form action="{{ route('akademik.toefl.destroy', $rt->id) }}"
                                                 method="POST"
                                                 class="d-inline"
-                                                onsubmit="return confirm('Yakin ingin menghapus data TOEFL ini?')">
+                                                onsubmit="confirmDelete(event, this, 'Yakin ingin menghapus data TOEFL ini?')">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-sm btn-outline-danger rounded-pill px-3">

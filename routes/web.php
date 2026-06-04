@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AmalanController;
@@ -15,6 +16,8 @@ use App\Http\Controllers\KepasController;
 use App\Http\Controllers\ProfileKepasController;
 use App\Http\Controllers\DataMahasiswaController;
 use App\Http\Controllers\LeaderboardController;
+use App\Http\Controllers\PembinaanController;
+use App\Http\Controllers\AdminController;
 
 Route::get('/', function () {
     if (session()->has('id_user')) {
@@ -26,6 +29,22 @@ Route::get('/', function () {
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.process');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
+// -------------------------------------------------------
+// Halaman Registrasi (Khusus Administrator)
+// Tidak terhubung ke navigasi manapun — hanya admin yang tahu URL ini
+// -------------------------------------------------------
+Route::get('/register', [RegisterController::class, 'showRegister'])->name('register');
+Route::post('/register', [RegisterController::class, 'register'])->name('register.process');
+
+// -------------------------------------------------------
+// Admin Panel (Khusus Administrator)
+// -------------------------------------------------------
+Route::get('/admin', [AdminController::class, 'index'])->name('admin');
+Route::put('/admin/users/{id}', [AdminController::class, 'updateUser'])->name('admin.user.update');
+Route::delete('/admin/users/{id}', [AdminController::class, 'deleteUser'])->name('admin.user.delete');
+Route::post('/admin/asrama', [AdminController::class, 'storeAsrama'])->name('admin.asrama.store');
+Route::delete('/admin/asrama/{id}', [AdminController::class, 'deleteAsrama'])->name('admin.asrama.delete');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
@@ -55,6 +74,14 @@ Route::delete('/portofolio/{id}', [PortofolioController::class, 'destroy'])->nam
 Route::get('/masyarakat', [MasyarakatController::class, 'index'])->name('masyarakat');
 Route::post('/masyarakat', [MasyarakatController::class, 'store'])->name('masyarakat.store');
 Route::delete('/masyarakat/{id}', [MasyarakatController::class, 'destroy'])->name('masyarakat.destroy');
+
+// Pembinaan (Mahasiswa)
+Route::get('/pembinaan', [PembinaanController::class, 'index'])->name('pembinaan');
+Route::post('/pembinaan', [PembinaanController::class, 'store'])->name('pembinaan.store');
+Route::delete('/pembinaan/{id}', [PembinaanController::class, 'destroy'])->name('pembinaan.destroy');
+
+// Monitoring Pembinaan (Kepas)
+Route::get('/pembinaan-monitoring', [PembinaanController::class, 'monitoring'])->name('pembinaan.monitoring');
 
 Route::get('/inventaris', [InventarisController::class, 'index'])->name('inventaris.index');
 Route::post('/inventaris', [InventarisController::class, 'store'])->name('inventaris.store');
@@ -108,6 +135,11 @@ Route::get(
     '/data-mahasiswa/{id}/masyarakat',
     [DataMahasiswaController::class, 'detailMasyarakat']
 )->name('mahasiswa.masyarakat');
+
+Route::get(
+    '/data-mahasiswa/{id}/pembinaan',
+    [DataMahasiswaController::class, 'detailPembinaan']
+)->name('mahasiswa.pembinaan');
 
 
 Route::get(

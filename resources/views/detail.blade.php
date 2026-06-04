@@ -138,6 +138,23 @@
 
                 </a>
 
+                <a href="{{ route('mahasiswa.pembinaan', $mahasiswa->id) }}"
+                   class="menu-item">
+
+                    <div class="icon-wrap">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+
+                    <div class="menu-title">
+                        Pembinaan
+                    </div>
+
+                    <div class="menu-subtitle">
+                        Monitoring pembinaan
+                    </div>
+
+                </a>
+
             </div>
 
         </div>

@@ -1,61 +1,230 @@
-/* Menggunakan warna background gradient Navy khas YBM */
-body { 
-    background: linear-gradient(135deg, #063255 0%, #0a426e 100%); 
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    background-color: #f8fafc;
+}
+
+/* Colors */
+:root {
+    --primary-color: #063255;
+    --primary-light: #0a426e;
+    --accent-color: #38bdf8;
+    --text-primary: #1e293b;
+    --text-muted: #64748b;
+}
+
+.text-primary-dark { color: var(--primary-color) !important; }
+.text-accent { color: var(--accent-color) !important; }
+.bg-primary-dark { background-color: var(--primary-color) !important; }
+.tracking-wider { letter-spacing: 1px; }
+.max-w-600 { max-width: 600px; }
+
+/* Utility Backgrounds & Colors for Icons */
+.bg-blue-light { background: #e0f2fe; } .text-blue { color: #0284c7; }
+.bg-orange-light { background: #ffedd5; } .text-orange { color: #ea580c; }
+.bg-green-light { background: #dcfce7; } .text-green { color: #16a34a; }
+.bg-purple-light { background: #f3e8ff; } .text-purple { color: #9333ea; }
+.bg-teal-light { background: #ccfbf1; } .text-teal { color: #0d9488; }
+.bg-red-light { background: #fee2e2; } .text-red { color: #dc2626; }
+
+/* HERO SECTION */
+.hero-section {
+    position: relative;
     min-height: 100vh;
     display: flex;
     align-items: center;
-    justify-content: center;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
+    overflow: hidden;
+    padding-top: 4rem;
+    padding-bottom: 4rem;
 }
 
-/* Card dengan Efek Transparansi & Blur Premium (Glassmorphism) */
-.login-card { 
-    max-width: 420px; 
+@media (min-width: 992px) {
+    .hero-section {
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+    }
+}
+
+.hero-logo {
+    max-height: 70px;
+    object-fit: contain;
+    filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.2));
+}
+
+.hero-title {
+    line-height: 1.2;
+    letter-spacing: -1px;
+    text-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.hero-subtitle {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    max-width: 550px;
+}
+
+@media (min-width: 992px) {
+    .hero-subtitle {
+        margin-left: 0;
+        margin-right: auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 2.2rem;
+    }
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+    .hero-logo {
+        max-height: 50px;
+        margin-bottom: 1.5rem !important;
+    }
+    .hero-section {
+        padding-top: 5rem;
+        padding-bottom: 5rem;
+    }
+}
+
+.explore-btn {
+    border-width: 2px;
+    transition: all 0.3s ease;
+}
+
+.explore-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+
+/* Decorative Blobs */
+.blob {
+    position: absolute;
+    filter: blur(80px);
+    z-index: 0;
+    opacity: 0.6;
+    border-radius: 50%;
+}
+.blob-1 {
+    top: -10%;
+    left: -10%;
+    width: 40vw;
+    height: 40vw;
+    background: rgba(56, 189, 248, 0.4);
+}
+.blob-2 {
+    bottom: -10%;
+    right: -5%;
+    width: 35vw;
+    height: 35vw;
+    background: rgba(14, 165, 233, 0.3);
+}
+
+.hero-content, .login-card {
+    position: relative;
+    z-index: 2;
+}
+
+/* LOGIN CARD GLASSMORPHISM */
+.login-card {
+    max-width: 420px;
     width: 100%;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(240, 244, 248, 0.85) 100%);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px); /* Dukungan untuk Safari */
-    border-radius: 24px; 
-    border: 1px solid rgba(255, 255, 255, 0.4);
+    margin-left: auto;
+    margin-right: auto;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    transform: translateY(0);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Styling khusus untuk teks 'BRIGHT Scholarship' */
-.brand-subtitle {
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
+.login-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.3);
 }
 
-/* Kustomisasi Input Form */
-.form-control {
-    border-radius: 12px;
-    padding: 11px 15px;
-    border: 1px solid #dee2e6;
-    background-color: rgba(248, 249, 250, 0.8);
-}
-.form-control:focus {
-    background-color: #fff;
-    border-color: #0d6efd;
-    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.15);
+.login-input-group .input-group-text {
+    background-color: transparent;
+    border-right: none;
+    border-radius: 12px 0 0 12px;
+    border-color: #e2e8f0;
 }
 
-/* Kustomisasi Tombol Masuk */
+.login-input-group .form-control {
+    border-left: none;
+    border-radius: 0 12px 12px 0;
+    padding: 12px 15px;
+    border-color: #e2e8f0;
+    font-size: 0.95rem;
+    background-color: transparent;
+}
+
+.login-input-group .form-control:focus {
+    box-shadow: none;
+    border-color: #e2e8f0;
+}
+
+.login-input-group:focus-within .input-group-text,
+.login-input-group:focus-within .form-control {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 0.25rem rgba(56, 189, 248, 0.15);
+}
+.login-input-group:focus-within .input-group-text i {
+    color: var(--accent-color) !important;
+}
+
 .btn-custom-primary {
-    background-color: #0d6efd;
+    background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary-color) 100%);
     border: none;
     border-radius: 12px;
-    padding: 12px;
-    transition: all 0.2s ease;
+    padding: 14px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
 }
 .btn-custom-primary:hover {
-    background-color: #0b5ed7;
-    transform: translateY(-1px);
-    box-shadow: 0 6px 15px rgba(13, 110, 253, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(6, 50, 85, 0.3);
 }
 .btn-custom-primary:active {
     transform: translateY(1px);
 }
 
-/* Ukuran teks alert diperkecil sedikit agar fit */
-.fs-7 { font-size: 0.875rem; }
+/* FEATURES SECTION */
+.features-section {
+    background-color: #f8fafc;
+    position: relative;
+    z-index: 2;
+}
+
+.feature-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    border: 1px solid rgba(0,0,0,0.03);
+    transition: all 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.icon-box {
+    width: 60px;
+    height: 60px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+}

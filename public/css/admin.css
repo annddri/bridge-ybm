@@ -1,0 +1,358 @@
+/* =====================================================
+   admin.css — Admin Panel Bridge
+   Design: Premium Navy + Clean Dashboard
+   ===================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+/* ---- Layout ---- */
+body {
+    background: #f0f4f8;
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    min-height: 100vh;
+}
+
+/* ---- Topbar Admin ---- */
+.admin-topbar {
+    background: linear-gradient(135deg, #063255 0%, #0a4a80 100%);
+    padding: 0 2rem;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 4px 20px rgba(6, 50, 85, 0.3);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.admin-topbar .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.admin-topbar .brand img {
+    height: 32px;
+    filter: brightness(0) invert(1);
+}
+
+.admin-topbar .brand-title {
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.admin-topbar .brand-sub {
+    color: rgba(255,255,255,0.6);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+.admin-topbar .admin-badge {
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 20px;
+    padding: 5px 14px;
+    color: #fff;
+    font-size: 0.78rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.btn-logout-top {
+    background: rgba(220,53,69,0.15);
+    border: 1px solid rgba(220,53,69,0.3);
+    color: #ff8080;
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.btn-logout-top:hover {
+    background: rgba(220,53,69,0.3);
+    color: #fff;
+}
+
+/* ---- Main container ---- */
+.admin-body {
+    padding: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* ---- Stat cards ---- */
+.stat-card {
+    background: #fff;
+    border-radius: 18px;
+    padding: 1.4rem 1.6rem;
+    box-shadow: 0 4px 16px rgba(6,50,85,0.07);
+    border: 1px solid rgba(6,50,85,0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(6,50,85,0.12);
+}
+.stat-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+}
+.stat-number {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #063255;
+    line-height: 1;
+}
+.stat-label {
+    font-size: 0.78rem;
+    color: #8c9ab0;
+    margin-top: 3px;
+    font-weight: 500;
+}
+
+/* ---- Section header ---- */
+.section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+.section-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #063255;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* ---- Panel card ---- */
+.panel-card {
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 4px 16px rgba(6,50,85,0.07);
+    border: 1px solid rgba(6,50,85,0.05);
+    overflow: hidden;
+}
+.panel-card .panel-header {
+    padding: 1.2rem 1.5rem;
+    border-bottom: 1px solid #f1f5f9;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+/* ---- Table ---- */
+.table {
+    margin: 0;
+    font-size: 0.875rem;
+}
+.table thead th {
+    background: #f8fafc;
+    color: #063255;
+    font-weight: 700;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    border-bottom: 1px solid #e9edf2;
+    padding: 0.85rem 1rem;
+    white-space: nowrap;
+}
+.table tbody td {
+    padding: 0.85rem 1rem;
+    vertical-align: middle;
+    border-bottom: 1px solid #f1f5f9;
+    color: #344563;
+}
+.table tbody tr:last-child td {
+    border-bottom: none;
+}
+.table tbody tr:hover td {
+    background: rgba(13,110,253,0.025);
+}
+
+/* ---- Role badge ---- */
+.role-pill {
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+.role-pill.mahasiswa    { background: rgba(13,110,253,0.1);  color: #0d6efd; }
+.role-pill.kepas        { background: rgba(6,50,85,0.1);     color: #063255; }
+.role-pill.administrator{ background: rgba(220,53,69,0.1);   color: #dc3545; }
+
+/* ---- Password field with eye toggle ---- */
+.pw-wrap {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.pw-dots {
+    letter-spacing: 3px;
+    font-size: 1rem;
+    color: #8c9ab0;
+    font-family: monospace;
+}
+.pw-plain {
+    font-size: 0.82rem;
+    color: #344563;
+    font-family: 'Courier New', monospace;
+    background: #f0f4f8;
+    padding: 2px 8px;
+    border-radius: 6px;
+    display: none;
+    max-width: 160px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.btn-eye {
+    background: none;
+    border: none;
+    color: #8c9ab0;
+    cursor: pointer;
+    padding: 2px 4px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    transition: color 0.2s;
+}
+.btn-eye:hover { color: #0d6efd; }
+
+/* ---- Inline edit row ---- */
+.edit-row {
+    display: none;
+    background: linear-gradient(135deg, #f0f6ff, #f8faff);
+}
+.edit-row.show { display: table-row; }
+.edit-row td {
+    padding: 1.2rem 1rem !important;
+    border-bottom: 2px solid #0d6efd !important;
+}
+.edit-form-inner {
+    background: #fff;
+    border: 1.5px solid rgba(13,110,253,0.2);
+    border-radius: 14px;
+    padding: 1.2rem 1.4rem;
+}
+.edit-form-inner .form-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #344563;
+    margin-bottom: 4px;
+}
+.edit-form-inner .form-control {
+    border-radius: 10px;
+    font-size: 0.85rem;
+    border: 1.5px solid #dee2e6;
+    padding: 8px 12px;
+}
+.edit-form-inner .form-control:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.2rem rgba(13,110,253,0.12);
+}
+.edit-form-inner .hint-text {
+    font-size: 0.72rem;
+    color: #8c9ab0;
+    margin-top: 3px;
+}
+
+/* ---- Buttons ---- */
+.btn-admin-primary {
+    background: linear-gradient(135deg, #063255, #0d6efd);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 8px 18px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    transition: all 0.2s;
+    box-shadow: 0 3px 10px rgba(13,110,253,0.25);
+}
+.btn-admin-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 15px rgba(13,110,253,0.35);
+    color: #fff;
+}
+
+.btn-admin-success {
+    background: linear-gradient(135deg, #0f766e, #14b8a6);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 8px 18px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    transition: all 0.2s;
+    box-shadow: 0 3px 10px rgba(20,184,166,0.25);
+}
+.btn-admin-success:hover {
+    transform: translateY(-1px);
+    color: #fff;
+}
+
+/* ---- Toast notification ---- */
+#toast-container {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.toast-msg {
+    background: #fff;
+    border-radius: 14px;
+    padding: 12px 18px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    min-width: 260px;
+    animation: slideInRight 0.3s ease;
+    border-left: 4px solid #198754;
+}
+.toast-msg.error { border-left-color: #dc3545; }
+.toast-msg .toast-icon { font-size: 1.1rem; }
+.toast-msg.error .toast-icon { color: #dc3545; }
+.toast-msg:not(.error) .toast-icon { color: #198754; }
+
+@keyframes slideInRight {
+    from { transform: translateX(100%); opacity: 0; }
+    to   { transform: translateX(0); opacity: 1; }
+}
+
+/* ---- Asrama table small variant ---- */
+.asrama-table th, .asrama-table td { font-size: 0.82rem; }
+
+/* ---- Responsive ---- */
+@media (max-width: 768px) {
+    .admin-body { padding: 1rem; }
+    .admin-topbar { padding: 0 1rem; }
+}
+
+.fs-7 { font-size: 0.875rem; }
+.fs-8 { font-size: 0.78rem; }

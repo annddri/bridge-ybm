@@ -1,4 +1,9 @@
-<div class="sidebar shadow">
+<!-- Tombol Toggle Mobile -->
+<button class="mobile-toggle d-lg-none" onclick="document.getElementById('sidebar').classList.toggle('show')">
+    <i class="fas fa-bars"></i>
+</button>
+
+<div class="sidebar shadow" id="sidebar">
     <div class="sidebar-brand">
         <img src="{{ $fotoPath  }}?t={{ time() }}" alt="Profile" class="brand-logo shadow">
         <div>
@@ -42,6 +47,10 @@
             <i class="fas fa-people-group"></i> Sosial Masyarakat
         </a>
 
+        <a href="/pembinaan" class="nav-link {{ request()->is('pembinaan') ? 'active' : '' }}">
+            <i class="fas fa-chalkboard-teacher"></i> Pembinaan
+        </a>
+
         <div class="px-4 py-2 small text-uppercase fw-bold text-white-50" style="letter-spacing: 1px; margin-top: 15px; margin-bottom: 5px; font-size: 0.75rem;">
             Fitur Asrama
         </div>
@@ -54,7 +63,7 @@
             <i class="fas fa-wallet"></i> Keuangan Asrama
         </a>
 
-        <a href="{{ route('logout') }}" class="nav-link logout-link" onclick="return confirm('Yakin ingin keluar?')">
+        <a href="{{ route('logout') }}" class="nav-link logout-link" onclick="confirmLogout(event, this.href)">
             <i class="fas fa-sign-out-alt"></i> Keluar
         </a>
     </div>

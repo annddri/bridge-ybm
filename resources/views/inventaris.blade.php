@@ -211,7 +211,7 @@
                                                 action="{{ route('inventaris.destroy', $row->id_barang) }}"
                                                 method="POST"
                                                 class="d-inline"
-                                                onsubmit="return confirm('Yakin ingin menghapus barang ini?')"
+                                                onsubmit="confirmDelete(event, this, 'Yakin ingin menghapus barang ini?')"
                                             >
                                                 @csrf
                                                 @method('DELETE')

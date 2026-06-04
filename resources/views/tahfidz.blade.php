@@ -149,7 +149,7 @@
                                     <form action="{{ route('tahfidz.destroy', $row->id) }}"
                                         method="POST"
                                         class="d-inline"
-                                        onsubmit="return confirm('Yakin ingin menghapus data tahfidz ini?')">
+                                        onsubmit="confirmDelete(event, this, 'Yakin ingin menghapus data tahfidz ini?')">
                                         @csrf
                                         @method('DELETE')
 

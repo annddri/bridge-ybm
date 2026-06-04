@@ -223,7 +223,7 @@
                                                 <form action="{{ route('portofolio.destroy', $row->id) }}"
                                                     method="POST"
                                                     class="d-inline"
-                                                    onsubmit="return confirm('Yakin ingin menghapus data portofolio ini?')">
+                                                    onsubmit="confirmDelete(event, this, 'Yakin ingin menghapus data portofolio ini?')">
                                                     @csrf
                                                     @method('DELETE')
 

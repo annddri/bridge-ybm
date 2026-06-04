@@ -9,6 +9,7 @@ use App\Models\Akademik;
 use App\Models\Portofolio;
 use App\Models\Masyarakat;
 use App\Models\Toefl;
+use App\Models\Pembinaan;
 
 class DataMahasiswaController extends Controller
 {
@@ -497,4 +498,41 @@ public function detailMasyarakat($id)
         )
     );
 }
-}       
+
+public function detailPembinaan($id)
+{
+    if (!session()->has('id_user')) {
+        return redirect('/login');
+    }
+
+    if (session('role') !== 'kepas') {
+        abort(403);
+    }
+
+    $u = User::with('kepasProfile')
+        ->findOrFail(session('id_user'));
+
+    $foto_path = asset(
+        'uploads/profile/' .
+        ($u->kepasProfile->foto_profil ?? 'default.png')
+    );
+
+    $mahasiswa = User::with('mahasiswaProfile')
+        ->findOrFail($id);
+
+    $dataPembinaan = Pembinaan::where('id_user', $id)
+        ->orderBy('tanggal', 'desc')
+        ->orderBy('id', 'desc')
+        ->get();
+
+    return view(
+        'detailPembinaan',
+        compact(
+            'u',
+            'foto_path',
+            'mahasiswa',
+            'dataPembinaan'
+        )
+    );
+}
+}

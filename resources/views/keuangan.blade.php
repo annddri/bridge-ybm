@@ -225,7 +225,7 @@
                                                 action="{{ route('keuangan.destroy', $row->id_kas) }}"
                                                 method="POST"
                                                 class="d-inline"
-                                                onsubmit="return confirm('Yakin ingin menghapus transaksi ini?')"
+                                                onsubmit="confirmDelete(event, this, 'Yakin ingin menghapus transaksi ini?')"
                                             >
                                                 @csrf
                                                 @method('DELETE')

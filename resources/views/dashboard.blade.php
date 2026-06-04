@@ -55,13 +55,28 @@
                             <h6 class="fw-bold text-uppercase text-muted small mb-3" style="letter-spacing: 0.5px;">
                                 <i class="fas fa-book-quran text-success me-2"></i>Tahfidz Tracker
                             </h6>
-                            <div class="p-3 bg-light rounded-3 mb-2" style="border: 1px solid rgba(0,0,0,0.03);">
-                                <small class="text-muted d-block">Capaian Hafalan Saat Ini:</small>
-                                <span class="fs-4 fw-bold" style="color: var(--navy-theme);">Juz 30</span>
-                            </div>
-                            <p class="text-muted small" style="font-size: 0.78rem;">Sistem perekaman kuantitas setoran hafalan baru (Ziyadah) dan pengulangan (Murojaah).</p>
+
+                            @if($tahfidz_terbaru)
+                                <div class="p-3 bg-light rounded-3 mb-2" style="border: 1px solid rgba(0,0,0,0.03);">
+                                    <small class="text-muted d-block">Setoran Terakhir:</small>
+                                    <span class="fs-5 fw-bold" style="color: var(--navy-theme);">{{ $tahfidz_terbaru->nama_surah }}</span>
+                                    <small class="text-muted d-block mt-1">
+                                        {{ \Carbon\Carbon::parse($tahfidz_terbaru->tanggal_tes)->format('d M Y') }}
+                                    </small>
+                                </div>
+                                <p class="text-muted small mb-0" style="font-size: 0.76rem;">
+                                    <i class="fas fa-layer-group me-1 text-success"></i>
+                                    Total <strong>{{ $total_tahfidz }}</strong> setoran tercatat.
+                                </p>
+                            @else
+                                <div class="p-3 bg-light rounded-3 mb-2 text-center" style="border: 1px solid rgba(0,0,0,0.03);">
+                                    <i class="fas fa-book-quran text-muted d-block mb-1" style="font-size:1.5rem; opacity:0.3;"></i>
+                                    <small class="text-muted">Belum ada setoran tahfidz.</small>
+                                </div>
+                                <p class="text-muted small mb-0" style="font-size: 0.76rem;">Sistem perekaman kuantitas setoran hafalan baru (Ziyadah) dan pengulangan (Murojaah).</p>
+                            @endif
                         </div>
-                        <a href="/tahfidz" class="btn btn-outline-success btn-sm rounded-pill px-3 fw-semibold w-100" style="font-size: 0.78rem;">Buka Tahfidz</a>
+                        <a href="/tahfidz" class="btn btn-outline-success btn-sm rounded-pill px-3 fw-semibold w-100 mt-3" style="font-size: 0.78rem;">Buka Tahfidz</a>
                     </div>
                 </div>
             </div>
@@ -73,13 +88,28 @@
                             <h6 class="fw-bold text-uppercase text-muted small mb-3" style="letter-spacing: 0.5px;">
                                 <i class="fas fa-graduation-cap text-warning me-2"></i>Indeks Prestasi Kumulatif
                             </h6>
-                            <div class="p-3 bg-light rounded-3 mb-2" style="border: 1px solid rgba(0,0,0,0.03);">
-                                <small class="text-muted d-block">IPK Terakhir Terdata:</small>
-                                <span class="fs-4 fw-bold" style="color: var(--navy-theme);">3.75 <span class="fs-6 text-muted fw-normal">/ 4.00</span></span>
-                            </div>
-                            <p class="text-muted small" style="font-size: 0.78rem;">Riwayat pengumpulan data Kartu Hasil Studi (KHS) mahasiswa awardee aktif per semester.</p>
+
+                            @if($ipk !== null)
+                                <div class="p-3 bg-light rounded-3 mb-2" style="border: 1px solid rgba(0,0,0,0.03);">
+                                    <small class="text-muted d-block">IPK Saat Ini:</small>
+                                    <span class="fs-4 fw-bold" style="color: var(--navy-theme);">{{ number_format($ipk, 2) }} <span class="fs-6 text-muted fw-normal">/ 4.00</span></span>
+                                </div>
+                                @if($ip_terbaru !== null)
+                                    <p class="text-muted small mb-0" style="font-size: 0.76rem;">
+                                        <i class="fas fa-clock me-1 text-warning"></i>
+                                        IP Semester <strong>{{ $semester_terbaru }}</strong>:
+                                        <strong style="color: var(--navy-theme);">{{ number_format($ip_terbaru, 2) }}</strong>
+                                    </p>
+                                @endif
+                            @else
+                                <div class="p-3 bg-light rounded-3 mb-2 text-center" style="border: 1px solid rgba(0,0,0,0.03);">
+                                    <i class="fas fa-graduation-cap text-muted d-block mb-1" style="font-size:1.5rem; opacity:0.3;"></i>
+                                    <small class="text-muted">Belum ada data KHS tercatat.</small>
+                                </div>
+                                <p class="text-muted small mb-0" style="font-size: 0.76rem;">Riwayat pengumpulan data Kartu Hasil Studi (KHS) mahasiswa awardee aktif per semester.</p>
+                            @endif
                         </div>
-                        <a href="/akademik" class="btn btn-outline-warning btn-sm rounded-pill px-3 fw-semibold w-100" style="font-size: 0.78rem; color: #d97706; border-color: #f59e0b;">Buka Akademik</a>
+                        <a href="/akademik" class="btn btn-outline-warning btn-sm rounded-pill px-3 fw-semibold w-100 mt-3" style="font-size: 0.78rem; color: #d97706; border-color: #f59e0b;">Buka Akademik</a>
                     </div>
                 </div>
             </div>
