@@ -93,36 +93,14 @@ class AdminController extends Controller
 
         $user->save();
 
-        // --- Handle Upload Foto Profil ---
-        $namaFoto = null;
-        if ($request->hasFile('foto_profil')) {
-            $request->validate(['foto_profil' => 'image|max:2048'], [
-                'foto_profil.image' => 'File harus berupa gambar.',
-                'foto_profil.max'   => 'Ukuran foto maksimal 2MB.'
-            ]);
-            $file = $request->file('foto_profil');
-            $namaFoto = time() . '_' . $user->id . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('uploads/profile'), $namaFoto);
-        }
-
         if ($user->role === 'mahasiswa' && $user->mahasiswaProfile) {
-            $updateData = $request->only(['nibs', 'nim', 'universitas', 'prodi', 'angkatan', 'asrama_id', 'no_telp']);
-            if ($namaFoto) {
-                if ($user->mahasiswaProfile->foto_profil && file_exists(public_path('uploads/profile/' . $user->mahasiswaProfile->foto_profil))) {
-                    @unlink(public_path('uploads/profile/' . $user->mahasiswaProfile->foto_profil));
-                }
-                $updateData['foto_profil'] = $namaFoto;
-            }
-            $user->mahasiswaProfile->update($updateData);
+            $user->mahasiswaProfile->update($request->only([
+                'nibs', 'nim', 'universitas', 'prodi', 'angkatan', 'asrama_id', 'no_telp'
+            ]));
         } elseif ($user->role === 'kepas' && $user->kepasProfile) {
-            $updateData = $request->only(['asrama_id', 'no_telp']);
-            if ($namaFoto) {
-                if ($user->kepasProfile->foto_profil && file_exists(public_path('uploads/profile/' . $user->kepasProfile->foto_profil))) {
-                    @unlink(public_path('uploads/profile/' . $user->kepasProfile->foto_profil));
-                }
-                $updateData['foto_profil'] = $namaFoto;
-            }
-            $user->kepasProfile->update($updateData);
+            $user->kepasProfile->update($request->only([
+                'asrama_id', 'no_telp'
+            ]));
         }
 
         return response()->json([

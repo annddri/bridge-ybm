@@ -191,11 +191,6 @@
                                                            value="{{ $user->email }}"
                                                            required>
                                                 </div>
-                                                <div>
-                                                    <label class="form-label">Foto Profil (Opsional)</label>
-                                                    <input type="file" name="foto_profil" class="form-control" accept="image/*">
-                                                    <div class="hint-text mt-1" style="font-size:0.8rem; color:#6c757d;">Kosongkan jika tidak ingin mengubah foto. Maks 2MB.</div>
-                                                </div>
                                             </div>
 
                                             <!-- Right Column (Password Atas Bawah) -->
@@ -493,10 +488,6 @@ function submitEdit(event, id) {
     if (!formData.get('password')) {
         formData.delete('password');
         formData.delete('password_confirmation');
-    }
-    
-    if (formData.get('foto_profil') && formData.get('foto_profil').size === 0) {
-        formData.delete('foto_profil');
     }
 
     fetch(`/admin/users/${id}`, {
