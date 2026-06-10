@@ -171,48 +171,60 @@
                                     <form id="edit-form-{{ $user->id }}" onsubmit="submitEdit(event, {{ $user->id }})">
                                         @csrf
                                         <div class="row g-3">
-                                            <div class="col-md-4">
-                                                <label class="form-label">Nama Lengkap <span class="text-danger">*</span></label>
-                                                <input type="text"
-                                                       class="form-control"
-                                                       id="edit-name-{{ $user->id }}"
-                                                       name="name"
-                                                       value="{{ $user->name }}"
-                                                       required>
+                                            <!-- Left Column (Data Pribadi & Foto) -->
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Nama Lengkap <span class="text-danger">*</span></label>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           id="edit-name-{{ $user->id }}"
+                                                           name="name"
+                                                           value="{{ $user->name }}"
+                                                           required>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label">Email <span class="text-danger">*</span></label>
+                                                    <input type="email"
+                                                           class="form-control"
+                                                           id="edit-email-{{ $user->id }}"
+                                                           name="email"
+                                                           value="{{ $user->email }}"
+                                                           required>
+                                                </div>
+                                                <div>
+                                                    <label class="form-label">Foto Profil (Opsional)</label>
+                                                    <input type="file" name="foto_profil" class="form-control" accept="image/*">
+                                                    <div class="hint-text mt-1" style="font-size:0.8rem; color:#6c757d;">Kosongkan jika tidak ingin mengubah foto. Maks 2MB.</div>
+                                                </div>
                                             </div>
-                                            <div class="col-md-4">
-                                                <label class="form-label">Email <span class="text-danger">*</span></label>
-                                                <input type="email"
-                                                       class="form-control"
-                                                       id="edit-email-{{ $user->id }}"
-                                                       name="email"
-                                                       value="{{ $user->email }}"
-                                                       required>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <label class="form-label">Password Baru</label>
-                                                <div class="input-group">
+
+                                            <!-- Right Column (Password Atas Bawah) -->
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Password Baru</label>
+                                                    <div class="input-group">
+                                                        <input type="password"
+                                                               class="form-control"
+                                                               id="edit-pw-{{ $user->id }}"
+                                                               name="password"
+                                                               placeholder="Kosongkan jika tidak diubah">
+                                                        <button type="button"
+                                                                class="btn btn-outline-secondary"
+                                                                onclick="toggleEditPw({{ $user->id }})"
+                                                                style="border-radius:0 10px 10px 0; font-size:0.82rem;">
+                                                            <i class="fas fa-eye" id="edit-eye-{{ $user->id }}"></i>
+                                                        </button>
+                                                    </div>
+                                                    <div class="hint-text mt-1" style="font-size:0.8rem; color:#6c757d;">Minimal 8 karakter. Kosongkan jika tidak ingin mengubah password.</div>
+                                                </div>
+                                                <div id="pw-confirm-wrap-{{ $user->id }}" style="display:none;">
+                                                    <label class="form-label">Konfirmasi Password <span class="text-danger">*</span></label>
                                                     <input type="password"
                                                            class="form-control"
-                                                           id="edit-pw-{{ $user->id }}"
-                                                           name="password"
-                                                           placeholder="Kosongkan jika tidak diubah">
-                                                    <button type="button"
-                                                            class="btn btn-outline-secondary"
-                                                            onclick="toggleEditPw({{ $user->id }})"
-                                                            style="border-radius:0 10px 10px 0; font-size:0.82rem;">
-                                                        <i class="fas fa-eye" id="edit-eye-{{ $user->id }}"></i>
-                                                    </button>
+                                                           id="edit-pw-confirm-{{ $user->id }}"
+                                                           name="password_confirmation"
+                                                           placeholder="Ulangi password baru">
                                                 </div>
-                                                <div class="hint-text">Minimal 8 karakter. Kosongkan jika tidak ingin mengubah password.</div>
-                                            </div>
-                                            <div class="col-md-4" id="pw-confirm-wrap-{{ $user->id }}" style="display:none;">
-                                                <label class="form-label">Konfirmasi Password <span class="text-danger">*</span></label>
-                                                <input type="password"
-                                                       class="form-control"
-                                                       id="edit-pw-confirm-{{ $user->id }}"
-                                                       name="password_confirmation"
-                                                       placeholder="Ulangi password baru">
                                             </div>
                                         </div>
 
@@ -476,19 +488,24 @@ function submitEdit(event, id) {
     btn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> Menyimpan...';
 
     const formData = new FormData(document.getElementById('edit-form-' + id));
-    const data = Object.fromEntries(formData.entries());
-    data._method = 'PUT';
-    if (!data.password) delete data.password;
-    if (!data.password_confirmation) delete data.password_confirmation;
+    formData.append('_method', 'PUT');
+    
+    if (!formData.get('password')) {
+        formData.delete('password');
+        formData.delete('password_confirmation');
+    }
+    
+    if (formData.get('foto_profil') && formData.get('foto_profil').size === 0) {
+        formData.delete('foto_profil');
+    }
 
     fetch(`/admin/users/${id}`, {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
             'X-CSRF-TOKEN': CSRF,
             'Accept': 'application/json',
         },
-        body: JSON.stringify(data),
+        body: formData,
     })
     .then(r => r.json())
     .then(res => {

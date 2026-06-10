@@ -249,7 +249,7 @@ body {
 }
 
 /* ---- Preview foto profil ---- */
-#foto-preview-wrap {
+#foto-preview-wrap, #foto-preview-wrap-kepas {
     width: 90px;
     height: 90px;
     border-radius: 50%;
@@ -261,20 +261,21 @@ body {
     justify-content: center;
     margin-bottom: 0.5rem;
     transition: border-color 0.3s ease;
+    flex-shrink: 0;
 }
 
-#foto-preview-wrap:hover {
+#foto-preview-wrap:hover, #foto-preview-wrap-kepas:hover {
     border-color: #0d6efd;
 }
 
-#foto-preview {
+#foto-preview, #foto-preview-kepas {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: none;
 }
 
-#foto-placeholder {
+#foto-placeholder, #foto-placeholder-kepas {
     color: #adb5bd;
     font-size: 2rem;
 }

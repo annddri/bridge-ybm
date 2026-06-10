@@ -65,8 +65,6 @@
 
             <th>Bukti</th>
 
-            <th>Status</th>
-
         </tr>
 
         </thead>
@@ -103,54 +101,6 @@
                         </a>
 
                     @endif
-
-                </td>
-
-                <td>
-
-                    <form
-                        method="POST"
-                        action="{{ route('tahfidz.updateStatus') }}">
-
-                        @csrf
-
-                        <input
-                            type="hidden"
-                            name="id_tahfidz"
-                            value="{{ $row->id }}">
-
-                        <select
-                            name="validasi"
-                            onchange="this.form.submit()"
-                            class="form-select form-select-sm">
-
-                            <option
-                                value="Belum Tuntas"
-                                {{ $row->status == 'Belum Tuntas' ? 'selected' : '' }}>
-
-                                Belum Tuntas
-
-                            </option>
-
-                            <option
-                                value="Tuntas"
-                                {{ $row->status == 'Tuntas' ? 'selected' : '' }}>
-
-                                Tuntas
-
-                            </option>
-
-                            <option
-                                value="Tidak Tuntas"
-                                {{ $row->status == 'Tidak Tuntas' ? 'selected' : '' }}>
-
-                                Tidak Tuntas
-
-                            </option>
-
-                        </select>
-
-                    </form>
 
                 </td>
 

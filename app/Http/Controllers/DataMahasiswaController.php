@@ -425,7 +425,7 @@ public function detailPortofolio($id)
         'id_user',
         $id
     )
-    ->where('kategori', 'workshop')
+    ->where('kategori', 'workshop/seminar')
     ->orderBy('id', 'desc')
     ->get();
 

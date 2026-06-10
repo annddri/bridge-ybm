@@ -39,8 +39,13 @@ class LeaderboardController extends Controller
             'berinfak' => 1,
         ];
 
+        $kepasAsramaId = $u->kepasProfile->asrama_id;
+
         $mahasiswaList = User::with('mahasiswaProfile')
             ->where('role', 'mahasiswa')
+            ->whereHas('mahasiswaProfile', function ($query) use ($kepasAsramaId) {
+                $query->where('asrama_id', $kepasAsramaId);
+            })
             ->get();
 
         $rankList = [];

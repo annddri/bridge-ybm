@@ -17,15 +17,17 @@ class InventarisController extends Controller
         $id_user = session('id_user');
         $role_user = session('role');
 
-        $u = User::with('mahasiswaProfile')
-            ->where('id', $id_user)
-            ->first();
+        $u = User::with(['mahasiswaProfile', 'kepasProfile'])->find($id_user);
 
         if (!$u) {
             abort(404, 'User tidak ditemukan.');
         }
 
-        $foto_path = asset('uploads/profile/' . ($u->mahasiswaProfile->foto_profil ?? 'default.png'));
+        $foto_profil = $role_user === 'kepas' 
+            ? ($u->kepasProfile->foto_profil ?? 'default.png')
+            : ($u->mahasiswaProfile->foto_profil ?? 'default.png');
+
+        $foto_path = asset('uploads/profile/' . $foto_profil);
 
         $data_inventaris = Inventaris::orderBy('id_barang', 'desc')->get();
 
@@ -51,7 +53,8 @@ class InventarisController extends Controller
             'keterangan' => 'nullable|string',
         ]);
 
-        $u = User::with('mahasiswaProfile')->find(session('id_user'));
+        $u = User::with(['mahasiswaProfile', 'kepasProfile'])->find(session('id_user'));
+        $nibs = session('role') === 'kepas' ? '-' : ($u->mahasiswaProfile->nibs ?? '-');
 
         Inventaris::create([
             'kode_barang' => $request->kode_barang,
@@ -61,9 +64,9 @@ class InventarisController extends Controller
             'keterangan' => $request->keterangan,
 
             'created_by' => $u->name,
-            'created_by_nibs' => $u->mahasiswaProfile->nibs ?? '-',
+            'created_by_nibs' => $nibs,
             'updated_by' => $u->name,
-            'updated_by_nibs' => $u->mahasiswaProfile->nibs ?? '-',
+            'updated_by_nibs' => $nibs,
         ]);
 
         return redirect('/inventaris')->with('success', 'Barang berhasil ditambahkan.');
@@ -85,7 +88,8 @@ class InventarisController extends Controller
             'keterangan' => 'nullable|string',
         ]);
 
-        $u = User::with('mahasiswaProfile')->find(session('id_user'));
+        $u = User::with(['mahasiswaProfile', 'kepasProfile'])->find(session('id_user'));
+        $nibs = session('role') === 'kepas' ? '-' : ($u->mahasiswaProfile->nibs ?? '-');
 
         $barang->update([
             'kode_barang' => $request->kode_barang,
@@ -95,7 +99,7 @@ class InventarisController extends Controller
             'keterangan' => $request->keterangan,
 
             'updated_by' => $u->name,
-            'updated_by_nibs' => $u->mahasiswaProfile->nibs ?? '-',
+            'updated_by_nibs' => $nibs,
         ]);
 
         return redirect('/inventaris')->with('success', 'Barang berhasil diperbarui.');

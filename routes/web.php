@@ -58,6 +58,7 @@ Route::post('/amalan/update', [AmalanController::class, 'update'])->name('amalan
 Route::get('/tahfidz', [TahfidzController::class, 'index'])->name('tahfidz');
 Route::post('/tahfidz', [TahfidzController::class, 'store'])->name('tahfidz.store');
 Route::delete('/tahfidz/{id}', [TahfidzController::class, 'destroy'])->name('tahfidz.destroy');
+Route::post('/tahfidz/update-status', [TahfidzController::class, 'updateStatus'])->name('tahfidz.updateStatus');
 
 Route::get('/akademik', [AkademikController::class, 'index'])->name('akademik');
 

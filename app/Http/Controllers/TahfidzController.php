@@ -104,7 +104,24 @@ class TahfidzController extends Controller
 
         $tahfidz->delete();
 
-        return redirect('/tahfidz')->with('success', 'Data tahfidz berhasil dihapus.');
+        return back()->with('success', 'Setoran tahfidz berhasil dihapus.');
     }
 
+    public function updateStatus(Request $request)
+    {
+        if (!session()->has('id_user') || session('role') !== 'kepas') {
+            abort(403);
+        }
+
+        $request->validate([
+            'id_tahfidz' => 'required|exists:tahfidz,id',
+            'validasi' => 'required|string',
+        ]);
+
+        $tahfidz = Tahfidz::findOrFail($request->id_tahfidz);
+        $tahfidz->status = $request->validasi;
+        $tahfidz->save();
+
+        return back()->with('success', 'Status validasi tahfidz berhasil diperbarui.');
+    }
 }

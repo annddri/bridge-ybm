@@ -18,22 +18,17 @@ class KeuanganController extends Controller
         $id_user = session('id_user');
         $role_user = session('role');
 
-        if (!in_array($role_user, ['mahasiswa', 'kepala_asrama'])) {
+        if (!in_array($role_user, ['mahasiswa', 'kepas'])) {
             abort(403);
         }
 
-        $u = User::leftJoin('mahasiswa_profiles', 'users.id', '=', 'mahasiswa_profiles.user_id')
-            ->select(
-                'users.id',
-                'users.name',
-                'users.role',
-                'mahasiswa_profiles.foto_profil',
-                'mahasiswa_profiles.nibs'
-            )
-            ->where('users.id', $id_user)
-            ->first();
+        $u = User::with(['mahasiswaProfile', 'kepasProfile'])->find($id_user);
 
-        $foto_path = asset('uploads/profile/' . ($u->foto_profil ?? 'default.png'));
+        $foto_profil = $role_user === 'kepas' 
+            ? ($u->kepasProfile->foto_profil ?? 'default.png')
+            : ($u->mahasiswaProfile->foto_profil ?? 'default.png');
+
+        $foto_path = asset('uploads/profile/' . $foto_profil);
 
         $data_kas = DanaKas::orderBy('tanggal', 'desc')
             ->orderBy('id_kas', 'desc')
@@ -67,10 +62,8 @@ class KeuanganController extends Controller
             'keterangan' => 'nullable|string',
         ]);
 
-        $u = User::leftJoin('mahasiswa_profiles', 'users.id', '=', 'mahasiswa_profiles.user_id')
-            ->select('users.id', 'users.name', 'mahasiswa_profiles.nibs')
-            ->where('users.id', session('id_user'))
-            ->first();
+        $u = User::with(['mahasiswaProfile', 'kepasProfile'])->find(session('id_user'));
+        $nibs = session('role') === 'kepas' ? '-' : ($u->mahasiswaProfile->nibs ?? '-');
 
         DanaKas::create([
             'tanggal' => $request->tanggal,
@@ -79,7 +72,7 @@ class KeuanganController extends Controller
             'keterangan' => $request->keterangan,
             'created_by_id' => session('id_user'),
             'created_by' => $u->name,
-            'created_by_nibs' => $u->nibs,
+            'created_by_nibs' => $nibs,
         ]);
 
         return redirect('/keuangan')->with('success', 'Transaksi kas berhasil ditambahkan.');
