@@ -93,8 +93,7 @@ class DataMahasiswaController extends Controller
             abort(403);
         }
 
-        $u = User::with('kepasProfile')
-            ->findOrFail(session('id_user'));
+        $u = User::with('kepasProfile')->findOrFail(session('id_user'));
 
         $foto_path = asset(
             'uploads/profile/' .

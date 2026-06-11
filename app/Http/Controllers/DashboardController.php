@@ -95,34 +95,6 @@ $score_spiritual =
 $score_sisa =
     100 - $score_spiritual;
 
-        // $totalTercapai = 0;
-
-//         foreach ($dataAmalan as $row) {
-
-//             foreach ($listAmalan as $amalan) {
-
-//                 if ($row->$amalan) {
-//                     $totalTercapai++;
-//                 }
-
-//             }
-
-//         }
-
-//         $jumlahHari = now()->daysInMonth;
-
-// $totalTarget =
-//     count($listAmalan)
-//     * $jumlahHari;
-
-//     $score_spiritual =
-//     $totalTarget > 0
-//     ? round(
-//         ($totalTercapai / $totalTarget) * 100,
-//         1
-//     )
-//     : 0;
-
     $nama_bulan_ini =
         now()->translatedFormat('F Y');
 
@@ -144,9 +116,6 @@ $score_sisa =
 
         $ip_terbaru      = $akademik_terbaru->ip ?? null;
         $semester_terbaru = $akademik_terbaru->semester ?? null;
-// dd(
-//     $score_spiritual
-// );
 
         return view('dashboard', compact(
             'u',

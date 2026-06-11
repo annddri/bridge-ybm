@@ -122,53 +122,5 @@ class PembinaanController extends Controller
         return redirect('/pembinaan')->with('success', 'Data pembinaan berhasil dihapus.');
     }
 
-    /**
-     * Halaman monitoring pembinaan untuk Kepala Asrama.
-     */
-    public function monitoring()
-    {
-        if (!session()->has('id_user')) {
-            return redirect('/login');
-        }
 
-        if (session('role') !== 'kepas') {
-            abort(403);
-        }
-
-        $id_user = session('id_user');
-
-        $u = User::with('kepasProfile.asrama')
-            ->findOrFail($id_user);
-
-        $foto_path = asset('uploads/profile/' . ($u->kepasProfile->foto_profil ?? 'default.png'));
-
-        // Ambil asrama_id kepas yang login
-        $asrama_id = $u->kepasProfile->asrama_id ?? null;
-
-        // Ambil semua mahasiswa di asrama yang sama
-        $mahasiswaIds = User::whereHas('mahasiswaProfile', function ($q) use ($asrama_id) {
-                $q->where('asrama_id', $asrama_id);
-            })
-            ->where('role', 'mahasiswa')
-            ->pluck('id');
-
-        // Data pembinaan mahasiswa di asrama ini, dikelompokkan per mahasiswa
-        $data_pembinaan = Pembinaan::with(['user.mahasiswaProfile'])
-            ->whereIn('id_user', $mahasiswaIds)
-            ->orderBy('tanggal', 'desc')
-            ->orderBy('id', 'desc')
-            ->get();
-
-        // Daftar mahasiswa untuk filter dropdown
-        $daftar_mahasiswa = User::with('mahasiswaProfile')
-            ->whereIn('id', $mahasiswaIds)
-            ->get();
-
-        return view('pembinaanMonitoring', compact(
-            'u',
-            'foto_path',
-            'data_pembinaan',
-            'daftar_mahasiswa'
-        ));
-    }
 }

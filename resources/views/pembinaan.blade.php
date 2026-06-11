@@ -59,11 +59,11 @@
                     <div class="col-md-2">
                         <label class="form-label small fw-bold text-muted">Tanggal <span class="text-danger">*</span></label>
                         <input type="date"
-                               name="tanggal"
-                               id="tanggal"
-                               class="form-control form-control-sm rounded-3 @error('tanggal') is-invalid @enderror"
-                               value="{{ old('tanggal') }}"
-                               required>
+                                name="tanggal"
+                                id="tanggal"
+                                class="form-control form-control-sm rounded-3 @error('tanggal') is-invalid @enderror"
+                                value="{{ old('tanggal') }}"
+                                required>
                         @error('tanggal')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror

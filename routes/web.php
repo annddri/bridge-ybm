@@ -21,31 +21,34 @@ use App\Http\Controllers\AdminController;
 
 Route::get('/', function () {
     if (session()->has('id_user')) {
-        return redirect('/dashboard');
+        $role = session('role');
+        if ($role === 'administrator') {
+            return redirect('/admin');
+        } elseif ($role === 'kepas') {
+            return redirect('/kepas');
+        } else {
+            return redirect('/dashboard');
+        }
     }
-
     return redirect('/login');
 });
+
+// LOGIN
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.process');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
-// -------------------------------------------------------
-// Halaman Registrasi (Khusus Administrator)
-// Tidak terhubung ke navigasi manapun — hanya admin yang tahu URL ini
-// -------------------------------------------------------
+// ROUTE ADMIN
 Route::get('/register', [RegisterController::class, 'showRegister'])->name('register');
 Route::post('/register', [RegisterController::class, 'register'])->name('register.process');
 
-// -------------------------------------------------------
-// Admin Panel (Khusus Administrator)
-// -------------------------------------------------------
 Route::get('/admin', [AdminController::class, 'index'])->name('admin');
 Route::put('/admin/users/{id}', [AdminController::class, 'updateUser'])->name('admin.user.update');
 Route::delete('/admin/users/{id}', [AdminController::class, 'deleteUser'])->name('admin.user.delete');
 Route::post('/admin/asrama', [AdminController::class, 'storeAsrama'])->name('admin.asrama.store');
 Route::delete('/admin/asrama/{id}', [AdminController::class, 'deleteAsrama'])->name('admin.asrama.delete');
 
+// ROUTE MAHASISWA
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 Route::get('/profile', [ProfileController::class, 'index']);
@@ -61,12 +64,10 @@ Route::delete('/tahfidz/{id}', [TahfidzController::class, 'destroy'])->name('tah
 Route::post('/tahfidz/update-status', [TahfidzController::class, 'updateStatus'])->name('tahfidz.updateStatus');
 
 Route::get('/akademik', [AkademikController::class, 'index'])->name('akademik');
-
 Route::post('/akademik/ip', [AkademikController::class, 'storeIp'])->name('akademik.ip.store');
 Route::post('/akademik/toefl', [AkademikController::class, 'storeToefl'])->name('akademik.toefl.store');
 Route::delete('/akademik/ip/{id}', [AkademikController::class, 'destroyIp'])->name('akademik.ip.destroy');
 Route::delete('/akademik/toefl/{id}', [AkademikController::class, 'destroyToefl'])->name('akademik.toefl.destroy');
-
 
 Route::get('/portofolio', [PortofolioController::class, 'index'])->name('portofolio');
 Route::post('/portofolio', [PortofolioController::class, 'store'])->name('portofolio.store');
@@ -76,14 +77,29 @@ Route::get('/masyarakat', [MasyarakatController::class, 'index'])->name('masyara
 Route::post('/masyarakat', [MasyarakatController::class, 'store'])->name('masyarakat.store');
 Route::delete('/masyarakat/{id}', [MasyarakatController::class, 'destroy'])->name('masyarakat.destroy');
 
-// Pembinaan (Mahasiswa)
 Route::get('/pembinaan', [PembinaanController::class, 'index'])->name('pembinaan');
 Route::post('/pembinaan', [PembinaanController::class, 'store'])->name('pembinaan.store');
 Route::delete('/pembinaan/{id}', [PembinaanController::class, 'destroy'])->name('pembinaan.destroy');
 
-// Monitoring Pembinaan (Kepas)
-Route::get('/pembinaan-monitoring', [PembinaanController::class, 'monitoring'])->name('pembinaan.monitoring');
+// ROUTE KEPALA ASRAMA
+Route::get('/kepas', [KepasController::class, 'index'])->name('kepas');
 
+Route::get('/profile-kepas', [ProfileKepasController::class, 'index']);
+Route::post('/profile-kepas/update-whatsapp', [ProfileKepasController::class, 'updateWhatsapp'])->name('profileKepas.updateWhatsapp');
+
+Route::get('/data-mahasiswa', [DataMahasiswaController::class, 'index'])->name('data-mahasiswa');
+Route::get('/data-mahasiswa/{id}', [DataMahasiswaController::class,'detail'])->name('mahasiswa.detail');   
+Route::get('/data-mahasiswa/{id}/amalan', [DataMahasiswaController::class, 'detailAmalan'])->name('mahasiswa.amalan');
+Route::get('/data-mahasiswa/{id}/tahfidz',[DataMahasiswaController::class, 'detailTahfidz'])->name('mahasiswa.tahfidz');
+Route::get('/data-mahasiswa/{id}/akademik',[DataMahasiswaController::class, 'detailAkademik'])->name('mahasiswa.akademik');
+Route::get('/data-mahasiswa/{id}/portofolio',[DataMahasiswaController::class, 'detailPortofolio'])->name('mahasiswa.portofolio');
+Route::get('/data-mahasiswa/{id}/masyarakat',[DataMahasiswaController::class, 'detailMasyarakat'])->name('mahasiswa.masyarakat');
+Route::get('/data-mahasiswa/{id}/pembinaan',[DataMahasiswaController::class, 'detailPembinaan'])->name('mahasiswa.pembinaan');
+
+Route::get('/leaderboard',[LeaderboardController::class, 'index'])->name('leaderboard');
+Route::get('/keuangan-monitoring',[KepasController::class, 'keuangan'])->name('keuangan.monitoring');
+
+// ROUTE MAHASISWA DAN KEPALA ASRAMA
 Route::get('/inventaris', [InventarisController::class, 'index'])->name('inventaris.index');
 Route::post('/inventaris', [InventarisController::class, 'store'])->name('inventaris.store');
 Route::put('/inventaris/{id_barang}', [InventarisController::class, 'update'])->name('inventaris.update');
@@ -93,62 +109,3 @@ Route::get('/keuangan', [KeuanganController::class, 'index'])->name('keuangan.in
 Route::post('/keuangan/store', [KeuanganController::class, 'store'])->name('keuangan.store');
 Route::put('/keuangan/update/{id}', [KeuanganController::class, 'update'])->name('keuangan.update');
 Route::delete('/keuangan/delete/{id}', [KeuanganController::class, 'destroy'])->name('keuangan.destroy');
-
-// KEPALA ASRAMA
-Route::get('/kepas', [KepasController::class, 'index'])->name('kepas');
-
-
-Route::get('/profile-kepas', [ProfileKepasController::class, 'index']);
-Route::post('/profile-kepas/update-whatsapp', [ProfileKepasController::class, 'updateWhatsapp'])
-    ->name('profileKepas.updateWhatsapp');
-
-Route::get('/data-mahasiswa', [
-    DataMahasiswaController::class,
-    'index'
-])->name('data-mahasiswa');
-
-Route::get('/data-mahasiswa/{id}', [
-    DataMahasiswaController::class,
-    'detail'
-])->name('mahasiswa.detail');   
-
-Route::get(
-    '/data-mahasiswa/{id}/amalan',
-    [DataMahasiswaController::class, 'detailAmalan']
-)->name('mahasiswa.amalan');
-
-Route::get(
-    '/data-mahasiswa/{id}/tahfidz',
-    [DataMahasiswaController::class, 'detailTahfidz']
-)->name('mahasiswa.tahfidz');
-
-Route::get(
-    '/data-mahasiswa/{id}/akademik',
-    [DataMahasiswaController::class, 'detailAkademik']
-)->name('mahasiswa.akademik');
-
-Route::get(
-    '/data-mahasiswa/{id}/portofolio',
-    [DataMahasiswaController::class, 'detailPortofolio']
-)->name('mahasiswa.portofolio');
-
-Route::get(
-    '/data-mahasiswa/{id}/masyarakat',
-    [DataMahasiswaController::class, 'detailMasyarakat']
-)->name('mahasiswa.masyarakat');
-
-Route::get(
-    '/data-mahasiswa/{id}/pembinaan',
-    [DataMahasiswaController::class, 'detailPembinaan']
-)->name('mahasiswa.pembinaan');
-
-
-Route::get(
-    '/leaderboard',
-    [LeaderboardController::class, 'index']
-)->name('leaderboard');
-
-Route::get(
-    '/keuangan-monitoring',
-    [KepasController::class, 'keuangan']
-)->name('keuangan.monitoring');

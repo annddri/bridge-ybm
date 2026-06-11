@@ -57,9 +57,9 @@ class User extends Authenticatable
     }
 
     public function kepasProfile()
-{
-    return $this->hasOne(KepasProfile::class, 'user_id', 'id');
-}
+    {
+        return $this->hasOne(KepasProfile::class, 'user_id', 'id');
+    }
 
     public function amalan()
     {
